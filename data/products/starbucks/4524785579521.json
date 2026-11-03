@@ -1,0 +1,72 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785579521",
+ "name": "ストロベリー&クランベリーブリスバー",
+ "category": "フード",
+ "price": 350,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 197,
+  "protein_g": 2.5,
+  "fat_g": 9.3,
+  "carbs_g": 26.3,
+  "sugar_g": 25.2,
+  "fiber_g": 1.1,
+  "salt_g": 0.1,
+  "other": {
+   "飽和脂肪酸": "4.3g",
+   "トランス脂肪酸": "0.1g",
+   "ナトリウム": "48mg",
+   "カリウム": "60mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳",
+   "小麦",
+   "大豆"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": null,
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785579521",
+ "first_seen_at": "2026-11-03T17:16:51+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 350
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": null
+}

@@ -94,16 +94,15 @@ _DATE_RE = re.compile(r"(\d{1,2})月(\d{1,2})日")
 _LAUNCH_WORD_RE = re.compile(r"より|から|発売|販売|登場|スタート|開始|解禁")
 
 
-def launch_date_from_text(text: str | None, ref: datetime.date) -> str | None:
-    """見出し・本文の中の最初の「M月D日」を発売日として返す(年は ref の日付から補う)。
-
-    「M月D日」の後ろ(20文字以内)に「より/から/発売/販売/登場/スタート」が続くものだけ採用する
-    (「12月25日まで」「予約は11月1日まで」のような終わりの日付を取り違えない)。
-    ref(記事の日付など)から半年以上ずれる年になる場合は前後の年に寄せる。"""
+def launch_dates_in_text(text: str | None, ref: datetime.date) -> list[tuple[int, str]]:
+    """見出し・本文の中の「M月D日（曜）より/から/発売/販売/登場/スタート」を [(位置, YYYY-MM-DD)] で返す。
+    位置は NFKC 化した文字列の中の位置。年は ref の日付から補い、ref から半年以上ずれる年になる場合は前後の年に寄せる。
+    「M月D日」の後ろ(20文字以内)に発売の語が続くものだけ採用する(「12月25日まで」「予約は11月1日まで」のような
+    終わりの日付を取り違えない)。"""
     t = unicodedata.normalize("NFKC", text or "")
+    out = []
     for m in _DATE_RE.finditer(t):
         tail = t[m.end(): m.end() + 20]
-        # 「10月28日（水）より」「11月2日(月)発売」。「まで」が先に来るものは終わりの日付
         end_pos = re.search(r"まで", tail)
         word = _LAUNCH_WORD_RE.search(tail)
         if not word or (end_pos and end_pos.start() < word.start()):
@@ -118,8 +117,14 @@ def launch_date_from_text(text: str | None, ref: datetime.date) -> str | None:
             cand = datetime.date(ref.year - 1, mo, d)
         elif delta < -180:
             cand = datetime.date(ref.year + 1, mo, d)
-        return cand.isoformat()
-    return None
+        out.append((m.start(), cand.isoformat()))
+    return out
+
+
+def launch_date_from_text(text: str | None, ref: datetime.date) -> str | None:
+    """見出し・本文の中の最初の発売日(launch_dates_in_text 参照)。無ければ None。"""
+    found = launch_dates_in_text(text, ref)
+    return found[0][1] if found else None
 
 
 # ---------------------------------------------------------------------------

@@ -570,7 +570,30 @@ def raw_name_variants(name: str) -> list[str]:
     return out
 
 
-def find_launch(name: str, sources: list[dict], ref: str) -> dict | None:
+def competitor_keys(name: str, all_names: list[str]) -> list[str]:
+    """同じチェーンの他の商品のうち、この商品の名前(正規化)を丸ごと含む、より長い名前のキー。
+    「ジョイフルメドレー ティー」が「ジョイフルメドレー ティー ラテ」の記事に誤って結びつくのを防ぐために使う。"""
+    mine = launch_name_keys(name)
+    out: list[str] = []
+    for other in all_names:
+        if other == name:
+            continue
+        for ok in launch_name_keys(other):
+            if any(m in ok and m != ok for m in mine) and ok not in out:
+                out.append(ok)
+    return out
+
+
+def count_standalone(hay: str, key: str, competitors: list[str]) -> int:
+    """hay の中の key の出現数から、より長い別商品の名前の中での出現を引いた数。"""
+    n = hay.count(key)
+    for c in competitors:
+        if key in c:
+            n -= hay.count(c) * c.count(key)
+    return n
+
+
+def find_launch(name: str, sources: list[dict], ref: str, all_names: list[str] | None = None) -> dict | None:
     """sources=[{title, text, date, url}] から、商品名が出てくる記事を探し、その発売日を返す。
 
     date が ref の前 LAUNCH_WINDOW_BEFORE_DAYS 日〜後 LAUNCH_WINDOW_AFTER_DAYS 日の記事だけを対象にする。
@@ -582,6 +605,7 @@ def find_launch(name: str, sources: list[dict], ref: str) -> dict | None:
         ref_d = datetime.date.fromisoformat(ref)
     except ValueError:
         return None
+    comp = competitor_keys(name, all_names or [])
     lo = ref_d - datetime.timedelta(days=LAUNCH_WINDOW_BEFORE_DAYS)
     hi = ref_d + datetime.timedelta(days=LAUNCH_WINDOW_AFTER_DAYS)
     for s in sources:
@@ -594,29 +618,36 @@ def find_launch(name: str, sources: list[dict], ref: str) -> dict | None:
         title_n = parsers.normalize_name(s.get("title"))
         text = s.get("text") or ""
         text_n = parsers.normalize_name(text)
-        in_title = any(k in title_n for k in keys)
-        in_text = any(k in text_n for k in keys)
+        in_title = any(count_standalone(title_n, k, comp) > 0 for k in keys)
+        in_text = any(count_standalone(text_n, k, comp) > 0 for k in keys)
         if not (in_title or in_text):
             continue
-        launch = parsers.launch_date_from_text(s.get("title"), d)
+        launch = parsers.launch_date_from_text(s.get("title"), d) if in_title else None
+        via = "title"
         if launch is None and text:
+            via = "body"
             # 商品名の近くの日付を優先し、無ければ本文の最初の発売日
             text_k = unicodedata.normalize("NFKC", text)
+            dates = parsers.launch_dates_in_text(text_k, d)
             for v in raw_name_variants(name):
                 pos = text_k.find(v)
-                if pos >= 0:
-                    launch = parsers.launch_date_from_text(text_k[max(0, pos - 150): pos + len(v) + 150], d)
+                if pos >= 0 and dates:
+                    near = min(dates, key=lambda x: abs(x[0] - pos))
+                    if abs(near[0] - pos) <= 60:
+                        launch = near[1]
                     break
-            if launch is None:
-                launch = parsers.launch_date_from_text(text_k, d)
+            if launch is None and dates:
+                launch = dates[0][1]
         if launch:
-            return {"launch_date": launch, "title": s.get("title"), "url": s.get("url"), "date": s.get("date")}
+            return {"launch_date": launch, "title": s.get("title"), "url": s.get("url"), "date": s.get("date"), "via": via}
     return None
 
 
 def apply_launch(product: dict, hit: dict, source: str) -> None:
+    """発売日を入れる。商品名が見出しに無く本文でだけ見つかった記事は「_body」を付けて区別する
+    (1本の記事が複数の商品を扱う・成分名として商品名が出る、などで商品ごとの発売日とずれることがあるため)。"""
     product["launch_date"] = hit["launch_date"]
-    product["launch_date_source"] = source
+    product["launch_date_source"] = source + ("_body" if hit.get("via") == "body" else "")
     product["news_title"] = hit["title"]
     product["news_url"] = hit["url"]
     product["news_date"] = hit["date"]
@@ -775,6 +806,7 @@ def crawl_starbucks(getter, pending: dict, stats: dict, today: str | None = None
 
     targets = sbux_build_targets(items, nut)
     entries = {code: sbux_entry(t) for code, t in targets.items()}
+    all_names = [e["name"] for e in entries.values()]
 
     def feed_loader():
         feed = parsers.parse_wp_feed(getter(chain, f"{SBUX_STORIES_BASE}/press/press-releases/feed/"))
@@ -844,9 +876,9 @@ def crawl_starbucks(getter, pending: dict, stats: dict, today: str | None = None
             apply_allergens(p, {"contains": al["contains"], "partial": []}, today)
         if needs_launch(p) and (is_new or int(p.get("launch_search_runs") or 0) < LAUNCH_SEARCH_RUNS_MAX):
             ref = launch_ref(p)
-            hit = find_launch(p["name"], press.get(), ref)
+            hit = find_launch(p["name"], press.get(), ref, all_names)
             if hit is None and int(p.get("launch_search_runs") or 0) < LAUNCH_SEARCH_RUNS_MAX:
-                hit = find_launch(p["name"], fetch_bodies(press.get()), ref)
+                hit = find_launch(p["name"], fetch_bodies(press.get()), ref, all_names)
                 p["launch_search_runs"] = int(p.get("launch_search_runs") or 0) + 1
             if hit:
                 apply_launch(p, hit, "press_release")
@@ -904,6 +936,7 @@ def crawl_tullys(getter, pending: dict, stats: dict, today: str | None = None) -
         return
     entries: dict[str, dict] = {}
     skipped = []
+    all_names = [it["name"] for it in lineup]
     for it in lineup:
         if not it["path"].startswith(prefixes):
             skipped.append(it["name"])  # 豆・グッズ・ハニー/グロッサリー等(栄養が無い非飲食物は記録しない)
@@ -950,7 +983,7 @@ def crawl_tullys(getter, pending: dict, stats: dict, today: str | None = None) -
 
     def enrich(p, e, is_new):
         if needs_launch(p) and (is_new or int(p.get("launch_search_runs") or 0) < LAUNCH_SEARCH_RUNS_MAX):
-            hit = find_launch(p["name"], press.get(), launch_ref(p))
+            hit = find_launch(p["name"], press.get(), launch_ref(p), all_names)
             if hit:
                 apply_launch(p, hit, "press_release")
             else:
@@ -1026,6 +1059,7 @@ def crawl_komeda(getter, pending: dict, stats: dict, today: str | None = None) -
         print(f"[warn] komeda 一覧の構造が想定と違う(構造変更の疑い): {e}", file=sys.stderr)
         return
     entries: dict[str, dict] = {}
+    all_names = [it["name"] for it in menu["items"]]
     for it in menu["items"]:
         if it["is_hidden"]:
             continue
@@ -1063,7 +1097,7 @@ def crawl_komeda(getter, pending: dict, stats: dict, today: str | None = None) -
 
     def enrich(p, e, is_new):
         if needs_launch(p) and (is_new or int(p.get("launch_search_runs") or 0) < LAUNCH_SEARCH_RUNS_MAX):
-            hit = find_launch(p["name"], press.get(), launch_ref(p))
+            hit = find_launch(p["name"], press.get(), launch_ref(p), all_names)
             if hit:
                 apply_launch(p, hit, "official_news")
             else:

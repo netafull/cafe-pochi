@@ -1,0 +1,149 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785033153",
+ "name": "ジンジャーブレッド ラテ",
+ "category": "ビバレッジ",
+ "price": 561,
+ "price_max": 710,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 329,
+  "protein_g": 10.3,
+  "fat_g": 17.8,
+  "carbs_g": 31.8,
+  "sugar_g": 31.2,
+  "fiber_g": 0.6,
+  "salt_g": 0.31,
+  "other": {
+   "飽和脂肪酸": "10.8g",
+   "トランス脂肪酸": "0.34g",
+   "ナトリウム": "119mg",
+   "カリウム": "606mg",
+   "カフェイン": "80mg"
+  }
+ },
+ "nutrition_variants": [
+  {
+   "label": "Short",
+   "nutrition": {
+    "kcal": 224,
+    "protein_g": 6.8,
+    "fat_g": 12.4,
+    "carbs_g": 21.3,
+    "sugar_g": 20.8,
+    "fiber_g": 0.5,
+    "salt_g": 0.2,
+    "other": {
+     "飽和脂肪酸": "7.6g",
+     "トランス脂肪酸": "0.22g",
+     "ナトリウム": "77mg",
+     "カリウム": "434mg",
+     "カフェイン": "80mg"
+    }
+   }
+  },
+  {
+   "label": "Tall",
+   "nutrition": {
+    "kcal": 329,
+    "protein_g": 10.3,
+    "fat_g": 17.8,
+    "carbs_g": 31.8,
+    "sugar_g": 31.2,
+    "fiber_g": 0.6,
+    "salt_g": 0.31,
+    "other": {
+     "飽和脂肪酸": "10.8g",
+     "トランス脂肪酸": "0.34g",
+     "ナトリウム": "119mg",
+     "カリウム": "606mg",
+     "カフェイン": "80mg"
+    }
+   }
+  },
+  {
+   "label": "Grande",
+   "nutrition": {
+    "kcal": 420,
+    "protein_g": 13.3,
+    "fat_g": 22.0,
+    "carbs_g": 42.0,
+    "sugar_g": 41.0,
+    "fiber_g": 1.0,
+    "salt_g": 0.39,
+    "other": {
+     "飽和脂肪酸": "13.4g",
+     "トランス脂肪酸": "0.42g",
+     "ナトリウム": "150mg",
+     "カリウム": "855mg",
+     "カフェイン": "160mg"
+    }
+   }
+  },
+  {
+   "label": "Venti",
+   "nutrition": {
+    "kcal": 499,
+    "protein_g": 16.2,
+    "fat_g": 25.1,
+    "carbs_g": 52.1,
+    "sugar_g": 50.7,
+    "fiber_g": 1.4,
+    "salt_g": 0.47,
+    "other": {
+     "飽和脂肪酸": "15.2g",
+     "トランス脂肪酸": "0.5g",
+     "ナトリウム": "179mg",
+     "カリウム": "1101mg",
+     "カフェイン": "239mg"
+    }
+   }
+  }
+ ],
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "大豆"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785033153",
+ "first_seen_at": "2026-11-03T17:16:51+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 561,
+   "price_max": 710
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}

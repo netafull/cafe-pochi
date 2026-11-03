@@ -83,7 +83,7 @@
   "komeda": 8,
   "doutor": 5
  },
- "starbucks_article_fetch_max": 4,
+ "starbucks_article_fetch_max": 10,
  "tullys_record_prefixes": [
   "/menu/drink/",
   "/menu/food/",

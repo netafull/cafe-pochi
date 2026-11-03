@@ -1,0 +1,70 @@
+{
+ "chain": "doutor",
+ "product_id": "20261009155739",
+ "name": "ホットモーニング スモークチキン～きのこクリーム～",
+ "category": null,
+ "price": 570,
+ "price_max": null,
+ "price_note": "「～」の付く価格は最低価格(組み合わせにより異なります)",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 300.0,
+  "protein_g": 15.2,
+  "fat_g": 10.7,
+  "carbs_g": 35.8,
+  "salt_g": 1.56
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "1食当たりの値(公式の表記)。商品や店舗ごとで異なる場合があります",
+ "nutrition_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳",
+   "小麦",
+   "牛肉",
+   "大豆",
+   "鶏肉",
+   "豚肉"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergen_note": "「●」は含む、「△」はのり・しらす・二枚貝の漁法に由来する条件つきの表示(公式の凡例)。工場製造時や店舗調理時に混入する可能性があります",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.doutor.co.jp/dcs/menu/detail/20261009155739.html",
+ "first_seen_at": "2026-11-03T17:18:29+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 570
+  }
+ ],
+ "launch_search_runs": 0,
+ "id_kind": "detail",
+ "price_from": true,
+ "source_list": [
+  "www.doutor.co.jp/dcs/menu/season.html",
+  "www.doutor.co.jp/dcs/menu/list/morning.html"
+ ],
+ "detail_checked_at": "2026-11-03",
+ "nutrition_label": null
+}

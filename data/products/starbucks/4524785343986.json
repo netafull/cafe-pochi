@@ -1,0 +1,146 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785343986",
+ "name": "ジョイフルメドレー ティー",
+ "category": "ビバレッジ",
+ "price": 510,
+ "price_max": 620,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 2,
+  "protein_g": 0.0,
+  "fat_g": 0.0,
+  "carbs_g": 0.5,
+  "sugar_g": 0.5,
+  "fiber_g": 0.0,
+  "salt_g": 0.01,
+  "other": {
+   "飽和脂肪酸": "0g",
+   "トランス脂肪酸": "0g",
+   "ナトリウム": "4mg",
+   "カリウム": "30mg",
+   "カフェイン": "50mg"
+  }
+ },
+ "nutrition_variants": [
+  {
+   "label": "Short",
+   "nutrition": {
+    "kcal": 2,
+    "protein_g": 0.0,
+    "fat_g": 0.0,
+    "carbs_g": 0.5,
+    "sugar_g": 0.5,
+    "fiber_g": 0.0,
+    "salt_g": 0.01,
+    "other": {
+     "飽和脂肪酸": "0g",
+     "トランス脂肪酸": "0g",
+     "ナトリウム": "4mg",
+     "カリウム": "30mg",
+     "カフェイン": "50mg"
+    }
+   }
+  },
+  {
+   "label": "Tall",
+   "nutrition": {
+    "kcal": 2,
+    "protein_g": 0.0,
+    "fat_g": 0.0,
+    "carbs_g": 0.5,
+    "sugar_g": 0.5,
+    "fiber_g": 0.0,
+    "salt_g": 0.01,
+    "other": {
+     "飽和脂肪酸": "0g",
+     "トランス脂肪酸": "0g",
+     "ナトリウム": "4mg",
+     "カリウム": "30mg",
+     "カフェイン": "50mg"
+    }
+   }
+  },
+  {
+   "label": "Grande",
+   "nutrition": {
+    "kcal": 2,
+    "protein_g": 0.0,
+    "fat_g": 0.0,
+    "carbs_g": 0.5,
+    "sugar_g": 0.5,
+    "fiber_g": 0.0,
+    "salt_g": 0.01,
+    "other": {
+     "飽和脂肪酸": "0g",
+     "トランス脂肪酸": "0g",
+     "ナトリウム": "4mg",
+     "カリウム": "30mg",
+     "カフェイン": "50mg"
+    }
+   }
+  },
+  {
+   "label": "Venti",
+   "nutrition": {
+    "kcal": 5,
+    "protein_g": 0.0,
+    "fat_g": 0.0,
+    "carbs_g": 0.9,
+    "sugar_g": 0.9,
+    "fiber_g": 0.0,
+    "salt_g": 0.02,
+    "other": {
+     "飽和脂肪酸": "0g",
+     "トランス脂肪酸": "0g",
+     "ナトリウム": "8mg",
+     "カリウム": "60mg",
+     "カフェイン": "99mg"
+    }
+   }
+  }
+ ],
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785343986",
+ "first_seen_at": "2026-11-03T17:16:51+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 510,
+   "price_max": 620
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}

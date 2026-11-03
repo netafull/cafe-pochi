@@ -1,0 +1,72 @@
+{
+ "chain": "tullys",
+ "product_id": "drink-tea-pumpkin_chai_milk_tea",
+ "name": "＆TEA パンプキンチャイミルクティー",
+ "category": "ドリンク",
+ "price": 640,
+ "price_max": null,
+ "price_note": "税込。店内飲食・テイクアウトは同一価格(公式の表記)。店舗により異なる場合があります",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": "2026-10-07",
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 249.0
+ },
+ "nutrition_variants": [
+  {
+   "label": "HOT Tall",
+   "nutrition": {
+    "kcal": 249.0
+   }
+  },
+  {
+   "label": "COLD Tall",
+   "nutrition": {
+    "kcal": 159.0
+   }
+  }
+ ],
+ "nutrition_note": "公式サイトの表示。HOT/COLD・サイズごとのエネルギー(kcal)のみ公表されています",
+ "nutrition_source": {
+  "label": "タリーズコーヒー 商品情報",
+  "url": "https://www.tullys.co.jp/menu/drink/tea/pumpkin_chai_milk_tea.html"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳"
+  ],
+  "partial": [],
+  "none_listed": false
+ },
+ "allergen_source": {
+  "label": "タリーズコーヒー 商品情報",
+  "url": "https://www.tullys.co.jp/menu/drink/tea/pumpkin_chai_milk_tea.html"
+ },
+ "allergen_note": "公式ページの「特定原材料 8品目」の表示です。「特定原材料に準ずるもの20品目」は公式サイトでご確認ください",
+ "limited_kind": "季節の新商品",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.tullys.co.jp/menu/drink/tea/pumpkin_chai_milk_tea.html",
+ "first_seen_at": "2026-11-03T17:17:44+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 640
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "www.tullys.co.jp/menu/seasonal_lineup/"
+ ],
+ "detail_checked_at": "2026-11-03",
+ "nutrition_label": "HOT Tall"
+}

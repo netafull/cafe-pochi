@@ -106,7 +106,10 @@ class TestItemPage(unittest.TestCase):
     def test_no_images_except_site_logo(self):
         h = g.render_item_page(item())
         for src in re.findall(r'<img[^>]*src="([^"]*)"', h):
-            self.assertEqual(src, "/assets/logo.png")  # 公式画像は表示しない
+            # サイトのロゴと、運営者自身のブログ(ネタフル)のレビュー記事のアイキャッチだけ。各社の公式画像は表示しない
+            self.assertTrue(src == "/assets/logo.png" or src.startswith("https://netaful.jp/"), src)
+            for official in ("starbucks", "tullys", "komeda", "doutor", "asset.menu"):
+                self.assertNotIn(official, src)
 
     def test_nutrition_inline_for_few_other(self):
         h = g.render_item_page(item())
@@ -155,7 +158,10 @@ class TestItemPage(unittest.TestCase):
         self.assertIn("650〜750円", h)
 
     def test_launch_date_note_with_and_without_source(self):
-        self.assertIn("発売日は公式のプレスリリース（2026-08-30）によります", g.render_item_page(item()))
+        self.assertIn("発売日は公式のプレスリリースの見出し（2026-08-30）によります", g.render_item_page(item()))
+        h = g.render_item_page(item(launch_date_source="press_release_body"))
+        self.assertIn("本文に商品名が載っていた記事", h)
+        self.assertIn("商品ごとの発売日とずれることがあります", h)
         h = g.render_item_page(item(launch_date=None, news_url=None, news_title=None))
         self.assertIn("発売日を拾えなかったため、記録を始めた日（記録開始日）から表示しています。発売日ではありません", h)
 

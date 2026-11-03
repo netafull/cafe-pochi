@@ -1,0 +1,88 @@
+{
+ "chain": "doutor",
+ "product_id": "sx-8cb47ddf60",
+ "name": "クリスマスミルクレープ（5号/直径約15cm）",
+ "category": null,
+ "price": 4300,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": [
+  {
+   "label": "販売価格",
+   "price": 4300
+  },
+  {
+   "label": "宅配価格",
+   "price": 5300
+  }
+ ],
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": "お渡し期間：2026年12月14日(月)～12月25日(金)",
+ "nutrition": null,
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergens": null,
+ "allergen_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergen_note": null,
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.doutor.co.jp/dcs/menu/season.html",
+ "first_seen_at": "2026-11-03T17:18:29+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 4300
+  }
+ ],
+ "launch_search_runs": 0,
+ "id_kind": "name",
+ "price_from": false,
+ "reservation": [
+  {
+   "channel": "店頭受取",
+   "periods": [
+    {
+     "label": "予約承り期間",
+     "value": "2026年11月1日(日)～12月10日(木)"
+    },
+    {
+     "label": "お渡し期間",
+     "value": "2026年12月14日(月)～12月25日(金)"
+    }
+   ]
+  },
+  {
+   "channel": "宅配",
+   "periods": [
+    {
+     "label": "予約承り期間",
+     "value": "2026年11月1日(日)～11月30日(月)"
+    },
+    {
+     "label": "配送期間",
+     "value": "2026年12月18日(金)～12月23日(水)"
+    }
+   ]
+  }
+ ],
+ "source_list": [
+  "www.doutor.co.jp/dcs/menu/season.html"
+ ],
+ "detail_checked_at": "2026-11-03"
+}

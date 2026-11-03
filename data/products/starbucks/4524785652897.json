@@ -1,0 +1,71 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785652897",
+ "name": "コルネッティ ストロベリー&ラズベリー",
+ "category": "フード",
+ "price": 540,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": "2026-11-02",
+ "launch_date_source": "press_release",
+ "news_title": "スターバックス リザーブ® カフェのホリデーシーズンが到来2種のベリーで華やぐ『コルネッティ ストロベリー&ラズベリー』11月2日（月）発売",
+ "news_url": "https://stories.starbucks.co.jp/press/2026/pr-2026-1027-1/",
+ "news_date": "2026-10-27",
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 389,
+  "protein_g": 5.5,
+  "fat_g": 26.7,
+  "carbs_g": 32.5,
+  "sugar_g": 30.8,
+  "fiber_g": 1.7,
+  "salt_g": 0.79,
+  "other": {
+   "飽和脂肪酸": "14.8g",
+   "トランス脂肪酸": "0.45g",
+   "ナトリウム": "310mg",
+   "カリウム": "89mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳",
+   "小麦"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": null,
+ "limited_kind": "新作",
+ "stores_note": "リザーブ カフェ(一部店舗のみ)",
+ "official_url": "https://menu.starbucks.co.jp/4524785652897",
+ "first_seen_at": "2026-11-03T17:16:51+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 540
+  }
+ ],
+ "launch_search_runs": 0,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": null
+}

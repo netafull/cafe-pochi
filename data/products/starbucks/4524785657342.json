@@ -1,0 +1,72 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785657342",
+ "name": "ロイヤル ミルク ティー",
+ "category": "ビバレッジ",
+ "price": 620,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": "2026-11-02",
+ "launch_date_source": "press_release",
+ "news_title": "スターバックス“ホリデーシーズンのティーパーティー” 華やかなストロベリー、本格ロイヤル ミルク ティー、アールグレイ×チョコレート。3種のティービバレッジを11月2日（月）より発売",
+ "news_url": "https://stories.starbucks.co.jp/press/2026/pr-2026-1026-1/",
+ "news_date": "2026-10-26",
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 246,
+  "protein_g": 5.9,
+  "fat_g": 14.0,
+  "carbs_g": 24.5,
+  "sugar_g": 23.8,
+  "fiber_g": 0.7,
+  "salt_g": 0.41,
+  "other": {
+   "飽和脂肪酸": "7.9g",
+   "トランス脂肪酸": "0.15g",
+   "ナトリウム": "162mg",
+   "カリウム": "362mg",
+   "カフェイン": "119mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "小麦",
+   "大豆"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785657342",
+ "first_seen_at": "2026-11-03T17:16:51+09:00",
+ "last_seen_at": "2026-11-03",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-03",
+   "price": 620
+  }
+ ],
+ "launch_search_runs": 0,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}

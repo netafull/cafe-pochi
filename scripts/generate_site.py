@@ -807,7 +807,7 @@ def render_grid_page(title: str, description: str, items: list[dict], canonical:
         return page_shell(title, description, body, canonical)
     filters = filter_bar(status_filter, default_status) if show_filters else ""
     on = sum(1 for it in items if not is_ended(it))
-    count_text = f"{len(items)}件" if not status_filter else f"{len(items)}件（販売中{on}件）"
+    count_text = f"{len(items)}件" if not status_filter else f"{len(items)}件・販売中{on}件"
     body = f"""<h2>{esc(title)} ({count_text})</h2>
 {filters}
 {render_grouped(items)}
@@ -1084,7 +1084,13 @@ def seo_description(item: dict) -> str:
     return ("、".join(bits) + "。")[:200]
 
 
-LAUNCH_SOURCE_LABEL = {"press_release": "公式のプレスリリース", "official_news": "公式のお知らせ"}
+LAUNCH_SOURCE_LABEL = {
+    "press_release": "公式のプレスリリースの見出し",
+    "official_news": "公式のお知らせの見出し",
+    # 商品名が見出しに無く、本文に載っていた記事。記事が複数の商品を扱うため、商品ごとの発売日とずれることがある
+    "press_release_body": "公式のプレスリリースの本文に商品名が載っていた記事(複数の商品をまとめた記事のため、商品ごとの発売日とずれることがあります)",
+    "official_news_body": "公式のお知らせの本文に商品名が載っていた記事(複数の商品をまとめた記事のため、商品ごとの発売日とずれることがあります)",
+}
 RECORD_REASON = {
     "starbucks": "公式サイトの新作一覧に載った、または栄養成分ページの「季節のおすすめ」にある",
     "tullys": "公式サイトの「季節の新商品」に載った",
@@ -1105,7 +1111,7 @@ def render_notes(item: dict) -> str:
         title = item.get("news_title") or ""
         link = item.get("news_url") or ""
         tl = f'<a href="{esc(link)}" target="_blank" rel="noopener">{esc(title)}</a>' if link and title else esc(title)
-        notes.append(f"発売日は{src}（{esc(item.get('news_date') or '')}）によります：{tl}")
+        notes.append(f"発売日は{esc(src)}（{esc(item.get('news_date') or '')}）によります：{tl}")
     else:
         notes.append("公式の発表から発売日を拾えなかったため、"
                      + ("公式サイトの掲載日" if listed_date(item) else "記録を始めた日（記録開始日）")
