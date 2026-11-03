@@ -805,6 +805,9 @@ def crawl_starbucks(getter, pending: dict, stats: dict, today: str | None = None
         return
 
     targets = sbux_build_targets(items, nut)
+    # 新作一覧に載ることがある定番(日替わりの豆など)は、運営者の指定で記録しない(config の starbucks_exclude_names)
+    excluded = set(CONFIG.get("starbucks_exclude_names") or [])
+    targets = {code: t for code, t in targets.items() if sbux_entry(t)["name"] not in excluded}
     entries = {code: sbux_entry(t) for code, t in targets.items()}
     all_names = [e["name"] for e in entries.values()]
 

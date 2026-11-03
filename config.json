@@ -84,6 +84,9 @@
   "doutor": 5
  },
  "starbucks_article_fetch_max": 10,
+ "starbucks_exclude_names": [
+  "トゥデイズ コーヒー"
+ ],
  "tullys_record_prefixes": [
   "/menu/drink/",
   "/menu/food/",
