@@ -1,0 +1,341 @@
+{
+ "top_title": "カフェポチ｜季節限定メニューのカロリー・価格アーカイブ",
+ "site_title": "カフェポチ",
+ "site_tagline": "スタバ・タリーズ・コメダ・ドトールの季節限定メニューを記録して残す",
+ "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
+ "site_url": "https://cafe.netaful.jp/",
+ "site_accent": "#6D4C41",
+ "ga_measurement_id": "",
+ "adsense_client_id": "",
+ "adsense_ad_slot": "",
+ "chains": [
+  {
+   "slug": "starbucks",
+   "name": "スターバックス",
+   "base_url": "https://www.starbucks.co.jp",
+   "color": "#00704A",
+   "color_dark": "#3BB58C"
+  },
+  {
+   "slug": "tullys",
+   "name": "タリーズ",
+   "base_url": "https://www.tullys.co.jp",
+   "color": "#2B3A67",
+   "color_dark": "#7C93D6"
+  },
+  {
+   "slug": "komeda",
+   "name": "コメダ珈琲店",
+   "base_url": "https://www.komeda.co.jp",
+   "color": "#8C2F1B",
+   "color_dark": "#E0765F"
+  },
+  {
+   "slug": "doutor",
+   "name": "ドトールコーヒーショップ",
+   "base_url": "https://www.doutor.co.jp",
+   "color": "#B8860B",
+   "color_dark": "#E2B040"
+  }
+ ],
+ "chain_official": {
+  "starbucks": {
+   "source": "スターバックス公式サイト",
+   "url": "https://www.starbucks.co.jp/",
+   "menu_url": "https://menu.starbucks.co.jp/"
+  },
+  "tullys": {
+   "source": "タリーズコーヒー公式サイト",
+   "url": "https://www.tullys.co.jp/",
+   "menu_url": "https://www.tullys.co.jp/menu/seasonal_lineup/"
+  },
+  "komeda": {
+   "source": "コメダ珈琲店公式サイト",
+   "url": "https://www.komeda.co.jp/",
+   "menu_url": "https://www.komeda.co.jp/menu/?brand=1"
+  },
+  "doutor": {
+   "source": "ドトールコーヒーショップ公式サイト",
+   "url": "https://www.doutor.co.jp/dcs/",
+   "menu_url": "https://www.doutor.co.jp/dcs/menu/season.html"
+  }
+ },
+ "user_agent": "CafePochi/1.0 (+https://cafe.netaful.jp/)",
+ "request_interval_seconds": {
+  "starbucks": 2,
+  "tullys": 2,
+  "komeda": 2,
+  "doutor": 2
+ },
+ "max_requests_per_run": {
+  "starbucks": 50,
+  "tullys": 40,
+  "komeda": 40,
+  "doutor": 60
+ },
+ "recheck_days": 7,
+ "recheck_max_per_run": 6,
+ "new_burst_min": 15,
+ "new_burst_ratio": 0.6,
+ "new_burst_min_by_chain": {
+  "starbucks": 20,
+  "tullys": 6,
+  "komeda": 8,
+  "doutor": 5
+ },
+ "starbucks_article_fetch_max": 4,
+ "tullys_record_prefixes": [
+  "/menu/drink/",
+  "/menu/food/",
+  "/menu/sweets/"
+ ],
+ "doutor_categories": [
+  "hotdrink",
+  "icedrink",
+  "milano",
+  "hotdog",
+  "hotsandwich",
+  "toast",
+  "morning",
+  "sweets"
+ ],
+ "doutor_goods_words": [
+  "コーヒー豆",
+  "ドリップ",
+  "パック入"
+ ],
+ "netaful_tags": {
+  "starbucks": 1062,
+  "tullys": null,
+  "komeda": null,
+  "doutor": null
+ },
+ "netaful_search_terms": {
+  "starbucks": "スターバックス",
+  "tullys": "タリーズ",
+  "komeda": "コメダ",
+  "doutor": "ドトール"
+ },
+ "netaful_title_filters": {
+  "starbucks": [
+   "スターバックス",
+   "スタバ"
+  ],
+  "tullys": [
+   "タリーズ"
+  ],
+  "komeda": [
+   "コメダ"
+  ],
+  "doutor": [
+   "ドトール"
+  ]
+ },
+ "netaful_title_excludes": {},
+ "netaful_title_always": [
+  "starbucks",
+  "tullys",
+  "komeda",
+  "doutor"
+ ],
+ "related_sites": [
+  {
+   "name": "電書ポチ",
+   "desc": "Kindle本セール",
+   "url": "https://book.netaful.jp/"
+  },
+  {
+   "name": "家電ポチ",
+   "desc": "ガジェット・家電セール",
+   "url": "https://kaden.netaful.jp/"
+  },
+  {
+   "name": "林檎ポチ",
+   "desc": "Apple整備済製品",
+   "url": "https://apple.netaful.jp/"
+  },
+  {
+   "name": "漫画ポチ",
+   "desc": "Webマンガ横断検索",
+   "url": "https://manga.netaful.jp/"
+  },
+  {
+   "name": "コンビニポチ",
+   "desc": "コンビニ新商品アーカイブ",
+   "url": "https://conbini.netaful.jp/"
+  },
+  {
+   "name": "ファストフードポチ",
+   "desc": "ファストフード限定メニュー",
+   "url": "https://fastfood.netaful.jp/"
+  }
+ ],
+ "related_keywords": [
+  {
+   "label": "パンプキン・かぼちゃ",
+   "words": [
+    "パンプキン",
+    "かぼちゃ",
+    "カボチャ"
+   ]
+  },
+  {
+   "label": "モンブラン・栗",
+   "words": [
+    "モンブラン",
+    "栗"
+   ]
+  },
+  {
+   "label": "さつまいも・芋",
+   "words": [
+    "さつまいも",
+    "サツマイモ",
+    "芋",
+    "いも",
+    "安納"
+   ]
+  },
+  {
+   "label": "いちご・ストロベリー",
+   "words": [
+    "いちご",
+    "イチゴ",
+    "苺",
+    "ストロベリー"
+   ]
+  },
+  {
+   "label": "キャラメル",
+   "words": [
+    "キャラメル"
+   ]
+  },
+  {
+   "label": "チョコレート",
+   "words": [
+    "チョコ",
+    "ショコラ",
+    "カカオ"
+   ]
+  },
+  {
+   "label": "抹茶",
+   "words": [
+    "抹茶"
+   ]
+  },
+  {
+   "label": "フラペチーノ",
+   "words": [
+    "フラペチーノ"
+   ]
+  },
+  {
+   "label": "ラテ",
+   "words": [
+    "ラテ"
+   ]
+  },
+  {
+   "label": "ティー・紅茶",
+   "words": [
+    "ティー",
+    "紅茶",
+    "ミルクティー"
+   ],
+   "exclude": [
+    "パーティー"
+   ]
+  },
+  {
+   "label": "りんご",
+   "words": [
+    "りんご",
+    "リンゴ",
+    "アップル"
+   ]
+  },
+  {
+   "label": "シナモン",
+   "words": [
+    "シナモン"
+   ]
+  },
+  {
+   "label": "ジンジャー",
+   "words": [
+    "ジンジャー",
+    "生姜"
+   ]
+  },
+  {
+   "label": "シロノワール",
+   "words": [
+    "シロノワール"
+   ]
+  },
+  {
+   "label": "ミルクレープ",
+   "words": [
+    "ミルクレープ"
+   ]
+  },
+  {
+   "label": "チーズケーキ",
+   "words": [
+    "チーズケーキ"
+   ]
+  },
+  {
+   "label": "ケーキ",
+   "words": [
+    "ケーキ"
+   ]
+  },
+  {
+   "label": "クリスマス・ホリデー",
+   "words": [
+    "クリスマス",
+    "ホリデー"
+   ]
+  },
+  {
+   "label": "モーニング",
+   "words": [
+    "モーニング"
+   ]
+  },
+  {
+   "label": "サンドイッチ",
+   "words": [
+    "サンド",
+    "ミラノ"
+   ]
+  },
+  {
+   "label": "ドーナツ",
+   "words": [
+    "ドーナツ"
+   ]
+  },
+  {
+   "label": "スコーン・パイ",
+   "words": [
+    "スコーン",
+    "パイ"
+   ],
+   "exclude": [
+    "パイナップル"
+   ]
+  }
+ ],
+ "policy_url": "https://netaful.jp/policy.html",
+ "about": [
+  "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの公式サイトを1日1回チェックして、季節限定メニューと新作を記録しています。公式サイトは販売が終わったメニューのページを消してしまうので、「いつからいつまで載っていたか」「いくらだったか」「何kcalだったか」を後から調べられるようにしています。",
+  "記録しているのは事実情報だけです。商品名・価格・日付・カロリーなどの栄養成分・アレルゲンを載せ、説明文と画像は載せていません。詳しくは各社の公式サイトをご覧ください。各商品のページから、公式ページへのリンクを置いています。",
+  "終了の判定は、公式の一覧から2日続けて消えたときだけ行います。終了日は「一覧から消えたのを確認した日」で、公式の最終販売日とはずれることがあります。発売日は公式のプレスリリースやお知らせの見出しから拾えたものだけで、拾えない商品は「記録開始日」から表示しています。",
+  "価格や販売状況は取得した時点のものです。店舗によって価格や取り扱いが異なるので、最新の情報は各社の公式サイトで確認してください。当サイトは各社とは関係のない非公式サイトで、運営はブログ「{{ネタフル}}」のコグレです。"
+ ],
+ "rss_max_items": 100
+}
