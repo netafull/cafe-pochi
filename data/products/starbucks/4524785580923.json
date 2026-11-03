@@ -57,7 +57,7 @@
    "price": 1700
   }
  ],
- "launch_search_runs": 1,
+ "launch_search_runs": 2,
  "source_list": [
   "menu.starbucks.co.jp/api/v1/list?tag=new",
   "product.starbucks.co.jp/allergy/json/nutritions.json"

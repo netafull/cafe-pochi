@@ -52,7 +52,7 @@
    "price_max": 590
   }
  ],
- "launch_search_runs": 1,
+ "launch_search_runs": 2,
  "source_list": [
   "eu.komeda.co.jp/v1/hp/menu?brand_type=1&category=903"
  ],
