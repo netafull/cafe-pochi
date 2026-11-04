@@ -1,18 +1,18 @@
 {
  "doutor": {
-  "checked_at": "2026-11-04",
+  "checked_at": "2026-11-05",
   "count": 6
  },
  "komeda": {
-  "checked_at": "2026-11-04",
+  "checked_at": "2026-11-05",
   "count": 10
  },
  "starbucks": {
-  "checked_at": "2026-11-04",
+  "checked_at": "2026-11-05",
   "count": 35
  },
  "tullys": {
-  "checked_at": "2026-11-04",
+  "checked_at": "2026-11-05",
   "count": 8
  }
 }
