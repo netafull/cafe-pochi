@@ -46,10 +46,9 @@ class TestConfig(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 g("komeda", "https://a/3")
 
-    def test_ads_and_ga_start_empty(self):
+    def test_ads_start_empty(self):
         self.assertEqual(crawl.CONFIG["adsense_client_id"], "")
         self.assertEqual(crawl.CONFIG["adsense_ad_slot"], "")
-        self.assertEqual(crawl.CONFIG["ga_measurement_id"], "")
         self.assertEqual(crawl.CONFIG["top_title"], "カフェポチ｜季節限定メニューのカロリー・価格アーカイブ")
         self.assertEqual(crawl.CONFIG["site_title"], "カフェポチ")
 

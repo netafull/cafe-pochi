@@ -5,7 +5,7 @@
  "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
  "site_url": "https://cafe.netaful.jp/",
  "site_accent": "#6D4C41",
- "ga_measurement_id": "",
+ "ga_measurement_id": "G-1SXGX1G36H",
  "adsense_client_id": "",
  "adsense_ad_slot": "",
  "chains": [
@@ -171,6 +171,11 @@
    "name": "ファストフードポチ",
    "desc": "ファストフード限定メニュー",
    "url": "https://fastfood.netaful.jp/"
+  },
+  {
+   "name": "回転寿司ポチ",
+   "desc": "回転寿司の期間限定ネタ",
+   "url": "https://sushi.netaful.jp/"
   }
  ],
  "related_keywords": [
