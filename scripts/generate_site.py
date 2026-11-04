@@ -566,7 +566,6 @@ def page_shell(title: str, description: str, body: str, canonical: str, extra_he
 <header>
 <h1><a href="/">{logo_img}{esc(CONFIG["site_title"])}</a></h1>
 <p>{esc(CONFIG["site_description"])}{(" ｜ " + esc(header_note)) if header_note else ""}</p>
-{related_html}
 </header>
 {header_ad_html}
 <main>
@@ -1084,42 +1083,16 @@ def seo_description(item: dict) -> str:
     return ("、".join(bits) + "。")[:200]
 
 
-LAUNCH_SOURCE_LABEL = {
-    "press_release": "公式のプレスリリースの見出し",
-    "official_news": "公式のお知らせの見出し",
-    # 商品名が見出しに無く、本文に載っていた記事。記事が複数の商品を扱うため、商品ごとの発売日とずれることがある
-    "press_release_body": "公式のプレスリリースの本文に商品名が載っていた記事(複数の商品をまとめた記事のため、商品ごとの発売日とずれることがあります)",
-    "official_news_body": "公式のお知らせの本文に商品名が載っていた記事(複数の商品をまとめた記事のため、商品ごとの発売日とずれることがあります)",
-}
-RECORD_REASON = {
-    "starbucks": "公式サイトの新作一覧に載った、または栄養成分ページの「季節のおすすめ」にある",
-    "tullys": "公式サイトの「季節の新商品」に載った",
-    "komeda": "公式サイトのメニューの「おすすめ」に載った",
-    "doutor": "公式サイトの「季節のおすすめ」に載った(または、メニュー一覧でNEWの印が付いた)",
-}
-
 
 def render_notes(item: dict) -> str:
-    """記録の理由、発売日の出どころ、チェーンごとの注意、昨季の販売期間。"""
+    """商品ごとに読む意味がある補足だけを出す。サイト全体の説明はフッターと各ページの案内にある。"""
     notes = []
     chain = item["chain"]
-    kind = item.get("limited_kind")
-    notes.append(f"{RECORD_REASON.get(chain, '公式サイトの一覧に載った')}メニューです"
-                 + (f"（記録上の区分：{esc(kind)}）。" if kind else "。"))
-    if item.get("launch_date"):
-        src = LAUNCH_SOURCE_LABEL.get(item.get("launch_date_source"), "公式の発表")
-        title = item.get("news_title") or ""
-        link = item.get("news_url") or ""
-        tl = f'<a href="{esc(link)}" target="_blank" rel="noopener">{esc(title)}</a>' if link and title else esc(title)
-        notes.append(f"発売日は{esc(src)}（{esc(item.get('news_date') or '')}）によります：{tl}")
-    else:
-        notes.append("公式の発表から発売日を拾えなかったため、"
-                     + ("公式サイトの掲載日" if listed_date(item) else "記録を始めた日（記録開始日）")
-                     + "から表示しています。発売日ではありません。")
-    if chain == "tullys" and listed_date(item):
-        notes.append("「公式サイト掲載日」は、公式の「季節の新商品」一覧に載った日時です。")
-    notes.append("終了日は公式の最終販売日ではなく、公式サイトの一覧から消えたことを確認した日です。"
-                 "一覧から外れただけで、店頭ではまだ販売していることもあります。")
+    if not item.get("launch_date"):
+        origin = "公式サイトの掲載日" if listed_date(item) else "記録を始めた日"
+        notes.append(f"発売日は不明のため、{origin}から表示しています。")
+    if is_ended(item) and item.get("ended_basis") != "official_close_date":
+        notes.append("店頭ではまだ販売していることもあります。")
     if item.get("stores_note"):
         notes.append(f"取り扱い：{esc(item['stores_note'])}")
     if chain == "doutor" and item.get("reservation"):
@@ -1150,10 +1123,8 @@ def render_sources(item: dict) -> str:
     if off.get("url"):
         links.append(link_html(f"{chain_name}公式サイト", off["url"]))
     fetched = (item.get("first_seen_at") or "")[:10]
-    return (f"<p class='source'>出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}取得時点）。"
-            "商品名・価格・日付・栄養成分・アレルゲンなどの事実情報を記録しています。説明文・画像は載せていません。</p>"
-            f"<p class='source'>{' ・ '.join(links)}</p>"
-            "<p class='warn'>※販売終了後は公式ページが削除されている場合があります。</p>")
+    return (f"<p class='source'>出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}時点）</p>"
+            f"<p class='source'>{' ・ '.join(links)}</p>")
 
 
 def render_item_page(item: dict) -> str:
@@ -1216,14 +1187,15 @@ def render_item_page(item: dict) -> str:
 <p><strong>販売期間：</strong>{esc(period_text(item, detailed=True))}</p>
 {('<p><strong>カテゴリ：</strong>' + esc(item['category']) + '</p>') if item.get('category') else ''}
 {relaunch}
-{render_notes(item)}
-{render_sources(item)}
 {nutrition_html}
 {allergen_html}
 {history_html}
 {mid_ad}
 {reviews_html}
 {related_html}
+<h3>補足と出典</h3>
+{render_notes(item)}
+{render_sources(item)}
 {bottom_ad}
 </div>"""
     canonical = CONFIG.get("site_url", "") + item_url(item)

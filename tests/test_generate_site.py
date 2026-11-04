@@ -97,11 +97,9 @@ class TestItemPage(unittest.TestCase):
     def test_no_description_quote_only_facts_and_links(self):
         h = g.render_item_page(item())
         self.assertNotIn("<blockquote", h)
-        self.assertIn("説明文・画像は載せていません", h)
         self.assertIn('href="https://menu.starbucks.co.jp/9001"', h)  # 公式の商品ページ
         self.assertIn('href="https://stories.example/p1"', h)  # プレスリリース
-        self.assertIn("出典：スターバックス公式サイト（2026-11-03取得時点）", h)
-        self.assertIn("販売終了後は公式ページが削除されている場合があります", h)
+        self.assertIn("出典：スターバックス公式サイト（2026-11-03時点）", h)
 
     def test_no_images_except_site_logo(self):
         h = g.render_item_page(item())
@@ -157,13 +155,15 @@ class TestItemPage(unittest.TestCase):
         self.assertIn("価格の履歴", h)
         self.assertIn("650〜750円", h)
 
-    def test_launch_date_note_with_and_without_source(self):
-        self.assertIn("発売日は公式のプレスリリースの見出し（2026-08-30）によります", g.render_item_page(item()))
-        h = g.render_item_page(item(launch_date_source="press_release_body"))
-        self.assertIn("本文に商品名が載っていた記事", h)
-        self.assertIn("商品ごとの発売日とずれることがあります", h)
+    def test_launch_date_note_only_when_unknown(self):
+        self.assertNotIn("発売日は", g.render_item_page(item()))
         h = g.render_item_page(item(launch_date=None, news_url=None, news_title=None))
-        self.assertIn("発売日を拾えなかったため、記録を始めた日（記録開始日）から表示しています。発売日ではありません", h)
+        self.assertIn("発売日は不明のため、記録を始めた日から表示しています", h)
+
+    def test_ended_note_only_on_ended_items(self):
+        self.assertNotIn("店頭ではまだ販売", g.render_item_page(item()))
+        it = item(status="ended", ended_observed_at="2026-11-11")
+        self.assertIn("店頭ではまだ販売していることもあります", g.render_item_page(it))
 
     def test_doutor_reservation_notes(self):
         r = [{"channel": "店頭受取", "periods": [{"label": "予約承り期間", "value": "11月1日～12月10日"}, {"label": "お渡し期間", "value": "12月14日～12月25日"}]}]
@@ -184,6 +184,15 @@ class TestItemPage(unittest.TestCase):
             h = g.render_item_page(item())
         self.assertNotIn("adsbygoogle", h)
         self.assertNotIn("googletagmanager", h)
+
+    def test_notes_come_after_nutrition(self):
+        # 注意書きが先に並ぶと、カロリーまで長くスクロールすることになる
+        it = item()
+        h = g.render_item_page(it)
+        nutrition = g.render_nutrition(it)
+        self.assertTrue(nutrition)
+        self.assertLess(h.index(nutrition), h.index("補足と出典"))
+        self.assertLess(h.index("補足と出典"), h.index("<p class='source'>"))
 
     def test_ga4_tag_present_when_set(self):
         from unittest import mock
