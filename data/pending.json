@@ -2,5 +2,22 @@
  "doutor": {},
  "komeda": {},
  "starbucks": {},
- "tullys": {}
+ "tullys": {
+  "_suspected_restructure": {
+   "consecutive_days": 1,
+   "count": 10,
+   "date": "2026-11-06",
+   "first_date": "2026-11-06",
+   "list_size": 10,
+   "reason": "suspected_restructure",
+   "sample": [
+    "drink-coffee-26h_dubai_chocolate_latte",
+    "drink-coffee-26h_irish_latte",
+    "drink-other_d-26h_melon_soda",
+    "drink-other_d-26h_melon_soda_float",
+    "drink-tea-26h_cabernet_sauvignon_fruit_tea"
+   ],
+   "threshold": 6
+  }
+ }
 }
