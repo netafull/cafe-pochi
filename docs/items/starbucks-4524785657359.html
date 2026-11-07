@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>スターバックス「アールグレイ チョコレート フラペチーノ®」のカロリー・価格・栄養成分｜カフェポチ</title>
-<meta name="description" content="スターバックスの季節のおすすめ「アールグレイ チョコレート フラペチーノ®」、418kcal、690円（税込）、2026-11-02〜 販売中。">
+<title>スターバックス「アールグレイ チョコレート フラペチーノ®」のカロリー・カフェイン・価格｜カフェポチ</title>
+<meta name="description" content="スターバックスの季節のおすすめ「アールグレイ チョコレート フラペチーノ®」、418kcal・カフェイン117mg（Tall）、690円（税込）、2026-11-02〜 販売中。">
 <link rel="canonical" href="https://cafe.netaful.jp/items/starbucks-4524785657359.html">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1SXGX1G36H"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1SXGX1G36H');</script>
@@ -12,8 +12,8 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="スターバックス「アールグレイ チョコレート フラペチーノ®」のカロリー・価格・栄養成分｜カフェポチ">
-<meta property="og:description" content="スターバックスの季節のおすすめ「アールグレイ チョコレート フラペチーノ®」、418kcal、690円（税込）、2026-11-02〜 販売中。">
+<meta property="og:title" content="スターバックス「アールグレイ チョコレート フラペチーノ®」のカロリー・カフェイン・価格｜カフェポチ">
+<meta property="og:description" content="スターバックスの季節のおすすめ「アールグレイ チョコレート フラペチーノ®」、418kcal・カフェイン117mg（Tall）、690円（税込）、2026-11-02〜 販売中。">
 <meta property="og:url" content="https://cafe.netaful.jp/items/starbucks-4524785657359.html">
 <meta property="og:site_name" content="カフェポチ">
 <meta property="og:locale" content="ja_JP">
@@ -48,6 +48,11 @@ header h1 a { text-decoration: none; font-size: 22px;
   display: inline-flex; align-items: center; gap: 8px; }
 /* ロゴは文字とほぼ同じ高さに揃える(96px画像を縮小して表示。姉妹サイトと同じ) */
 header h1 img { width: 44px; height: 44px; }
+/* トップ以外ではサイト名をh1にしない(ページごとのh1は1つ)。見た目はh1のときと同じにする */
+header .site-title { font-size: 2em; font-weight: 700; }
+header .site-title a { text-decoration: none; font-size: 22px;
+  display: inline-flex; align-items: center; gap: 8px; }
+header .site-title img { width: 44px; height: 44px; }
 header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
 nav.crumbs { font-size: 12px; color: var(--muted); margin-top: 8px; }
 nav.crumbs a { text-decoration: none; color: var(--accent); }
@@ -56,7 +61,7 @@ nav.crumbs a { text-decoration: none; color: var(--accent); }
 .sites a { font-size: 12px; padding: 3px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--card); text-decoration: none; }
 main { max-width: 980px; margin: 0 auto; padding: 8px 16px 48px; }
-h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
+h2, h1.pt { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
 .sort-bar { display: flex; gap: 8px; margin: 8px 0 16px; flex-wrap: wrap; align-items: center; }
 .sort-bar select, .sort-bar input { font-size: 13px; padding: 5px 8px; border-radius: 6px;
   border: 1px solid var(--line); background: var(--card); color: var(--text); font-family: inherit; }
@@ -100,6 +105,13 @@ h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); 
 .detail table.multi th:first-child { text-align: left; }
 .detail table.pv { max-width: 320px; }
 .detail h3 { margin-top: 16px; font-size: 14px; }
+/* 商品ページの節見出しはh2。以前のh3と同じ見た目にする */
+.detail h2 { margin: 16px 0 0; font-size: 14px; padding: 0; border: 0; }
+.detail h1 .sub { font-size: 13px; font-weight: 500; color: var(--muted); }
+.detail ul.rel { list-style: none; margin-top: 6px; font-size: 13px; }
+.detail ul.rel li { border-bottom: 1px solid var(--line); padding: 6px 4px; }
+.detail ul.rel a { color: var(--accent); text-decoration: none; }
+.detail ul.rel .m { color: var(--muted); font-size: 12px; margin-left: 8px; }
 .detail details { margin-top: 10px; font-size: 13px; }
 .detail details summary { cursor: pointer; color: var(--accent); }
 .detail blockquote { border-left: 3px solid var(--accent); margin: 12px 0; padding: 8px 14px;
@@ -154,11 +166,11 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .item[data-chain="doutor"] .badge { background: var(--doutor); }
 @media (prefers-color-scheme: dark) { .item .badge, .chain-badge { color: #17130f; } }
 </style>
-
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://cafe.netaful.jp/"}, {"@type": "ListItem", "position": 2, "name": "スターバックス", "item": "https://cafe.netaful.jp/chains/starbucks/"}, {"@type": "ListItem", "position": 3, "name": "アールグレイ チョコレート フラペチーノ®", "item": "https://cafe.netaful.jp/items/starbucks-4524785657359.html"}]}</script>
 </head>
 <body>
 <header>
-<h1><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></h1>
+<div class="site-title"><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></div>
 <p>スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています</p>
 </header>
 
@@ -173,7 +185,7 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <p><strong>販売期間：</strong>2026-11-02〜 販売中</p>
 <p><strong>カテゴリ：</strong>ビバレッジ</p>
 
-<h3>栄養成分（Tall）</h3><table><tr><th>熱量</th><td>418kcal</td></tr><tr><th>たんぱく質</th><td>5.6g</td></tr><tr><th>脂質</th><td>17.5g</td></tr><tr><th>炭水化物</th><td>60.3g</td></tr><tr><th>　糖類</th><td>57.8g</td></tr><tr><th>　食物繊維</th><td>2.5g</td></tr><tr><th>食塩相当量</th><td>0.5g</td></tr><tr><th>飽和脂肪酸</th><td>10.7g</td></tr><tr><th>トランス脂肪酸</th><td>0.18g</td></tr><tr><th>ナトリウム</th><td>190mg</td></tr><tr><th>カリウム</th><td>505mg</td></tr><tr><th>カフェイン</th><td>117mg</td></tr></table><p class='note'>ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください。</p>
+<h2>栄養成分（Tall）</h2><table><tr><th>熱量</th><td>418kcal</td></tr><tr><th>たんぱく質</th><td>5.6g</td></tr><tr><th>脂質</th><td>17.5g</td></tr><tr><th>炭水化物</th><td>60.3g</td></tr><tr><th>　糖類</th><td>57.8g</td></tr><tr><th>　食物繊維</th><td>2.5g</td></tr><tr><th>食塩相当量</th><td>0.5g</td></tr><tr><th>飽和脂肪酸</th><td>10.7g</td></tr><tr><th>トランス脂肪酸</th><td>0.18g</td></tr><tr><th>ナトリウム</th><td>190mg</td></tr><tr><th>カリウム</th><td>505mg</td></tr><tr><th>カフェイン</th><td>117mg</td></tr></table><p class='note'>ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください。</p>
 <p class='tags'><strong>アレルゲン（含む）：</strong>乳、小麦、大豆</p><p class='note'>ミルクは標準(ミルク変更なし)の場合の情報です。</p><p class='note'>最新のアレルギー情報は公式サイトでご確認ください：<a data-google-vignette="false" href="https://product.starbucks.co.jp/allergy/allergen/" target="_blank" rel="noopener">スターバックス アレルゲン情報</a></p>
 
 <div class="ad-slot">
@@ -185,7 +197,7 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
      data-full-width-responsive="true"></ins>
 </div>
 
-<h3>関連するネタフルの記事（フラペチーノ）</h3>
+<h2>関連するネタフルの記事（フラペチーノ）</h2>
 <div class="review-grid">
 <a data-google-vignette="false" class="review-card" href="https://netaful.jp/coffee/0102389.html" target="_blank" rel="noopener">
 <img src="https://netaful.jp/wp-content/uploads/2021/07/starbucks-47-jimoto-01-04-300x169.jpg" alt="スターバックス日本上陸25周年を記念し「47 JIMOTO フラペチーノ THANKS WEEK」を7月28日より開始" loading="lazy" width="300" height="169">
@@ -209,7 +221,17 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 </div>
 </a>
 </div>
-<h3>補足と出典</h3>
+
+<h2>同じ時期のスターバックスの商品</h2>
+<ul class="rel">
+<li><a data-google-vignette="false" href="/items/starbucks-4524785657366.html">ジョイフルメドレー ストロベリー クリーミー ティー ラテ</a><span class="m">650円（税込）・341kcal</span></li>
+<li><a data-google-vignette="false" href="/items/starbucks-4524785657342.html">ロイヤル ミルク ティー</a><span class="m">620円（税込）・246kcal</span></li>
+<li><a data-google-vignette="false" href="/items/starbucks-4524785608429.html">ストロベリー ラベンダー ラテ</a><span class="m">880円（税込）・282kcal</span></li>
+<li><a data-google-vignette="false" href="/items/starbucks-4524785657311.html">ジョイフルメドレー ティージェリー フラペチーノ®</a><span class="m">790円（税込）・226kcal</span></li>
+<li><a data-google-vignette="false" href="/items/starbucks-4524785657304.html">ジョイフルメドレー アプリコット ムース ティー ラテ</a><span class="m">720円（税込）・164kcal</span></li>
+<li><a data-google-vignette="false" href="/items/starbucks-4524785657298.html">ジョイフルメドレー フルーツ シェイクン ティー</a><span class="m">740円（税込）・89kcal</span></li>
+</ul>
+<h2>補足と出典</h2>
 <p class='note'>取り扱い：スターバックス コーヒー</p>
 <p class='source'>出典：スターバックス公式サイト（2026-11-03時点）</p><p class='source'><a data-google-vignette="false" href="https://menu.starbucks.co.jp/4524785657359" target="_blank" rel="noopener">公式の商品ページ</a> ・ <a data-google-vignette="false" href="https://stories.starbucks.co.jp/press/2026/pr-2026-1026-1/" target="_blank" rel="noopener">プレスリリース・お知らせ</a> ・ <a data-google-vignette="false" href="https://product.starbucks.co.jp/allergy/nutrient/" target="_blank" rel="noopener">スターバックス 栄養成分情報</a> ・ <a data-google-vignette="false" href="https://www.starbucks.co.jp/" target="_blank" rel="noopener">スターバックス公式サイト</a></p>
 

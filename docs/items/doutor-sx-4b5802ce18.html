@@ -48,6 +48,11 @@ header h1 a { text-decoration: none; font-size: 22px;
   display: inline-flex; align-items: center; gap: 8px; }
 /* ロゴは文字とほぼ同じ高さに揃える(96px画像を縮小して表示。姉妹サイトと同じ) */
 header h1 img { width: 44px; height: 44px; }
+/* トップ以外ではサイト名をh1にしない(ページごとのh1は1つ)。見た目はh1のときと同じにする */
+header .site-title { font-size: 2em; font-weight: 700; }
+header .site-title a { text-decoration: none; font-size: 22px;
+  display: inline-flex; align-items: center; gap: 8px; }
+header .site-title img { width: 44px; height: 44px; }
 header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
 nav.crumbs { font-size: 12px; color: var(--muted); margin-top: 8px; }
 nav.crumbs a { text-decoration: none; color: var(--accent); }
@@ -56,7 +61,7 @@ nav.crumbs a { text-decoration: none; color: var(--accent); }
 .sites a { font-size: 12px; padding: 3px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--card); text-decoration: none; }
 main { max-width: 980px; margin: 0 auto; padding: 8px 16px 48px; }
-h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
+h2, h1.pt { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
 .sort-bar { display: flex; gap: 8px; margin: 8px 0 16px; flex-wrap: wrap; align-items: center; }
 .sort-bar select, .sort-bar input { font-size: 13px; padding: 5px 8px; border-radius: 6px;
   border: 1px solid var(--line); background: var(--card); color: var(--text); font-family: inherit; }
@@ -100,6 +105,13 @@ h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); 
 .detail table.multi th:first-child { text-align: left; }
 .detail table.pv { max-width: 320px; }
 .detail h3 { margin-top: 16px; font-size: 14px; }
+/* 商品ページの節見出しはh2。以前のh3と同じ見た目にする */
+.detail h2 { margin: 16px 0 0; font-size: 14px; padding: 0; border: 0; }
+.detail h1 .sub { font-size: 13px; font-weight: 500; color: var(--muted); }
+.detail ul.rel { list-style: none; margin-top: 6px; font-size: 13px; }
+.detail ul.rel li { border-bottom: 1px solid var(--line); padding: 6px 4px; }
+.detail ul.rel a { color: var(--accent); text-decoration: none; }
+.detail ul.rel .m { color: var(--muted); font-size: 12px; margin-left: 8px; }
 .detail details { margin-top: 10px; font-size: 13px; }
 .detail details summary { cursor: pointer; color: var(--accent); }
 .detail blockquote { border-left: 3px solid var(--accent); margin: 12px 0; padding: 8px 14px;
@@ -154,11 +166,11 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .item[data-chain="doutor"] .badge { background: var(--doutor); }
 @media (prefers-color-scheme: dark) { .item .badge, .chain-badge { color: #17130f; } }
 </style>
-
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://cafe.netaful.jp/"}, {"@type": "ListItem", "position": 2, "name": "ドトールコーヒーショップ", "item": "https://cafe.netaful.jp/chains/doutor/"}, {"@type": "ListItem", "position": 3, "name": "和栗のクリスマスモンブラン（5号/直径約15cm）", "item": "https://cafe.netaful.jp/items/doutor-sx-4b5802ce18.html"}]}</script>
 </head>
 <body>
 <header>
-<h1><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></h1>
+<div class="site-title"><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></div>
 <p>スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています</p>
 </header>
 
@@ -173,12 +185,12 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <p><strong>販売期間：</strong>2026-11-03（記録開始日）〜 販売中（終了予定：お渡し期間：2026年12月14日(月)～12月25日(金)）</p>
 
 
-<h3>栄養成分</h3><p class='note'>栄養成分は未取得です。公式サイトでご確認ください：<a data-google-vignette="false" href="https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/" target="_blank" rel="noopener">ドトール アレルギー・栄養成分情報</a></p>
+<h2>栄養成分</h2><p class='note'>栄養成分は未取得です。公式サイトでご確認ください：<a data-google-vignette="false" href="https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/" target="_blank" rel="noopener">ドトール アレルギー・栄養成分情報</a></p>
 <p class='note'>アレルギー情報は未取得です。公式サイトでご確認ください：<a data-google-vignette="false" href="https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/" target="_blank" rel="noopener">ドトール アレルギー・栄養成分情報</a></p>
 
 
 
-<h3>ドトールコーヒーショップのネタフル最新レビュー</h3>
+<h2>ドトールコーヒーショップのネタフル最新レビュー</h2>
 <div class="review-grid">
 <a data-google-vignette="false" class="review-card" href="https://netaful.jp/neta-eat/0104148.html" target="_blank" rel="noopener">
 <img src="https://netaful.jp/wp-content/uploads/2021/09/moz-doutor-18000-300x186.jpg" alt="【ドトール】北欧ブランド「moz」とコラボしたオリジナルトートバッグやステンレスボトルなどが入った数量限定のセットを販売するコーヒーフェア開催（10/1）" loading="lazy" width="300" height="186">
@@ -209,7 +221,16 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 </div>
 </a>
 </div>
-<h3>補足と出典</h3>
+
+<h2>同じ時期のドトールコーヒーショップの商品</h2>
+<ul class="rel">
+<li><a data-google-vignette="false" href="/items/doutor-sx-8cb47ddf60.html">クリスマスミルクレープ（5号/直径約15cm）</a><span class="m">4,300円（税込）</span></li>
+<li><a data-google-vignette="false" href="/items/doutor-20261009160520.html">パリパリチョコキャラメルミルクレープ</a><span class="m">560円（税込）・331kcal</span></li>
+<li><a data-google-vignette="false" href="/items/doutor-20261009155739.html">ホットモーニング スモークチキン～きのこクリーム～</a><span class="m">570円〜（税込）・300kcal</span></li>
+<li><a data-google-vignette="false" href="/items/doutor-20260908084729.html">蜜芋オレ ～種子島産安納芋使用～</a><span class="m">680円（税込）・329kcal</span></li>
+<li><a data-google-vignette="false" href="/items/doutor-20140818181442.html">ミルクレープ</a><span class="m">440円（税込）・328kcal</span></li>
+</ul>
+<h2>補足と出典</h2>
 <p class='note'>発売日は不明のため、記録を始めた日から表示しています。</p><p class='note'>取り扱い：店舗により取り扱いや価格が異なる場合があります</p><p class='note'>店頭受取：予約承り期間 2026年11月1日(日)～12月10日(木)／お渡し期間 2026年12月14日(月)～12月25日(金)</p><p class='note'>宅配：予約承り期間 2026年11月1日(日)～11月30日(月)／配送期間 2026年12月18日(金)～12月23日(水)</p>
 <p class='source'>出典：ドトールコーヒーショップ公式サイト（2026-11-03時点）</p><p class='source'><a data-google-vignette="false" href="https://www.doutor.co.jp/dcs/menu/season.html" target="_blank" rel="noopener">公式の商品ページ</a> ・ <a data-google-vignette="false" href="https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/" target="_blank" rel="noopener">ドトール アレルギー・栄養成分情報</a> ・ <a data-google-vignette="false" href="https://www.doutor.co.jp/dcs/" target="_blank" rel="noopener">ドトールコーヒーショップ公式サイト</a></p>
 <div class="ad-slot">

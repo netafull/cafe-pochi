@@ -48,6 +48,11 @@ header h1 a { text-decoration: none; font-size: 22px;
   display: inline-flex; align-items: center; gap: 8px; }
 /* ロゴは文字とほぼ同じ高さに揃える(96px画像を縮小して表示。姉妹サイトと同じ) */
 header h1 img { width: 44px; height: 44px; }
+/* トップ以外ではサイト名をh1にしない(ページごとのh1は1つ)。見た目はh1のときと同じにする */
+header .site-title { font-size: 2em; font-weight: 700; }
+header .site-title a { text-decoration: none; font-size: 22px;
+  display: inline-flex; align-items: center; gap: 8px; }
+header .site-title img { width: 44px; height: 44px; }
 header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
 nav.crumbs { font-size: 12px; color: var(--muted); margin-top: 8px; }
 nav.crumbs a { text-decoration: none; color: var(--accent); }
@@ -56,7 +61,7 @@ nav.crumbs a { text-decoration: none; color: var(--accent); }
 .sites a { font-size: 12px; padding: 3px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--card); text-decoration: none; }
 main { max-width: 980px; margin: 0 auto; padding: 8px 16px 48px; }
-h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
+h2, h1.pt { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); margin: 24px 0 12px; }
 .sort-bar { display: flex; gap: 8px; margin: 8px 0 16px; flex-wrap: wrap; align-items: center; }
 .sort-bar select, .sort-bar input { font-size: 13px; padding: 5px 8px; border-radius: 6px;
   border: 1px solid var(--line); background: var(--card); color: var(--text); font-family: inherit; }
@@ -100,6 +105,13 @@ h2 { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--accent); 
 .detail table.multi th:first-child { text-align: left; }
 .detail table.pv { max-width: 320px; }
 .detail h3 { margin-top: 16px; font-size: 14px; }
+/* 商品ページの節見出しはh2。以前のh3と同じ見た目にする */
+.detail h2 { margin: 16px 0 0; font-size: 14px; padding: 0; border: 0; }
+.detail h1 .sub { font-size: 13px; font-weight: 500; color: var(--muted); }
+.detail ul.rel { list-style: none; margin-top: 6px; font-size: 13px; }
+.detail ul.rel li { border-bottom: 1px solid var(--line); padding: 6px 4px; }
+.detail ul.rel a { color: var(--accent); text-decoration: none; }
+.detail ul.rel .m { color: var(--muted); font-size: 12px; margin-left: 8px; }
 .detail details { margin-top: 10px; font-size: 13px; }
 .detail details summary { cursor: pointer; color: var(--accent); }
 .detail blockquote { border-left: 3px solid var(--accent); margin: 12px 0; padding: 8px 14px;
@@ -154,11 +166,11 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .item[data-chain="doutor"] .badge { background: var(--doutor); }
 @media (prefers-color-scheme: dark) { .item .badge, .chain-badge { color: #17130f; } }
 </style>
-
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "トップ", "item": "https://cafe.netaful.jp/"}, {"@type": "ListItem", "position": 2, "name": "タリーズ", "item": "https://cafe.netaful.jp/chains/tullys/"}, {"@type": "ListItem", "position": 3, "name": "青森県津軽産りんごのバター香るアップルパイ", "item": "https://cafe.netaful.jp/items/tullys-food-pastry-26_apple_pie.html"}]}</script>
 </head>
 <body>
 <header>
-<h1><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></h1>
+<div class="site-title"><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></div>
 <p>スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています</p>
 </header>
 
@@ -173,7 +185,7 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <p><strong>販売期間：</strong>2026-10-07（公式サイト掲載日）〜 販売中</p>
 <p><strong>カテゴリ：</strong>フード</p>
 
-<h3>栄養成分</h3><table><tr><th>熱量</th><td>279kcal</td></tr></table>
+<h2>栄養成分</h2><table><tr><th>熱量</th><td>279kcal</td></tr></table>
 <p class='tags'><strong>アレルゲン（含む）：</strong>卵、乳、小麦</p><p class='note'>公式ページの「特定原材料 8品目」の表示です。「特定原材料に準ずるもの20品目」は公式サイトでご確認ください。</p><p class='note'>最新のアレルギー情報は公式サイトでご確認ください：<a data-google-vignette="false" href="https://www.tullys.co.jp/menu/food/pastry/26_apple_pie.html" target="_blank" rel="noopener">タリーズコーヒー 商品情報</a></p>
 
 <div class="ad-slot">
@@ -185,7 +197,7 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
      data-full-width-responsive="true"></ins>
 </div>
 
-<h3>タリーズのネタフル最新レビュー</h3>
+<h2>タリーズのネタフル最新レビュー</h2>
 <div class="review-grid">
 <a data-google-vignette="false" class="review-card" href="https://netaful.jp/neta-eat/0126319.html" target="_blank" rel="noopener">
 <img src="https://netaful.jp/wp-content/uploads/2023/03/tullys-pasta-003-06-300x200.jpg" alt="【タリーズ】「粗びきビーフの絶品ボロネーゼ」「釜揚げしらすとズッキーニの瀬戸内レモンパスタ～青唐辛子風味～」を発売（3/8）" loading="lazy" width="300" height="200">
@@ -216,7 +228,17 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 </div>
 </a>
 </div>
-<h3>補足と出典</h3>
+
+<h2>同じ時期のタリーズの商品</h2>
+<ul class="rel">
+<li><a data-google-vignette="false" href="/items/tullys-food-sandwich-bagle_pumkin.html">ベーグルサンドパンプキン＆クリームチーズ</a><span class="m">420円（税込）・344kcal</span></li>
+<li><a data-google-vignette="false" href="/items/tullys-food-packagedsnacks-tullys_gurguru_cookie.html">タリーズぐるぐるプチクッキー</a><span class="m">340円（税込）・155kcal</span></li>
+<li><a data-google-vignette="false" href="/items/tullys-drink-tea-ginger_honey_lemonade_tea.html">＆TEA 国産生姜のジンジャーハニーレモネードティー</a><span class="m">640〜700円（税込）・164kcal</span></li>
+<li><a data-google-vignette="false" href="/items/tullys-drink-shaqool-pumpkin_pudding_sq.html">パンプキンプディング シェイクール</a><span class="m">730円（税込）・447kcal</span></li>
+<li><a data-google-vignette="false" href="/items/tullys-drink-coffee-26pumpkin_pudding_latte.html">パンプキンプディングラテ</a><span class="m">630〜750円（税込）・302kcal</span></li>
+<li><a data-google-vignette="false" href="/items/tullys-drink-coffee-aerocano.html">エアロカーノ</a><span class="m">510円（税込）・12kcal</span></li>
+</ul>
+<h2>補足と出典</h2>
 <p class='note'>発売日は不明のため、公式サイトの掲載日から表示しています。</p><p class='note'>取り扱い：店舗により取り扱いや価格が異なる場合があります</p>
 <p class='source'>出典：タリーズコーヒー公式サイト（2026-11-03時点）</p><p class='source'><a data-google-vignette="false" href="https://www.tullys.co.jp/menu/food/pastry/26_apple_pie.html" target="_blank" rel="noopener">公式の商品ページ</a> ・ <a data-google-vignette="false" href="https://www.tullys.co.jp/" target="_blank" rel="noopener">タリーズ公式サイト</a></p>
 
