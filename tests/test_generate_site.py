@@ -52,6 +52,261 @@ class TestSeo(unittest.TestCase):
         self.assertIn("<title>スターバックス「テストラテ」のカロリー・価格・栄養成分｜カフェポチ</title>", h)
 
 
+def with_caffeine(value, **kw):
+    n = item()["nutrition"]
+    n["other"] = dict(n["other"], カフェイン=value)
+    return item(nutrition=n, **kw)
+
+
+class TestCaffeineSeo(unittest.TestCase):
+    def test_title_and_description_with_caffeine(self):
+        it = with_caffeine("117mg")
+        self.assertEqual(g.seo_title(it), "スターバックス「テストラテ」のカロリー・カフェイン・価格")
+        self.assertIn("、246kcal・カフェイン117mg（Tall）、", g.seo_description(it))
+
+    def test_zero_caffeine_is_shown(self):
+        it = with_caffeine("0mg")
+        self.assertIn("カロリー・カフェイン・価格", g.seo_title(it))
+        self.assertIn("カフェイン0mg（Tall）", g.seo_description(it))
+
+    def test_without_caffeine_unchanged(self):
+        self.assertEqual(g.seo_title(item()), "スターバックス「テストラテ」のカロリー・価格・栄養成分")
+        self.assertNotIn("カフェイン", g.seo_description(item()))
+        self.assertNotIn("カフェイン", g.seo_title(item(nutrition={"kcal": 100.0, "other": {"カフェイン": "多め"}})))
+
+    def test_no_label_has_no_parens(self):
+        d = g.seo_description(with_caffeine("50mg", nutrition_label=None))
+        self.assertIn("246kcal・カフェイン50mg、", d)
+
+    def test_page_title(self):
+        h = g.render_item_page(with_caffeine("117mg"))
+        self.assertIn("<title>スターバックス「テストラテ」のカロリー・カフェイン・価格｜カフェポチ</title>", h)
+
+
+def dup_pair():
+    a = item(product_id="1", launch_date="2026-09-02")
+    b = item(product_id="2", launch_date="2026-11-02", price=650, price_max=None)
+    return [a, b]
+
+
+class TestSameName(unittest.TestCase):
+    def test_qualifier_by_launch_month(self):
+        q = g.name_qualifiers(dup_pair())
+        self.assertEqual(q[("starbucks", "1")], "2026年9月発売")
+        self.assertEqual(q[("starbucks", "2")], "2026年11月発売")
+
+    def test_same_month_falls_back_to_day_then_price(self):
+        a = item(product_id="1", launch_date="2026-11-02")
+        b = item(product_id="2", launch_date="2026-11-20")
+        q = g.name_qualifiers([a, b])
+        self.assertEqual(q[("starbucks", "2")], "2026年11月20日発売")
+        c = item(product_id="3", launch_date="2026-11-02", price=500, price_max=None)
+        d = item(product_id="4", launch_date="2026-11-02", price=600, price_max=None)
+        q = g.name_qualifiers([c, d])
+        self.assertEqual(q[("starbucks", "3")], "500円")
+
+    def test_indistinguishable_gets_none(self):
+        a = item(product_id="1", launch_date="2026-11-02", price_max=None, stores_note="X", category="A")
+        b = item(product_id="2", launch_date="2026-11-02", price_max=None, stores_note="X", category="A")
+        q = g.name_qualifiers([a, b])
+        self.assertEqual(q, {("starbucks", "1"): None, ("starbucks", "2"): None})
+        h = g.render_item_page(a, [a, b])
+        self.assertIn("スターバックス「テストラテ」のカロリー", h)  # 補足なし
+        self.assertIn("同じ名前の商品", h)  # リンクは出す
+
+    def test_name_match_is_nfkc_and_space_insensitive(self):
+        a = item(product_id="1", name="ＡＢ ラテ", launch_date="2026-09-02")
+        b = item(product_id="2", name="AB　ラテ", launch_date="2026-11-02")
+        self.assertEqual(len(g.name_qualifiers([a, b])), 2)
+
+    def test_other_chain_is_not_same_name(self):
+        a = item(product_id="1")
+        b = item(product_id="2", chain="komeda")
+        self.assertEqual(g.name_qualifiers([a, b]), {})
+
+    def test_page_for_duplicate(self):
+        a, b = dup_pair()
+        h = g.render_item_page(a, [a, b])
+        self.assertIn("<title>スターバックス「テストラテ」（2026年9月発売）のカロリー・価格・栄養成分｜カフェポチ</title>", h)
+        self.assertIn("「テストラテ」（2026年9月発売）、246kcal", h)
+        self.assertIn('<h1>テストラテ <span class="sub">（2026年9月発売）</span></h1>', h)
+        self.assertEqual(h.count("<h1"), 1)
+        self.assertIn("<h2>同じ名前の商品</h2>", h)
+        self.assertIn('href="/items/starbucks-2.html">テストラテ（2026年11月発売）</a>', h)
+        self.assertIn('<link rel="canonical" href="https://cafe.netaful.jp/items/starbucks-1.html">', h)
+
+    def test_non_duplicate_page_unchanged(self):
+        a = item(product_id="1")
+        b = item(product_id="2", name="べつの商品")
+        h = g.render_item_page(a, [a, b])
+        self.assertIn("<title>スターバックス「テストラテ」のカロリー・価格・栄養成分｜カフェポチ</title>", h)
+        self.assertIn("<h1>テストラテ</h1>", h)
+        self.assertNotIn("同じ名前の商品", h)
+
+
+class TestRelated(unittest.TestCase):
+    def make(self, n=20):
+        return [item(product_id=str(i), name=f"商品{i}", launch_date=f"2026-09-{i + 1:02d}") for i in range(n)]
+
+    def test_max_six_excludes_self_and_same_name(self):
+        items = self.make() + [item(product_id="99", name="商品10", launch_date="2026-09-11")]
+        rel = g.select_related_items(items[10], items)
+        self.assertEqual(len(rel), 6)
+        self.assertNotIn("10", [r["product_id"] for r in rel])
+        self.assertNotIn("99", [r["product_id"] for r in rel])  # 同名
+
+    def test_nearest_on_both_sides(self):
+        items = self.make()
+        ids = sorted(int(r["product_id"]) for r in g.select_related_items(items[10], items))
+        self.assertEqual(ids, [7, 8, 9, 11, 12, 13])
+
+    def test_deterministic_and_far_items_do_not_change_links(self):
+        items = self.make()
+        before = [r["product_id"] for r in g.select_related_items(items[3], items)]
+        again = [r["product_id"] for r in g.select_related_items(items[3], list(reversed(items)))]
+        self.assertEqual(before, again)
+        newer = items + [item(product_id="500", name="新商品", launch_date="2027-01-01")]
+        self.assertEqual(before, [r["product_id"] for r in g.select_related_items(items[3], newer)])
+
+    def test_same_category_first_then_fill_from_chain(self):
+        items = [item(product_id=str(i), name=f"商品{i}", launch_date=f"2026-09-{i + 1:02d}",
+                      category="A" if i < 3 else "B") for i in range(10)]
+        rel = g.select_related_items(items[0], items)
+        self.assertEqual(len(rel), 6)
+        self.assertTrue({"1", "2"} <= {r["product_id"] for r in rel})  # 同カテゴリは必ず入る
+
+    def test_other_chain_excluded_and_few(self):
+        a = item(product_id="1")
+        b = item(product_id="2", name="他社", chain="komeda")
+        self.assertEqual(g.select_related_items(a, [a, b]), [])
+
+    def test_page_has_plain_links(self):
+        items = self.make()
+        h = g.render_item_page(items[5], items)
+        self.assertIn("<h2>同じ時期のスターバックスの商品</h2>", h)
+        self.assertEqual(len(re.findall(r'href="/items/starbucks-\d+\.html"', h)), 6)
+        self.assertLess(h.index("同じ時期のスターバックス"), h.index("<h2>補足と出典</h2>"))
+
+
+class TestHeadingsAndBreadcrumbs(unittest.TestCase):
+    def test_item_page_single_h1_and_h2_sections(self):
+        h = g.render_item_page(item())
+        self.assertEqual(h.count("<h1"), 1)
+        self.assertIn('<div class="site-title">', h)
+        self.assertNotIn("<h3>", h)
+        for t in ("<h2>栄養成分（Tall）</h2>", "<h2>補足と出典</h2>"):
+            self.assertIn(t, h)
+
+    def test_top_keeps_site_h1(self):
+        h = g.render_top([item()])
+        self.assertEqual(h.count("<h1"), 1)
+        self.assertNotIn('class="site-title"', h)
+
+    def test_list_pages_have_one_h1(self):
+        for h in (g.render_grid_page("テスト", "d", [item()], "https://cafe.netaful.jp/chains/starbucks/"),
+                  g.render_grid_page("テスト", "d", [], "https://cafe.netaful.jp/chains/starbucks/"),
+                  g.render_archive_index([item(status="ended", ended_observed_at="2026-10-01")]),
+                  g.render_archive_index([]), g.render_chains_top()):
+            self.assertEqual(h.count("<h1"), 1)
+
+    def test_breadcrumb_jsonld_on_item(self):
+        h = g.render_item_page(item())
+        m = re.search(r'<script type="application/ld\+json">(\{"@context": "https://schema.org", "@type": "BreadcrumbList".*?)</script>', h)
+        data = json.loads(m.group(1))
+        els = data["itemListElement"]
+        self.assertEqual([e["position"] for e in els], [1, 2, 3])
+        self.assertEqual(els[0]["item"], "https://cafe.netaful.jp/")
+        self.assertEqual(els[1]["item"], "https://cafe.netaful.jp/chains/starbucks/")
+        self.assertEqual(els[2]["item"], "https://cafe.netaful.jp/items/starbucks-9001.html")
+        self.assertNotIn('"Product"', h)
+
+    def test_breadcrumb_escapes_script_end(self):
+        ld = g.breadcrumb_ld([("a</script>", "https://x/")])
+        self.assertEqual(ld.count("</script>"), 1)  # 末尾の閉じタグだけ
+
+
+class TestChainSeo(unittest.TestCase):
+    def test_title_and_description(self):
+        items = [item(product_id=str(i), name=f"新作{i}", launch_date=f"2026-10-{i + 1:02d}") for i in range(5)]
+        t, d = g.chain_seo(g.CHAINS[0], items)
+        self.assertEqual(t, "スターバックスの季節限定メニュー一覧（発売日順）")
+        self.assertIn("スターバックスの季節限定メニュー5件（販売中5件）を発売日順に記録。", d)
+        self.assertIn("「新作4」「新作3」「新作2」", d)
+        self.assertNotIn("新作1", d)
+        self.assertIn("カロリー・価格・栄養成分・アレルゲンを掲載", d)
+        self.assertLessEqual(len(d), 140)
+
+    def test_facts_only_what_exists(self):
+        it = item(nutrition=None, allergens=None)
+        _, d = g.chain_seo(g.CHAINS[0], [it])
+        self.assertNotIn("栄養成分", d)
+        self.assertNotIn("アレルゲン", d)
+        self.assertIn("価格", d)
+
+    def test_long_names_drop_to_fewer(self):
+        items = [item(product_id=str(i), name="長い名前" * 8 + str(i), launch_date=f"2026-10-{i + 1:02d}")
+                 for i in range(3)]
+        _, d = g.chain_seo(g.CHAINS[0], items)
+        self.assertLessEqual(len(d), 130)
+
+    def test_chain_page_title_and_breadcrumb(self):
+        c = g.CHAINS[0]
+        t, d = g.chain_seo(c, [item()])
+        url = "https://cafe.netaful.jp/chains/starbucks/"
+        h = g.render_grid_page(c["name"], d, [item()], url, seo_title=t,
+                               extra_head=g.breadcrumb_ld([("トップ", "https://cafe.netaful.jp/"), (c["name"], url)]))
+        self.assertIn("<title>スターバックスの季節限定メニュー一覧（発売日順）｜カフェポチ</title>", h)
+        self.assertIn('"BreadcrumbList"', h)
+
+
+class TestLastmod(unittest.TestCase):
+    def test_uses_change_dates_not_last_seen(self):
+        it = item(first_seen_at="2026-11-03T07:00:00+09:00", last_seen_at="2026-11-08")
+        self.assertEqual(g.latest_change_date(it), "2026-11-03")
+
+    def test_picks_latest_of_changes(self):
+        it = item(price_history=[{"date": "2026-11-03", "price": 1}, {"date": "2026-11-05", "price": 2}],
+                  nutrition_changes=[{"date": "2026-11-06"}], ended_observed_at="2026-11-07", status="ended",
+                  relaunches=[{"ended_observed_at": "2026-10-01", "reappeared_at": "2026-11-09"}])
+        self.assertEqual(g.latest_change_date(it), "2026-11-09")
+
+    def test_sitemap_lastmod(self):
+        a = item(product_id="1")
+        b = item(product_id="2", status="ended", ended_observed_at="2026-11-06",
+                 first_seen_at="2026-10-01T00:00:00+09:00", price_history=[])
+        sm = g.generate_sitemap([a, b], ["2026-09"])
+        self.assertIn("items/starbucks-1.html</loc><lastmod>2026-11-03</lastmod>", sm)
+        self.assertIn("items/starbucks-2.html</loc><lastmod>2026-11-06</lastmod>", sm)
+        self.assertIn("https://cafe.netaful.jp/</loc><lastmod>2026-11-06</lastmod>", sm)
+        self.assertIn("archive/</loc><lastmod>2026-11-06</lastmod>", sm)
+        self.assertIn("chains/komeda/</loc></url>", sm)  # 商品が無いチェーンは lastmod なし
+        self.assertNotIn(g.datetime.datetime.now(g.JST).date().isoformat(), sm)
+
+
+class TestMultiSizeCaffeineRow(unittest.TestCase):
+    def variants(self, caf):
+        def v(label, kcal, c):
+            other = {"飽和脂肪酸": "1g"}
+            if c:
+                other["カフェイン"] = c
+            return {"label": label, "nutrition": {"kcal": kcal, "protein_g": 1.0, "other": other}}
+        return [v("Short", 100.0, caf[0]), v("Tall", 150.0, caf[1])]
+
+    def test_row_added_with_missing_as_dash(self):
+        h = g.render_item_page(item(nutrition_variants=self.variants(["50mg", None])))
+        self.assertIn("<tr><th>カフェイン</th><td>50mg</td><td>－</td></tr>", h)
+        self.assertNotIn("<th>飽和脂肪酸</th>", h)  # カフェイン以外のotherは足さない
+
+    def test_no_row_when_no_size_has_caffeine(self):
+        h = g.render_item_page(item(nutrition_variants=self.variants([None, None])))
+        self.assertNotIn("<th>カフェイン</th>", h)
+
+    def test_single_size_table_unchanged(self):
+        h = g.render_item_page(with_caffeine("117mg"))
+        self.assertEqual(h.count("<th>カフェイン</th>"), 1)
+        self.assertNotIn("table class='multi'", h)
+
+
 class TestPrice(unittest.TestCase):
     def test_formats(self):
         self.assertEqual(g.fmt_price(item(price=690, price_max=None)), "690円（税込）")
