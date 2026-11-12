@@ -93,7 +93,7 @@
  "last_seen_at": "2026-11-12",
  "status": "on_sale",
  "ended_observed_at": null,
- "missed_runs": 0,
+ "missed_runs": 1,
  "price_history": [
   {
    "date": "2026-11-03",
@@ -106,5 +106,6 @@
   "menu.starbucks.co.jp/api/v1/list?tag=new",
   "product.starbucks.co.jp/allergy/json/nutritions.json"
  ],
- "nutrition_label": "Tall"
+ "nutrition_label": "Tall",
+ "last_miss_date": "2026-11-13"
 }

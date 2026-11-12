@@ -1,0 +1,111 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785657328",
+ "name": "ポテト スープチーノ®",
+ "category": "ビバレッジ",
+ "price": 500,
+ "price_max": 540,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": "2026-11-18",
+ "launch_date_source": "press_release_body",
+ "news_title": "スターバックス初のカプセルトイ『スターバックス ジョイフル カプセル』11月18日（水）全国発売人気ビバレッジやフードをモチーフにした“ぬいチャーム”全5種が登場",
+ "news_url": "https://stories.starbucks.co.jp/press/2026/pr-2026-1111/",
+ "news_date": "2026-11-11",
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 247,
+  "protein_g": 8.9,
+  "fat_g": 10.4,
+  "carbs_g": 29.8,
+  "sugar_g": 28.6,
+  "fiber_g": 1.2,
+  "salt_g": 1.68,
+  "other": {
+   "飽和脂肪酸": "5.8g",
+   "トランス脂肪酸": "0.24g",
+   "ナトリウム": "658mg",
+   "カリウム": "496mg",
+   "カフェイン": "0mg"
+  }
+ },
+ "nutrition_variants": [
+  {
+   "label": "Short",
+   "nutrition": {
+    "kcal": 155,
+    "protein_g": 5.5,
+    "fat_g": 6.4,
+    "carbs_g": 19.1,
+    "sugar_g": 18.3,
+    "fiber_g": 0.8,
+    "salt_g": 1.1,
+    "other": {
+     "飽和脂肪酸": "3.5g",
+     "トランス脂肪酸": "0.14g",
+     "ナトリウム": "433mg",
+     "カリウム": "307mg",
+     "カフェイン": "0mg"
+    }
+   }
+  },
+  {
+   "label": "Tall",
+   "nutrition": {
+    "kcal": 247,
+    "protein_g": 8.9,
+    "fat_g": 10.4,
+    "carbs_g": 29.8,
+    "sugar_g": 28.6,
+    "fiber_g": 1.2,
+    "salt_g": 1.68,
+    "other": {
+     "飽和脂肪酸": "5.8g",
+     "トランス脂肪酸": "0.24g",
+     "ナトリウム": "658mg",
+     "カリウム": "496mg",
+     "カフェイン": "0mg"
+    }
+   }
+  }
+ ],
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "アーモンド"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785657328",
+ "first_seen_at": "2026-11-13T08:00:16+09:00",
+ "last_seen_at": "2026-11-13",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-13",
+   "price": 500,
+   "price_max": 540
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}
