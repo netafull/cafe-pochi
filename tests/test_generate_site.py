@@ -775,5 +775,24 @@ class TestCardLinksAreRootAbsolute(unittest.TestCase):
         self.assertNotIn('href="items/', html)
 
 
+class TestVisibleBreadcrumbs(unittest.TestCase):
+    """見えるパンくず（タイトルの下）。crumbs を渡したグリッドページだけに出す（2026-11-13追加）。"""
+
+    TRAIL = [("トップ", "https://cafe.netaful.jp/"),
+             ("スターバックス", "https://cafe.netaful.jp/chains/starbucks/")]
+
+    def test_grid_page_with_crumbs_shows_nav_under_title(self):
+        html = g.render_grid_page("スターバックスの季節限定メニュー", "d", [item()],
+                                  "https://cafe.netaful.jp/chains/starbucks/", crumbs=self.TRAIL)
+        nav = ('<nav class="crumbs" aria-label="パンくずリスト"><a data-google-vignette="false" href="/">トップ</a>'
+               ' &gt; <span aria-current="page">スターバックス</span></nav>')
+        self.assertIn(nav, html)
+        self.assertLess(html.index('<h1 class="pt">'), html.index(nav))
+
+    def test_grid_page_without_crumbs_has_no_nav(self):
+        html = g.render_grid_page("チェーン", "d", [item()], "https://x/")
+        self.assertNotIn('aria-label="パンくずリスト"', html)
+
+
 if __name__ == "__main__":
     unittest.main()
