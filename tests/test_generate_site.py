@@ -812,8 +812,8 @@ class TestCategoryIcons(unittest.TestCase):
         self.assertEqual(g.category_icon(item(category="フード", name="コルネッティ"))[0], "bread")
 
     def test_unguessable_without_category_has_no_icon(self):
-        self.assertIsNone(g.category_icon(item(category=None, name="蜜芋オレ")))
-        self.assertNotIn("cat-icon", g.render_card(item(category=None, name="蜜芋オレ")))
+        self.assertIsNone(g.category_icon(item(category=None, name="季節のおすすめ")))
+        self.assertNotIn("cat-icon", g.render_card(item(category=None, name="季節のおすすめ")))
 
     def test_card_has_icon_first(self):
         h = g.render_card(item())
