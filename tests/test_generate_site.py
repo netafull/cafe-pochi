@@ -796,3 +796,30 @@ class TestVisibleBreadcrumbs(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCategoryIcons(unittest.TestCase):
+    def test_mapped_category(self):
+        self.assertEqual(g.category_icon(item(category="ビバレッジ"))[0], "drink")
+        self.assertEqual(g.category_icon(item(category="ドリンク"))[0], "drink")
+        self.assertEqual(g.category_icon(item(category="デザート", name="新作プリン"))[0], "sweets")
+
+    def test_no_category_is_guessed_from_name(self):
+        self.assertEqual(g.category_icon(item(category=None, name="クリスマスミルクレープ"))[0], "sweets")
+
+    def test_food_category_guesses_then_falls_back_to_bread(self):
+        self.assertEqual(g.category_icon(item(category="フード", name="アールグレイシフォンケーキ"))[0], "sweets")
+        self.assertEqual(g.category_icon(item(category="フード", name="コルネッティ"))[0], "bread")
+
+    def test_unguessable_without_category_has_no_icon(self):
+        self.assertIsNone(g.category_icon(item(category=None, name="蜜芋オレ")))
+        self.assertNotIn("cat-icon", g.render_card(item(category=None, name="蜜芋オレ")))
+
+    def test_card_has_icon_first(self):
+        h = g.render_card(item())
+        self.assertIn('<img class="cat-icon" src="/assets/icons/cat/drink.svg"', h)
+        self.assertLess(h.index("cat-icon"), h.index('class="badge"'))
+
+    def test_every_slug_used_has_file(self):
+        for slug in set(g.CATEGORY_ICONS.values()) | {g.FOOD_FALLBACK_ICON} | g.GUESS_ALLOWED:
+            self.assertTrue((g.DOCS / "assets" / "icons" / "cat" / f"{slug}.svg").is_file(), slug)

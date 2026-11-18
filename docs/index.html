@@ -156,6 +156,14 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
 /* カード一覧(.grid)の中に差し込まれる枠は、カード1枚ぶんのマス(列幅)を使う */
 .grid > .ad-slot { max-width: none; margin: 0; }
+/* 2026-11-18 カードのカテゴリアイコン（ドット絵32px）。元の32マスの倍数で出すと点がそろう */
+.cat-icon { width: 48px; height: 48px; flex-shrink: 0; image-rendering: pixelated; }
+.item:has(> .cat-icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.item-body { min-width: 0; }
+@media (min-width: 700px) {
+  .cat-icon { width: 64px; height: 64px; }
+  .grid:has(.cat-icon) { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
 .chain-group[data-chain="starbucks"] h3 { border-color: var(--starbucks); }
 .item[data-chain="starbucks"] .badge { background: var(--starbucks); }
 .chain-group[data-chain="tullys"] h3 { border-color: var(--tullys); }
@@ -171,7 +179,7 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <body>
 <header>
 <h1><a data-google-vignette="false" href="/"><img src="/assets/logo.png" alt="" width="44" height="44">カフェポチ</a></h1>
-<p>スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています ｜ 最終更新: 2026年11月18日 08:01</p>
+<p>スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています ｜ 最終更新: 2026年11月18日 14:00</p>
 </header>
 <div class="ad-slot">
 <ins class="adsbygoogle"
@@ -278,291 +286,291 @@ placeholder="メニュー名で検索（例: パンプキン、モンブラン�
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657328.html" data-kcal="247"
    data-date="2026-11-18" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ポテト スープチーノ®</div>
   <div class="price">500〜540円（税込）<span class="kcal">247kcal</span></div>
   <div class="meta">2026-11-18〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785033153.html" data-kcal="329"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジンジャーブレッド ラテ</div>
   <div class="price">561〜710円（税込）<span class="kcal">329kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785140837.html" data-kcal="236"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジンジャーブレッド ラテ（アイス）</div>
   <div class="price">561〜710円（税込）<span class="kcal">236kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785343986.html" data-kcal="2"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー ティー</div>
   <div class="price">510〜620円（税込）<span class="kcal">2kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785343993.html" data-kcal="186"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー ティー ラテ</div>
   <div class="price">540〜690円（税込）<span class="kcal">186kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785443655.html" data-kcal="285"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">クレーム ブリュレ ラテ</div>
   <div class="price">1,300円（税込）<span class="kcal">285kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785485464.html" data-kcal="309"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ウィンター シナモン ラテ</div>
   <div class="price">990〜1,050円（税込）<span class="kcal">309kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785519169.html" data-kcal="230"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ロースタリー シナモン ラテ</div>
   <div class="price">1,100円（税込）<span class="kcal">230kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785557222.html" data-kcal="20"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー フルリーフ</div>
   <div class="price">640円（税込）<span class="kcal">20kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785579521.html" data-kcal="197"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ストロベリー&amp;クランベリーブリスバー</div>
   <div class="price">350円（税込）<span class="kcal">197kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785580923.html" data-kcal="72"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー ティー ソーダ</div>
   <div class="price">1,700円（税込）<span class="kcal">72kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785608504.html" data-kcal="352"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">スターバックス リザーブ® スイート ミルクコーヒー</div>
   <div class="price">870円（税込）<span class="kcal">352kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785608894.html" data-kcal="417"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">コルネッティ ティラミス</div>
   <div class="price">880円（税込）<span class="kcal">417kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785648685.html" data-kcal="964"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">シュトーレン</div>
   <div class="price">2,500円（税込）<span class="kcal">964kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785648692.html" data-kcal="460"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジンジャーブレッドクッキー</div>
   <div class="price">1,890円（税込）<span class="kcal">460kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785648777.html" data-kcal="335"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ストロベリー&amp;生チョコレートケーキ</div>
   <div class="price">590円（税込）<span class="kcal">335kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785652910.html" data-kcal="211"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">スターバックス リザーブ® コーヒー &amp; エスプレッソクリーム フラペチーノ®</div>
   <div class="price">900円（税込）<span class="kcal">211kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785654624.html" data-kcal="66"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">オレンジ ラズベリー チャイ</div>
   <div class="price">1,100円（税込）<span class="kcal">66kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785654631.html" data-kcal="261"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー バニラ クリーム ティー ラテ</div>
   <div class="price">1,200円（税込）<span class="kcal">261kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785655560.html" data-kcal="161"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ホット アップル サイダー with ウイスキー バレルエイジド コーヒー</div>
   <div class="price">1,300円（税込）<span class="kcal">161kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785655591.html" data-kcal="97"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ストロベリー フィズ No.68 with バレルエイジド アロマ （スピリットフリー）</div>
   <div class="price">1,900円（税込）<span class="kcal">97kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785658097.html" data-kcal="379"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ピスタチオ ストロベリー ジュエル ラテ</div>
   <div class="price">990円（税込）<span class="kcal">379kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785661356.html" data-kcal="400"
    data-date="2026-11-03" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ラ クレーム ショコラ</div>
   <div class="price">1,500円（税込）<span class="kcal">400kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785649842.html" data-kcal="242"
    data-date="2026-11-03" data-chain="starbucks" data-status="ended">
-  <div class="badge">スターバックス</div><span class="st st-ended">終了</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-ended">終了</span>
   <div class="t">パンプキン スープチーノ®</div>
   <div class="price">500〜540円（税込）<span class="kcal">242kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜2026-11-14・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785608429.html" data-kcal="282"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ストロベリー ラベンダー ラテ</div>
   <div class="price">880円（税込）<span class="kcal">282kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785608849.html" data-kcal="254"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">コルネッティ</div>
   <div class="price">420円（税込）<span class="kcal">254kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785644854.html" data-kcal="359"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">アールグレイストロベリーシフォンケーキ</div>
   <div class="price">520円（税込）<span class="kcal">359kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785651937.html" data-kcal="418"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ロイヤルミルクティードーナツ</div>
   <div class="price">310円（税込）<span class="kcal">418kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785651944.html" data-kcal="362"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">アールグレイストロベリースコーン</div>
   <div class="price">290円（税込）<span class="kcal">362kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785652897.html" data-kcal="389"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/bread.svg" width="32" height="32" alt="パン" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">コルネッティ ストロベリー&amp;ラズベリー</div>
   <div class="price">540円（税込）<span class="kcal">389kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657342.html" data-kcal="246"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ロイヤル ミルク ティー</div>
   <div class="price">620円（税込）<span class="kcal">246kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657359.html" data-kcal="418"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">アールグレイ チョコレート フラペチーノ®</div>
   <div class="price">690円（税込）<span class="kcal">418kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657366.html" data-kcal="341"
    data-date="2026-11-02" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー ストロベリー クリーミー ティー ラテ</div>
   <div class="price">650円（税込）<span class="kcal">341kcal</span></div>
   <div class="meta">2026-11-02〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657298.html" data-kcal="89"
    data-date="2026-10-28" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー フルーツ シェイクン ティー</div>
   <div class="price">740円（税込）<span class="kcal">89kcal</span></div>
   <div class="meta">2026-10-28〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657304.html" data-kcal="164"
    data-date="2026-10-28" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー アプリコット ムース ティー ラテ</div>
   <div class="price">720円（税込）<span class="kcal">164kcal</span></div>
   <div class="meta">2026-10-28〜 販売中・新作</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/starbucks-4524785657311.html" data-kcal="226"
    data-date="2026-10-28" data-chain="starbucks" data-status="on_sale">
-  <div class="badge">スターバックス</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">スターバックス</div><span class="st st-on">販売中</span>
   <div class="t">ジョイフルメドレー ティージェリー フラペチーノ®</div>
   <div class="price">790円（税込）<span class="kcal">226kcal</span></div>
   <div class="meta">2026-10-28〜 販売中・新作</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -571,67 +579,67 @@ placeholder="メニュー名で検索（例: パンプキン、モンブラン�
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-coffee-26pumpkin_pudding_latte.html" data-kcal="302.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">パンプキンプディングラテ</div>
   <div class="price">630〜750円（税込）<span class="kcal">302kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-shaqool-pumpkin_pudding_sq.html" data-kcal="447.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">パンプキンプディング シェイクール</div>
   <div class="price">730円（税込）<span class="kcal">447kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-tea-ginger_honey_lemonade_tea.html" data-kcal="164.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">＆TEA 国産生姜のジンジャーハニーレモネードティー</div>
   <div class="price">640〜700円（税込）<span class="kcal">164kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-tea-pumpkin_chai_milk_tea.html" data-kcal="249.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">＆TEA パンプキンチャイミルクティー</div>
   <div class="price">640円（税込）<span class="kcal">249kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-packagedsnacks-tullys_gurguru_cookie.html" data-kcal="155.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/snack.svg" width="32" height="32" alt="お菓子" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">タリーズぐるぐるプチクッキー</div>
   <div class="price">340円（税込）<span class="kcal">155kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-pastry-26_apple_pie.html" data-kcal="279.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">青森県津軽産りんごのバター香るアップルパイ</div>
   <div class="price">390円（税込）<span class="kcal">279kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-sandwich-bagle_pumkin.html" data-kcal="344.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sandwich.svg" width="32" height="32" alt="サンドイッチ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">ベーグルサンドパンプキン＆クリームチーズ</div>
   <div class="price">420円（税込）<span class="kcal">344kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-coffee-aerocano.html" data-kcal="12.0"
    data-date="2026-09-28" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">エアロカーノ</div>
   <div class="price">510円（税込）<span class="kcal">12kcal</span></div>
   <div class="meta">2026-09-28〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -640,83 +648,83 @@ placeholder="メニュー名で検索（例: パンプキン、モンブラン�
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/komeda-11073.html" data-kcal="227.0"
    data-date="2026-11-03" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">純栗ぃむ（単品）</div>
   <div class="price">530〜590円（税込）<span class="kcal">227kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11833.html" data-kcal="217.0"
    data-date="2026-10-28" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">おいもの煌めき（単品）</div>
   <div class="price">530〜590円（税込）<span class="kcal">217kcal</span></div>
   <div class="meta">2026-10-28〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11835.html" data-kcal="271.0"
    data-date="2026-10-28" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">キャラメルドルチェ（単品）</div>
   <div class="price">530〜590円（税込）<span class="kcal">271kcal</span></div>
   <div class="meta">2026-10-28〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11837.html" data-kcal="237.0"
    data-date="2026-10-28" data-chain="komeda" data-status="ended">
-  <div class="badge">コメダ珈琲店</div><span class="st st-ended">終了</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-ended">終了</span>
   <div class="t">フローラルチョコムース（単品）</div>
   <div class="price">530〜590円（税込）<span class="kcal">237kcal</span></div>
   <div class="meta">2026-10-28〜2026-11-11・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11814.html" data-kcal="914.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/burger.svg" width="32" height="32" alt="ハンバーガー" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">お好み焼バーガー</div>
   <div class="price">950〜1,020円（税込）<span class="kcal">914kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11819.html" data-kcal="1035.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">シロノワール キャラメルアップル（単品）</div>
   <div class="price">920〜980円（税込）<span class="kcal">1035kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11821.html" data-kcal="491.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">シロノワール キャラメルアップル ミニサイズ（単品）</div>
   <div class="price">720〜780円（税込）<span class="kcal">491kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11823.html" data-kcal="522.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">クロネージュ キャラメルアップル（単品）</div>
   <div class="price">770〜830円（税込）<span class="kcal">522kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11825.html" data-kcal="331.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">キャラメルスイート ジェリコ</div>
   <div class="price">680〜920円（税込）<span class="kcal">331kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/komeda-11826.html" data-kcal="263.0"
    data-date="2026-10-14" data-chain="komeda" data-status="on_sale">
-  <div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">コメダ珈琲店</div><span class="st st-on">販売中</span>
   <div class="t">キャラメルスイート オーレ</div>
   <div class="price">630〜870円（税込）<span class="kcal">263kcal</span></div>
   <div class="meta">2026-10-14〜 販売中・季節限定</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -725,11 +733,11 @@ placeholder="メニュー名で検索（例: パンプキン、モンブラン�
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/doutor-20140818181442.html" data-kcal="328.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">ミルクレープ</div>
   <div class="price">440円（税込）<span class="kcal">328kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20260908084729.html" data-kcal="329.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
@@ -741,35 +749,35 @@ placeholder="メニュー名で検索（例: パンプキン、モンブラン�
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20261009155739.html" data-kcal="300.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sozai.svg" width="32" height="32" alt="惣菜・揚げ物" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">ホットモーニング スモークチキン～きのこクリーム～</div>
   <div class="price">570円〜（税込）<span class="kcal">300kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20261009160520.html" data-kcal="331.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">パリパリチョコキャラメルミルクレープ</div>
   <div class="price">560円（税込）<span class="kcal">331kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-sx-4b5802ce18.html" data-kcal=""
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">和栗のクリスマスモンブラン（5号/直径約15cm）</div>
   <div class="price">4,700円（税込）</div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-sx-8cb47ddf60.html" data-kcal=""
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">クリスマスミルクレープ（5号/直径約15cm）</div>
   <div class="price">4,300円（税込）</div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -928,6 +936,7 @@ function computeAdPlan(counts, every, max) {
 <a data-google-vignette="false" href="https://onsen.netaful.jp/">温泉宿ポチ<span class="lbl"> 温泉地の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://ritou.netaful.jp/">離島宿ポチ<span class="lbl"> 島の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://michinoeki.netaful.jp/">道の駅ポチ<span class="lbl"> 道の駅の駐車場と設備</span></a>
+<a data-google-vignette="false" href="https://shinhatsubai.netaful.jp/">新発売ポチ<span class="lbl"> 新商品を発売日でまとめて</span></a>
 </nav>
 </footer>
 

@@ -156,6 +156,14 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
 /* カード一覧(.grid)の中に差し込まれる枠は、カード1枚ぶんのマス(列幅)を使う */
 .grid > .ad-slot { max-width: none; margin: 0; }
+/* 2026-11-18 カードのカテゴリアイコン（ドット絵32px）。元の32マスの倍数で出すと点がそろう */
+.cat-icon { width: 48px; height: 48px; flex-shrink: 0; image-rendering: pixelated; }
+.item:has(> .cat-icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.item-body { min-width: 0; }
+@media (min-width: 700px) {
+  .cat-icon { width: 64px; height: 64px; }
+  .grid:has(.cat-icon) { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
 .chain-group[data-chain="starbucks"] h3 { border-color: var(--starbucks); }
 .item[data-chain="starbucks"] .badge { background: var(--starbucks); }
 .chain-group[data-chain="tullys"] h3 { border-color: var(--tullys); }
@@ -195,67 +203,67 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-coffee-26pumpkin_pudding_latte.html" data-kcal="302.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">パンプキンプディングラテ</div>
   <div class="price">630〜750円（税込）<span class="kcal">302kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-shaqool-pumpkin_pudding_sq.html" data-kcal="447.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">パンプキンプディング シェイクール</div>
   <div class="price">730円（税込）<span class="kcal">447kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-tea-ginger_honey_lemonade_tea.html" data-kcal="164.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">＆TEA 国産生姜のジンジャーハニーレモネードティー</div>
   <div class="price">640〜700円（税込）<span class="kcal">164kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-tea-pumpkin_chai_milk_tea.html" data-kcal="249.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">＆TEA パンプキンチャイミルクティー</div>
   <div class="price">640円（税込）<span class="kcal">249kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-packagedsnacks-tullys_gurguru_cookie.html" data-kcal="155.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/snack.svg" width="32" height="32" alt="お菓子" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">タリーズぐるぐるプチクッキー</div>
   <div class="price">340円（税込）<span class="kcal">155kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-pastry-26_apple_pie.html" data-kcal="279.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">青森県津軽産りんごのバター香るアップルパイ</div>
   <div class="price">390円（税込）<span class="kcal">279kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-food-sandwich-bagle_pumkin.html" data-kcal="344.0"
    data-date="2026-10-07" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sandwich.svg" width="32" height="32" alt="サンドイッチ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">ベーグルサンドパンプキン＆クリームチーズ</div>
   <div class="price">420円（税込）<span class="kcal">344kcal</span></div>
   <div class="meta">2026-10-07（公式サイト掲載日）〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/tullys-drink-coffee-aerocano.html" data-kcal="12.0"
    data-date="2026-09-28" data-chain="tullys" data-status="on_sale">
-  <div class="badge">タリーズ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/drink.svg" width="32" height="32" alt="ドリンク" loading="lazy" decoding="async"><div class="item-body"><div class="badge">タリーズ</div><span class="st st-on">販売中</span>
   <div class="t">エアロカーノ</div>
   <div class="price">510円（税込）<span class="kcal">12kcal</span></div>
   <div class="meta">2026-09-28〜 販売中・季節の新商品</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -445,6 +453,7 @@ function computeAdPlan(counts, every, max) {
 <a data-google-vignette="false" href="https://onsen.netaful.jp/">温泉宿ポチ<span class="lbl"> 温泉地の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://ritou.netaful.jp/">離島宿ポチ<span class="lbl"> 島の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://michinoeki.netaful.jp/">道の駅ポチ<span class="lbl"> 道の駅の駐車場と設備</span></a>
+<a data-google-vignette="false" href="https://shinhatsubai.netaful.jp/">新発売ポチ<span class="lbl"> 新商品を発売日でまとめて</span></a>
 </nav>
 </footer>
 

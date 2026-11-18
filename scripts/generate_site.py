@@ -20,6 +20,8 @@ import shutil
 import unicodedata
 from pathlib import Path
 
+from icon_guess import guess_icon
+
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
 DATA = ROOT / "data"
@@ -256,6 +258,49 @@ def period_text(item: dict, detailed: bool = False) -> str:
     return s
 
 
+# カテゴリ名 -> アイコン(docs/assets/icons/cat/<slug>.svg)。(チェーン, カテゴリ)ではなくカテゴリ名だけで引く
+# (このサイトの4社はカテゴリ名の意味が揃っている)。「フード」「スナック」は中身がパン・軽食・菓子と混在するため
+# ここには入れず、商品名からの推定(icon_guess.py)を先に試し、当たらなければ bread にする。
+CATEGORY_ICONS = {"ビバレッジ": "drink", "ドリンク": "drink", "デザート": "sweets"}
+FOOD_CATEGORIES = ("フード", "スナック")
+FOOD_FALLBACK_ICON = "bread"
+# 推定してよいアイコン。カフェのメニューに出ない種類(お好み焼き→soup など)に誤って当たるのを避ける
+GUESS_ALLOWED = {"sweets", "bread", "sandwich", "snack", "sozai", "ice", "drink", "burger", "pasta", "salad"}
+ICON_LABELS = {
+    "onigiri": "おにぎり", "bento": "弁当・ごはん", "donburi": "丼・定食", "curry": "カレー", "sushi": "寿司",
+    "sandwich": "サンドイッチ", "burger": "ハンバーガー", "bread": "パン", "noodles": "麺", "pasta": "パスタ",
+    "cupnoodle": "カップ麺", "sozai": "惣菜・揚げ物", "salad": "サラダ", "soup": "スープ・グラタン",
+    "chukaman": "中華まん", "sweets": "スイーツ", "ice": "アイス", "snack": "お菓子", "drink": "ドリンク",
+    "alcohol": "お酒", "other": "その他",
+}
+
+
+def category_icon(item: dict) -> tuple[str, str] | None:
+    """商品のアイコン (slug, 代替テキスト)。なければ None(「その他」にはしない)。
+    推定した slug はアイコンと代替テキストにだけ使い、カテゴリ名としては表示しない。"""
+    cat = item.get("category")
+    slug = CATEGORY_ICONS.get(cat) if cat else None
+    if not slug:
+        guessed = guess_icon(item.get("name"), "cafe")
+        if guessed == "soup" and "バーガー" in (item.get("name") or ""):
+            guessed = "burger"  # 「お好み焼バーガー」がお好み焼き(soup)に当たるのを直す
+        if guessed in GUESS_ALLOWED:
+            slug = guessed
+        elif cat in FOOD_CATEGORIES:
+            slug = FOOD_FALLBACK_ICON
+    if slug and slug in ICON_LABELS and has_asset(f"icons/cat/{slug}.svg"):
+        return slug, ICON_LABELS[slug]
+    return None
+
+
+def icon_img(item: dict, cls: str, size: int) -> str:
+    icon = category_icon(item)
+    if not icon:
+        return ""
+    return (f'<img class="{cls}" src="/assets/icons/cat/{icon[0]}.svg" width="{size}" height="{size}" '
+            f'alt="{esc(icon[1])}" loading="lazy" decoding="async">')
+
+
 def render_card(item: dict) -> str:
     chain_name = CHAIN_NAME.get(item["chain"], item["chain"])
     date = effective_date(item) or ""
@@ -265,13 +310,15 @@ def render_card(item: dict) -> str:
     status = "ended" if is_ended(item) else "on_sale"
     status_html = '<span class="st st-ended">終了</span>' if is_ended(item) else '<span class="st st-on">販売中</span>'
     kind = item.get("limited_kind") or ""
+    icon = icon_img(item, "cat-icon", 32)
+    body_open, body_close = ('<div class="item-body">', "</div>") if icon else ("", "")
     return f"""<a class="item" href="/{esc(item_url(item))}" data-kcal="{kcal if kcal is not None else ''}"
    data-date="{esc(date)}" data-chain="{esc(item['chain'])}" data-status="{status}">
-  <div class="badge">{esc(chain_name)}</div>{status_html}
+  {icon}{body_open}<div class="badge">{esc(chain_name)}</div>{status_html}
   <div class="t">{esc(item['name'])}</div>
   <div class="price">{esc(fmt_price(item))}{kcal_html}</div>
   <div class="meta">{esc(period_text(item))}{('・' + esc(kind)) if kind else ''}</div>
-  {review_html}
+  {review_html}{body_close}
 </a>"""
 
 
@@ -403,6 +450,14 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
 /* カード一覧(.grid)の中に差し込まれる枠は、カード1枚ぶんのマス(列幅)を使う */
 .grid > .ad-slot { max-width: none; margin: 0; }
+/* 2026-11-18 カードのカテゴリアイコン（ドット絵32px）。元の32マスの倍数で出すと点がそろう */
+.cat-icon { width: 48px; height: 48px; flex-shrink: 0; image-rendering: pixelated; }
+.item:has(> .cat-icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.item-body { min-width: 0; }
+@media (min-width: 700px) {
+  .cat-icon { width: 64px; height: 64px; }
+  .grid:has(.cat-icon) { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
 """
 
 

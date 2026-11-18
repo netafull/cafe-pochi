@@ -156,6 +156,14 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .ad-slot:has(ins[data-ad-status="unfilled"]) { display: none; }
 /* カード一覧(.grid)の中に差し込まれる枠は、カード1枚ぶんのマス(列幅)を使う */
 .grid > .ad-slot { max-width: none; margin: 0; }
+/* 2026-11-18 カードのカテゴリアイコン（ドット絵32px）。元の32マスの倍数で出すと点がそろう */
+.cat-icon { width: 48px; height: 48px; flex-shrink: 0; image-rendering: pixelated; }
+.item:has(> .cat-icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: start; }
+.item-body { min-width: 0; }
+@media (min-width: 700px) {
+  .cat-icon { width: 64px; height: 64px; }
+  .grid:has(.cat-icon) { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
 .chain-group[data-chain="starbucks"] h3 { border-color: var(--starbucks); }
 .item[data-chain="starbucks"] .badge { background: var(--starbucks); }
 .chain-group[data-chain="tullys"] h3 { border-color: var(--tullys); }
@@ -195,11 +203,11 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 <div class="grid" data-sortable>
 <a data-google-vignette="false" class="item" href="/items/doutor-20140818181442.html" data-kcal="328.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">ミルクレープ</div>
   <div class="price">440円（税込）<span class="kcal">328kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20260908084729.html" data-kcal="329.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
@@ -211,35 +219,35 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20261009155739.html" data-kcal="300.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sozai.svg" width="32" height="32" alt="惣菜・揚げ物" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">ホットモーニング スモークチキン～きのこクリーム～</div>
   <div class="price">570円〜（税込）<span class="kcal">300kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-20261009160520.html" data-kcal="331.0"
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">パリパリチョコキャラメルミルクレープ</div>
   <div class="price">560円（税込）<span class="kcal">331kcal</span></div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-sx-4b5802ce18.html" data-kcal=""
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">和栗のクリスマスモンブラン（5号/直径約15cm）</div>
   <div class="price">4,700円（税込）</div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 <a data-google-vignette="false" class="item" href="/items/doutor-sx-8cb47ddf60.html" data-kcal=""
    data-date="2026-11-03" data-chain="doutor" data-status="on_sale">
-  <div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
+  <img class="cat-icon" src="/assets/icons/cat/sweets.svg" width="32" height="32" alt="スイーツ" loading="lazy" decoding="async"><div class="item-body"><div class="badge">ドトールコーヒーショップ</div><span class="st st-on">販売中</span>
   <div class="t">クリスマスミルクレープ（5号/直径約15cm）</div>
   <div class="price">4,300円（税込）</div>
   <div class="meta">2026-11-03（記録開始日）〜 販売中・季節のおすすめ</div>
-  
+  </div>
 </a>
 </div>
 </section>
@@ -429,6 +437,7 @@ function computeAdPlan(counts, every, max) {
 <a data-google-vignette="false" href="https://onsen.netaful.jp/">温泉宿ポチ<span class="lbl"> 温泉地の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://ritou.netaful.jp/">離島宿ポチ<span class="lbl"> 島の空室を、すぐ探す</span></a>
 <a data-google-vignette="false" href="https://michinoeki.netaful.jp/">道の駅ポチ<span class="lbl"> 道の駅の駐車場と設備</span></a>
+<a data-google-vignette="false" href="https://shinhatsubai.netaful.jp/">新発売ポチ<span class="lbl"> 新商品を発売日でまとめて</span></a>
 </nav>
 </footer>
 
