@@ -4,9 +4,9 @@
  "starbucks": {},
  "tullys": {
   "_suspected_restructure": {
-   "consecutive_days": 14,
+   "consecutive_days": 15,
    "count": 10,
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "first_date": "2026-11-06",
    "list_size": 10,
    "reason": "suspected_restructure",

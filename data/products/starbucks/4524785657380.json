@@ -1,0 +1,71 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785657380",
+ "name": "ティラミス ラテ",
+ "category": "ビバレッジ",
+ "price": 630,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": "2026-11-20",
+ "launch_date_source": "press_release",
+ "news_title": "エスプレッソのコクとマスカルポーネの王道ティラミスのようなこの一杯で『ティラミス ラテ』を11月20日（金）より発売",
+ "news_url": "https://stories.starbucks.co.jp/press/2026/pr-2026-1117/",
+ "news_date": "2026-11-17",
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 359,
+  "protein_g": 11.3,
+  "fat_g": 19.9,
+  "carbs_g": 33.7,
+  "sugar_g": 33.0,
+  "fiber_g": 0.7,
+  "salt_g": 0.42,
+  "other": {
+   "飽和脂肪酸": "12.3g",
+   "トランス脂肪酸": "0.35g",
+   "ナトリウム": "163mg",
+   "カリウム": "664mg",
+   "カフェイン": "80mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "大豆"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785657380",
+ "first_seen_at": "2026-11-20T08:00:10+09:00",
+ "last_seen_at": "2026-11-20",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-20",
+   "price": 630
+  }
+ ],
+ "launch_search_runs": 0,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}

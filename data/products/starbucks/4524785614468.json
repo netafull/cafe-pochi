@@ -1,0 +1,75 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785614468",
+ "name": "生ハム&モッツァレラチーズ サラダラップ",
+ "category": "フード",
+ "price": 540,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 284,
+  "protein_g": 11.1,
+  "fat_g": 16.6,
+  "carbs_g": 24.4,
+  "sugar_g": 20.5,
+  "fiber_g": 3.9,
+  "salt_g": 1.7,
+  "other": {
+   "飽和脂肪酸": "3.7g",
+   "トランス脂肪酸": "0g",
+   "ナトリウム": "657mg",
+   "カリウム": "214mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳",
+   "小麦",
+   "ごま",
+   "さば",
+   "大豆",
+   "豚肉"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": null,
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785614468",
+ "first_seen_at": "2026-11-20T08:00:10+09:00",
+ "last_seen_at": "2026-11-20",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-20",
+   "price": 540
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": null
+}

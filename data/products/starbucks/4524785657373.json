@@ -1,0 +1,71 @@
+{
+ "chain": "starbucks",
+ "product_id": "4524785657373",
+ "name": "抹茶 ティラミス フラペチーノ®",
+ "category": "ビバレッジ",
+ "price": 720,
+ "price_max": null,
+ "price_note": "公式サイトの新作一覧の表示(税込)。サイズや店内飲食・持ち帰りで異なります",
+ "price_variants": null,
+ "launch_date": "2026-11-20",
+ "launch_date_source": "press_release",
+ "news_title": "とろり、ほろ苦、クリーミーに重なる抹茶を贅沢に味わうホリデー体験『抹茶 ティラミス フラペチーノ®』を11月20日（金）より発売",
+ "news_url": "https://stories.starbucks.co.jp/press/2026/pr-2026-1116/",
+ "news_date": "2026-11-16",
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 338,
+  "protein_g": 3.1,
+  "fat_g": 15.9,
+  "carbs_g": 46.0,
+  "sugar_g": 45.3,
+  "fiber_g": 0.8,
+  "salt_g": 0.34,
+  "other": {
+   "飽和脂肪酸": "9g",
+   "トランス脂肪酸": "0.14g",
+   "ナトリウム": "129mg",
+   "カリウム": "175mg",
+   "カフェイン": "47mg"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "ミルクは標準(ミルク変更なし。ミルクを使わない商品はそのまま)の値です。ミルクの変更やカスタマイズで変わります。詳しくは公式サイトでご確認ください",
+ "nutrition_source": {
+  "label": "スターバックス 栄養成分情報",
+  "url": "https://product.starbucks.co.jp/allergy/nutrient/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "大豆"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "スターバックス アレルゲン情報",
+  "url": "https://product.starbucks.co.jp/allergy/allergen/"
+ },
+ "allergen_note": "ミルクは標準(ミルク変更なし)の場合の情報です",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "スターバックス コーヒー",
+ "official_url": "https://menu.starbucks.co.jp/4524785657373",
+ "first_seen_at": "2026-11-20T08:00:10+09:00",
+ "last_seen_at": "2026-11-20",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-20",
+   "price": 720
+  }
+ ],
+ "launch_search_runs": 0,
+ "source_list": [
+  "menu.starbucks.co.jp/api/v1/list?tag=new",
+  "product.starbucks.co.jp/allergy/json/nutritions.json"
+ ],
+ "nutrition_label": "Tall"
+}
