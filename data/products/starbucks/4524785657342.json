@@ -54,9 +54,9 @@
  "official_url": "https://menu.starbucks.co.jp/4524785657342",
  "first_seen_at": "2026-11-03T17:16:51+09:00",
  "last_seen_at": "2026-11-19",
- "status": "on_sale",
- "ended_observed_at": null,
- "missed_runs": 1,
+ "status": "ended",
+ "ended_observed_at": "2026-11-21",
+ "missed_runs": 2,
  "price_history": [
   {
    "date": "2026-11-03",
@@ -69,5 +69,5 @@
   "product.starbucks.co.jp/allergy/json/nutritions.json"
  ],
  "nutrition_label": "Tall",
- "last_miss_date": "2026-11-20"
+ "last_miss_date": "2026-11-21"
 }
