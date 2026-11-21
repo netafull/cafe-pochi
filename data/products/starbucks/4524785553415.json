@@ -55,7 +55,7 @@
  "stores_note": "スターバックス コーヒー",
  "official_url": "https://menu.starbucks.co.jp/4524785553415",
  "first_seen_at": "2026-11-20T08:00:10+09:00",
- "last_seen_at": "2026-11-21",
+ "last_seen_at": "2026-11-22",
  "status": "on_sale",
  "ended_observed_at": null,
  "missed_runs": 0,
@@ -65,7 +65,7 @@
    "price": 540
   }
  ],
- "launch_search_runs": 2,
+ "launch_search_runs": 3,
  "source_list": [
   "menu.starbucks.co.jp/api/v1/list?tag=new",
   "product.starbucks.co.jp/allergy/json/nutritions.json"
