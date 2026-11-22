@@ -8,7 +8,7 @@
 [林檎ポチ](https://apple.netaful.jp/)・[漫画ポチ](https://manga.netaful.jp/)・
 [コンビニポチ](https://conbini.netaful.jp/)・[ファストフードポチ](https://fastfood.netaful.jp/)と同じく、
 pip依存なしのPython標準ライブラリだけ（HTML解析は正規表現、PDFは扱わない）。
-**構造は `fastfood-pochi` の汎用エンジン**（保存スキーマ・終了判定・歯止め・価格履歴・run_summary/_health・通知・サイト生成・RSS・
+**構造は `fastfood-pochi` の汎用エンジン**（保存スキーマ・終了判定・歯止め・価格履歴・run_summary/_health・通知・サイト生成・
 sitemap・広告枠のJS・ネタフル記事のひも付け）を引き継ぎ、チェーン固有の取得だけを4社分に作り直している。
 サイトの色は茶系 `#6D4C41`（ダークモードは `#BCAAA4`）。広告(AdSense)とGA4は config の値が空の間は何も出力しない
 （`adsense_client_id` / `adsense_ad_slot` / `ga_measurement_id` は**最初は空**。広告の仕組み＝ヘッダー下1枠＋カード一覧に12件おき最大3枠＋商品ページ1枠は
@@ -166,7 +166,7 @@ python3 -m unittest discover -s tests       # 合成フィクスチャでテス�
   トップに WebSite 構造化データ（name=カフェポチ）。「最終更新」はトップだけ。
 - `/archive/` と `/archive/YYYY-MM/`（終了したメニューを開始月ごとに）、`/chains/{starbucks|tullys|komeda|doutor}/`、`/items/{chain}-{id}.html`
   （価格・価格履歴・サイズ別栄養・アレルゲン・発売日の出どころ・出典と公式リンク。**説明文の引用は無い**）。
-- ページの title/description にチェーン名・カロリー・価格。favicon.png は96px。RSS（新しく記録した商品）、sitemap.xml、robots.txt（AI学習専用クローラーを拒否）、OGP、CNAME、.nojekyll。
+- ページの title/description にチェーン名・カロリー・価格。favicon.png は96px。sitemap.xml、robots.txt（AI学習専用クローラーを拒否）、OGP、CNAME、.nojekyll。
 - チェーンの色は config の `chains[].color`（ライト）と `color_dark`（ダークモード。バッジの文字は暗い色に切り替わる）:
   スターバックス `#00704A`/`#3BB58C`、タリーズ `#2B3A67`/`#7C93D6`、コメダ `#8C2F1B`/`#E0765F`、ドトール `#B8860B`/`#E2B040`。
 - aboutは短く、「記録しているのは事実情報だけで、説明文・画像は載せていない。詳しくは各社公式へ」を含む。
