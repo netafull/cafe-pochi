@@ -1451,16 +1451,10 @@ def render_sources(item: dict) -> str:
     chain = item["chain"]
     chain_name = CHAIN_NAME.get(chain, chain)
     off = CHAIN_OFFICIAL.get(chain, {})
-    links = []
-    if item.get("official_url"):
-        links.append(link_html("公式のメニューページ" if chain == "komeda" else "公式の商品ページ", item["official_url"]))
-    if item.get("news_url"):
-        links.append(link_html("プレスリリース・お知らせ", item["news_url"]))
+    # リンクは商品ページに最も近い1つだけ(商品ページ > プレスリリース > 栄養ページ > チェーンの公式サイト)
     nut_src = item.get("nutrition_source") or {}
-    if nut_src.get("url") and nut_src["url"] != item.get("official_url"):
-        links.append(link_html(nut_src.get("label") or "公式の栄養情報", nut_src["url"]))
-    if off.get("url"):
-        links.append(link_html(f"{chain_name}公式サイト", off["url"]))
+    url = item.get("official_url") or item.get("news_url") or nut_src.get("url") or off.get("url")
+    links = [link_html("公式ページを見る", url)] if url else []
     fetched = jp_date_jiten((item.get("first_seen_at") or "")[:10])
     head = f"出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}時点）"
     return f"<p class='source'>{' ・ '.join([head] + links)}</p>"
@@ -1538,7 +1532,7 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
     for r in item.get("relaunches") or []:
         relaunch += (f"<p class='note'>一度販売終了を確認した後（{esc(r.get('ended_observed_at') or '')}）、"
                      f"{esc(r.get('reappeared_at') or '')}に公式サイトの一覧へ再び登場しました。</p>")
-    notes = render_notes(item)
+    notes = render_notes(item) + relaunch
     notes_html = f"<h2>補足</h2>\n{notes}" if notes else ""
     body = f"""<nav class="crumbs"><a href="/">トップ</a> &gt; <a href="/chains/{esc(item['chain'])}/">{esc(chain_name)}</a></nav>
 <div class="detail">
@@ -1548,7 +1542,6 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
 <p class="price">{price_html}{price_note}</p>
 {render_price_variants(item)}
 {render_facts(item)}
-{relaunch}
 {render_sources(item)}
 {nutrition_html}
 {allergen_html}

@@ -355,7 +355,9 @@ class TestItemPage(unittest.TestCase):
         h = g.render_item_page(item())
         self.assertNotIn("<blockquote", h)
         self.assertIn('href="https://menu.starbucks.co.jp/9001"', h)  # 公式の商品ページ
-        self.assertIn('href="https://stories.example/p1"', h)  # プレスリリース
+        self.assertNotIn('href="https://stories.example/p1"', h)  # リンクは商品ページの1つだけ
+        self.assertIn("・ <a", h)
+        self.assertIn(">公式ページを見る</a>", h)
         self.assertIn("出典：スターバックス公式サイト（2026年11月3日時点） ・ ", h)
         self.assertEqual(h.count("class='source'"), 1)  # 出典は1行にまとめる
 
@@ -477,7 +479,7 @@ class TestItemPage(unittest.TestCase):
         h = g.render_item_page(item(nutrition_note="公式サイトで公表されているのはカロリー(kcal)のみです"))
         self.assertNotIn("公表されているのは", h)
         self.assertNotIn("転記", h)
-        self.assertIn('href="https://nutrition.example', h)  # 栄養の出典は栄養成分の欄に残す
+        self.assertNotIn('href="https://nutrition.example', h)  # 出典のリンクは商品ページの1つだけ
         self.assertIn("最新のアレルギー情報は公式サイトでご確認ください", h)  # アレルゲンの案内は残す
         h = g.render_item_page(item(nutrition_note="ミルクは標準の値です"))
         self.assertIn("ミルクは標準の値です。", h)
