@@ -461,6 +461,8 @@ footer { max-width: 980px; margin: 0 auto; padding: 16px; color: var(--muted); f
 .cat-icon { width: 48px; height: 48px; flex-shrink: 0; image-rendering: pixelated; }
 .item:has(> .cat-icon) { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; align-items: start; }
 .item-body { min-width: 0; }
+.detail h1.with-icon { display: flex; align-items: center; gap: 12px; }
+.detail h1.with-icon .h1-text { min-width: 0; }
 @media (min-width: 700px) {
   .cat-icon { width: 64px; height: 64px; }
   .grid:has(.cat-icon) { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
@@ -1546,11 +1548,12 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
         relaunch += (f"<p class='note'>一度販売終了を確認した後（{esc(r.get('ended_observed_at') or '')}）、"
                      f"{esc(r.get('reappeared_at') or '')}に公式サイトの一覧へ再び登場しました。</p>")
     notes = render_notes(item) + relaunch
+    h1_icon = icon_img(item, "cat-icon", 64)  # 一覧カードと同じアイコン。決まらない商品は出さない
     notes_html = f"<h2>補足</h2>\n{notes}" if notes else ""
     body = f"""<nav class="crumbs"><a href="/">トップ</a> &gt; <a href="/chains/{esc(item['chain'])}/">{esc(chain_name)}</a></nav>
 <div class="detail">
 <div class="chain-badge" style="background:var(--{esc(item['chain'])})">{esc(chain_name)}</div>
-<h1>{esc(item['name'])}{(' <span class="sub">（' + esc(qualifier) + '）</span>') if qualifier else ''}</h1>
+<h1{' class="with-icon"' if h1_icon else ''}>{h1_icon}{('<span class="h1-text">' + esc(item['name']) + (' <span class="sub">（' + esc(qualifier) + '）</span>' if qualifier else '') + '</span>') if h1_icon else (esc(item['name']) + (' <span class="sub">（' + esc(qualifier) + '）</span>' if qualifier else ''))}</h1>
 {kind_html}
 <p class="price">{price_html}{price_note}</p>
 {render_price_variants(item)}

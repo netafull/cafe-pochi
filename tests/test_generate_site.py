@@ -129,7 +129,7 @@ class TestSameName(unittest.TestCase):
         h = g.render_item_page(a, [a, b])
         self.assertIn("<title>スターバックス「テストラテ」（2026年9月発売）のカロリー・価格・栄養成分｜カフェポチ</title>", h)
         self.assertIn("「テストラテ」（2026年9月発売）、246kcal", h)
-        self.assertIn('<h1>テストラテ <span class="sub">（2026年9月発売）</span></h1>', h)
+        self.assertIn('<span class="h1-text">テストラテ <span class="sub">（2026年9月発売）</span></span></h1>', h)
         self.assertEqual(h.count("<h1"), 1)
         self.assertIn("<h2>同じ名前の商品</h2>", h)
         self.assertIn('href="/items/starbucks-2.html">テストラテ（2026年11月発売）</a>', h)
@@ -140,7 +140,7 @@ class TestSameName(unittest.TestCase):
         b = item(product_id="2", name="べつの商品")
         h = g.render_item_page(a, [a, b])
         self.assertIn("<title>スターバックス「テストラテ」のカロリー・価格・栄養成分｜カフェポチ</title>", h)
-        self.assertIn("<h1>テストラテ</h1>", h)
+        self.assertIn('<span class="h1-text">テストラテ</span></h1>', h)
         self.assertNotIn("同じ名前の商品", h)
 
 
@@ -384,8 +384,9 @@ class TestItemPage(unittest.TestCase):
     def test_no_images_except_site_logo(self):
         h = g.render_item_page(item())
         for src in re.findall(r'<img[^>]*src="([^"]*)"', h):
-            # サイトのロゴと、運営者自身のブログ(ネタフル)のレビュー記事のアイキャッチだけ。各社の公式画像は表示しない
-            self.assertTrue(src == "/assets/logo.png" or src.startswith("https://netaful.jp/"), src)
+            # サイトのロゴ・カテゴリアイコンと、運営者自身のブログ(ネタフル)のレビュー記事のアイキャッチだけ。各社の公式画像は表示しない
+            self.assertTrue(src == "/assets/logo.png" or src.startswith("/assets/icons/cat/")
+                            or src.startswith("https://netaful.jp/"), src)
             for official in ("starbucks", "tullys", "komeda", "doutor", "asset.menu"):
                 self.assertNotIn(official, src)
 
@@ -851,6 +852,23 @@ class TestCategoryIcons(unittest.TestCase):
         h = g.render_card(item())
         self.assertIn('<img class="cat-icon" src="/assets/icons/cat/drink.svg"', h)
         self.assertLess(h.index("cat-icon"), h.index('class="badge"'))
+
+    def test_item_page_h1_has_same_icon_as_card(self):
+        for it in (item(), item(category="フード", name="コルネッティ"), item(category=None, name="クリスマスミルクレープ")):
+            slug = g.category_icon(it)[0]
+            self.assertIn(f'src="/assets/icons/cat/{slug}.svg"', g.render_card(it))
+            h = g.render_item_page(it)
+            m = re.search(r'<h1 class="with-icon"><img class="cat-icon" src="/assets/icons/cat/(\w+)\.svg" '
+                          r'width="64" height="64" alt="([^"]+)"', h)
+            self.assertIsNotNone(m)
+            self.assertEqual(m.group(1), slug)
+            self.assertEqual(m.group(2), g.category_icon(it)[1])
+            self.assertIn(g.esc(it["name"]), h[m.end():h.index("</h1>")])
+
+    def test_item_page_h1_no_icon_when_unguessable(self):
+        h = g.render_item_page(item(category=None, name="季節のおすすめ"))
+        self.assertIn("<h1>季節のおすすめ", h)
+        self.assertNotIn('<h1 class="with-icon"', h)
 
     def test_every_slug_used_has_file(self):
         for slug in set(g.CATEGORY_ICONS.values()) | {g.FOOD_FALLBACK_ICON} | g.GUESS_ALLOWED:
