@@ -404,6 +404,7 @@ h2, h1.pt { font-size: 18px; padding-left: 10px; border-left: 4px solid var(--ac
 .detail table.multi th, .detail table.multi td { width: auto; text-align: right; white-space: nowrap; }
 .detail table.multi th:first-child { text-align: left; }
 .detail table.pv { max-width: 320px; }
+.detail table.facts { max-width: 420px; margin-bottom: 4px; }
 .detail h3 { margin-top: 16px; font-size: 14px; }
 /* 商品ページの節見出しはh2。以前のh3と同じ見た目にする */
 .detail h2 { margin: 16px 0 0; font-size: 14px; padding: 0; border: 0; }
@@ -1430,8 +1431,6 @@ def render_notes(item: dict) -> str:
         notes.append(f"発売日は不明のため、{origin}から表示しています。")
     if is_ended(item) and item.get("ended_basis") != "official_close_date":
         notes.append("店頭ではまだ販売していることもあります。")
-    if item.get("stores_note"):
-        notes.append(f"取り扱い：{esc(item['stores_note'])}")
     if chain == "doutor" and item.get("reservation"):
         for r in item["reservation"]:
             per = "／".join(f"{esc(p['label'])} {esc(p['value'])}" for p in r["periods"])
@@ -1462,9 +1461,25 @@ def render_sources(item: dict) -> str:
         links.append(link_html(nut_src.get("label") or "公式の栄養情報", nut_src["url"]))
     if off.get("url"):
         links.append(link_html(f"{chain_name}公式サイト", off["url"]))
-    fetched = (item.get("first_seen_at") or "")[:10]
-    return (f"<p class='source'>出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}時点）</p>"
-            f"<p class='source'>{' ・ '.join(links)}</p>")
+    fetched = jp_date_jiten((item.get("first_seen_at") or "")[:10])
+    head = f"出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}時点）"
+    return f"<p class='source'>{' ・ '.join([head] + links)}</p>"
+
+
+def jp_date_jiten(d: str) -> str:
+    """2026-10-27 -> 2026年10月27日 のゼロ埋めなし形(2026年1月5日)。"""
+    m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", d or "")
+    return f"{m[1]}年{int(m[2])}月{int(m[3])}日" if m else (d or "")
+
+
+def render_facts(item: dict) -> str:
+    rows = [("販売期間", period_text(item, detailed=True))]
+    if item.get("category"):
+        rows.append(("カテゴリ", item["category"]))
+    if item.get("stores_note"):
+        rows.append(("取り扱い", item["stores_note"]))
+    trs = "".join(f"<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in rows)
+    return f"<table class='facts'>{trs}</table>"
 
 
 def render_item_page(item: dict, items: list[dict] | None = None) -> str:
@@ -1523,6 +1538,8 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
     for r in item.get("relaunches") or []:
         relaunch += (f"<p class='note'>一度販売終了を確認した後（{esc(r.get('ended_observed_at') or '')}）、"
                      f"{esc(r.get('reappeared_at') or '')}に公式サイトの一覧へ再び登場しました。</p>")
+    notes = render_notes(item)
+    notes_html = f"<h2>補足</h2>\n{notes}" if notes else ""
     body = f"""<nav class="crumbs"><a href="/">トップ</a> &gt; <a href="/chains/{esc(item['chain'])}/">{esc(chain_name)}</a></nav>
 <div class="detail">
 <div class="chain-badge" style="background:var(--{esc(item['chain'])})">{esc(chain_name)}</div>
@@ -1530,9 +1547,9 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
 {kind_html}
 <p class="price">{price_html}{price_note}</p>
 {render_price_variants(item)}
-<p><strong>販売期間：</strong>{esc(period_text(item, detailed=True))}</p>
-{('<p><strong>カテゴリ：</strong>' + esc(item['category']) + '</p>') if item.get('category') else ''}
+{render_facts(item)}
 {relaunch}
+{render_sources(item)}
 {nutrition_html}
 {allergen_html}
 {history_html}
@@ -1541,9 +1558,7 @@ def render_item_page(item: dict, items: list[dict] | None = None) -> str:
 {related_html}
 {same_name_html}
 {related_items_html}
-<h2>補足と出典</h2>
-{render_notes(item)}
-{render_sources(item)}
+{notes_html}
 {bottom_ad}
 </div>"""
     canonical = CONFIG.get("site_url", "") + item_url(item)
