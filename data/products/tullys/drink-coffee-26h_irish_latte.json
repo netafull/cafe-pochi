@@ -90,7 +90,7 @@
  "stores_note": "店舗により取り扱いや価格が異なる場合があります",
  "official_url": "https://www.tullys.co.jp/menu/drink/coffee/26h_irish_latte.html",
  "first_seen_at": "2026-11-22T22:53:40+09:00",
- "last_seen_at": "2026-11-22",
+ "last_seen_at": "2026-11-23",
  "status": "on_sale",
  "ended_observed_at": null,
  "missed_runs": 0,
@@ -101,7 +101,7 @@
    "price_max": 745
   }
  ],
- "launch_search_runs": 2,
+ "launch_search_runs": 3,
  "source_list": [
   "www.tullys.co.jp/menu/seasonal_lineup/"
  ],
