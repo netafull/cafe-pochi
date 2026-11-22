@@ -1063,7 +1063,22 @@ def nutrition_note_html(item: dict) -> str:
     return f"<p class='note'>{esc(note.rstrip('。'))}。</p>"
 
 
+def source_url(item: dict) -> str | None:
+    """出典の「公式ページを見る」の行き先。商品ページに最も近い1つ。"""
+    nut_src = item.get("nutrition_source") or {}
+    off = CHAIN_OFFICIAL.get(item["chain"], {})
+    return item.get("official_url") or item.get("news_url") or nut_src.get("url") or off.get("url")
+
+
 def render_nutrition(item: dict) -> str:
+    html = _render_nutrition(item)
+    src = item.get("nutrition_source") or {}
+    if item.get("nutrition") and src.get("url") and src["url"] != source_url(item):
+        html += f"<p class='note'>栄養成分の出典：{link_html(src.get('label') or '公式サイトの栄養成分ページ', src['url'])}</p>"
+    return html
+
+
+def _render_nutrition(item: dict) -> str:
     nut = item.get("nutrition")
     if not nut:
         src = item.get("nutrition_source") or {}
@@ -1450,10 +1465,8 @@ def render_sources(item: dict) -> str:
     """公式ページ(とあればプレスリリース)へのリンクを、出典として出す。説明文は載せない。"""
     chain = item["chain"]
     chain_name = CHAIN_NAME.get(chain, chain)
-    off = CHAIN_OFFICIAL.get(chain, {})
     # リンクは商品ページに最も近い1つだけ(商品ページ > プレスリリース > 栄養ページ > チェーンの公式サイト)
-    nut_src = item.get("nutrition_source") or {}
-    url = item.get("official_url") or item.get("news_url") or nut_src.get("url") or off.get("url")
+    url = source_url(item)
     links = [link_html("公式ページを見る", url)] if url else []
     fetched = jp_date_jiten((item.get("first_seen_at") or "")[:10])
     head = f"出典：{esc(CHAIN_SOURCE.get(chain, chain_name + '公式サイト'))}（{esc(fetched)}時点）"

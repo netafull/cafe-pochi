@@ -372,7 +372,7 @@ class TestItemPage(unittest.TestCase):
         self.assertNotIn("取り扱い：", h)  # 末尾の注から表へ移した
         # 表 -> 出典 -> 栄養成分
         self.assertLess(h.index("<table class='facts'>"), h.index("<p class='source'>"))
-        self.assertLess(h.index("<p class='source'>"), h.index(g.render_nutrition(it)))
+        self.assertLess(h.index("<p class='source'>"), h.index("<h2>栄養成分"))
         h2 = g.render_item_page(item(category=None, stores_note=None))
         self.assertNotIn("<th>カテゴリ</th>", h2)
         self.assertNotIn("<th>取り扱い</th>", h2)
@@ -472,14 +472,19 @@ class TestItemPage(unittest.TestCase):
         nutrition = g.render_nutrition(it)
         self.assertTrue(nutrition)
         h = g.render_item_page(item(seasons=[{"launch_date": "2025-11-01", "ended_observed_at": "2026-01-10"}]))
-        self.assertLess(h.index("<p class='source'>"), h.index(nutrition))  # 出典は表の直後(上)
-        self.assertLess(h.index(nutrition), h.index("<h2>補足</h2>"))
+        self.assertLess(h.index("<p class='source'>"), h.index("<h2>栄養成分"))  # 出典は表の直後(上)
+        self.assertLess(h.index("<h2>栄養成分"), h.index("<h2>補足</h2>"))
 
     def test_nutrition_notes_are_short(self):
         h = g.render_item_page(item(nutrition_note="公式サイトで公表されているのはカロリー(kcal)のみです"))
         self.assertNotIn("公表されているのは", h)
         self.assertNotIn("転記", h)
-        self.assertNotIn('href="https://nutrition.example', h)  # 出典のリンクは商品ページの1つだけ
+        self.assertIn("栄養成分の出典：", h)  # 栄養の出典は栄養成分の欄の末尾に1行
+        self.assertIn('href="https://nutrition.example', h)
+        self.assertEqual(h.count("class='source'"), 1)
+        # 栄養ページが商品の出典リンクと同じURLなら出さない
+        h = g.render_item_page(item(official_url="https://nutrition.example/"))
+        self.assertNotIn("栄養成分の出典：", h)
         self.assertIn("最新のアレルギー情報は公式サイトでご確認ください", h)  # アレルゲンの案内は残す
         h = g.render_item_page(item(nutrition_note="ミルクは標準の値です"))
         self.assertIn("ミルクは標準の値です。", h)
