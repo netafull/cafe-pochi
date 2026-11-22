@@ -79,7 +79,7 @@
  "new_burst_ratio": 0.6,
  "new_burst_min_by_chain": {
   "starbucks": 20,
-  "tullys": 6,
+  "tullys": 16,
   "komeda": 8,
   "doutor": 5
  },

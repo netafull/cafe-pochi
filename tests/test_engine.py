@@ -230,9 +230,12 @@ class TestHealthStreak(unittest.TestCase):
 class TestBurstFilterUnit(unittest.TestCase):
     def test_thresholds_per_chain(self):
         self.assertGreater(crawl.burst_threshold("starbucks", 36), crawl.burst_threshold("komeda", 10))
-        # 全件が新規になる(ID体系の変更)のは、どのチェーンでも閾値を超える
-        for chain, size in (("starbucks", 36), ("tullys", 9), ("komeda", 10), ("doutor", 8)):
+        # 全件が新規になる(ID体系の変更)のは、タリーズ以外のチェーンでは閾値を超える
+        for chain, size in (("starbucks", 36), ("komeda", 10), ("doutor", 8)):
             self.assertGreater(size, crawl.burst_threshold(chain, size), chain)
+        # タリーズは2026-11-22に下限を6→16に上げた(ホリデーの一斉投入10品を保留しないため)。
+        # 一覧が10件前後なので、全件新規のID体系変更は件数だけでは検知できない(既知のトレードオフ)。
+        self.assertEqual(crawl.burst_threshold("tullys", 10), 16)
 
     def test_first_run_exempt_and_escalation_days(self):
         with TempData():
