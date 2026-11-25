@@ -1,0 +1,73 @@
+{
+ "chain": "doutor",
+ "product_id": "20261109114606",
+ "name": "シナモロールのふわふわチーズムース",
+ "category": null,
+ "price": 580,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 268.0,
+  "protein_g": 3.4,
+  "fat_g": 17.8,
+  "carbs_g": 23.3,
+  "salt_g": 0.26,
+  "other": {
+   "アルコール": "0.1"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "1食当たりの値(公式の表記)。商品や店舗ごとで異なる場合があります",
+ "nutrition_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergens": {
+  "contains": [
+   "卵",
+   "乳",
+   "小麦",
+   "オレンジ",
+   "大豆",
+   "りんご",
+   "ゼラチン"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "ドトール アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/doutor_coffee_shop/"
+ },
+ "allergen_note": "「●」は含む、「△」はのり・しらす・二枚貝の漁法に由来する条件つきの表示(公式の凡例)。工場製造時や店舗調理時に混入する可能性があります",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.doutor.co.jp/dcs/menu/detail/20261109114606.html",
+ "first_seen_at": "2026-11-26T08:01:01+09:00",
+ "last_seen_at": "2026-11-26",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-26",
+   "price": 580
+  }
+ ],
+ "launch_search_runs": 0,
+ "id_kind": "detail",
+ "price_from": false,
+ "source_list": [
+  "www.doutor.co.jp/dcs/menu/season.html",
+  "www.doutor.co.jp/dcs/menu/list/sweets.html"
+ ],
+ "detail_checked_at": "2026-11-26",
+ "nutrition_label": null
+}

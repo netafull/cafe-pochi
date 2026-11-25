@@ -51,7 +51,7 @@
  "last_seen_at": "2026-11-25",
  "status": "on_sale",
  "ended_observed_at": null,
- "missed_runs": 0,
+ "missed_runs": 1,
  "price_history": [
   {
    "date": "2026-11-03",
@@ -66,5 +66,6 @@
   "www.doutor.co.jp/dcs/menu/list/icedrink.html"
  ],
  "detail_checked_at": "2026-11-03",
- "nutrition_label": "アイス"
+ "nutrition_label": "アイス",
+ "last_miss_date": "2026-11-26"
 }

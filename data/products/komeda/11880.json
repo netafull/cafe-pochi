@@ -45,7 +45,7 @@
  "stores_note": "店舗により取り扱いや販売時期が異なります",
  "official_url": "https://www.komeda.co.jp/menu/?brand=1",
  "first_seen_at": "2026-11-25T08:00:54+09:00",
- "last_seen_at": "2026-11-25",
+ "last_seen_at": "2026-11-26",
  "status": "on_sale",
  "ended_observed_at": null,
  "missed_runs": 0,
@@ -56,7 +56,7 @@
    "price_max": 820
   }
  ],
- "launch_search_runs": 1,
+ "launch_search_runs": 2,
  "source_list": [
   "eu.komeda.co.jp/v1/hp/menu?brand_type=1&category=903"
  ],
