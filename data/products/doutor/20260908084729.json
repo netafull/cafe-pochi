@@ -49,9 +49,9 @@
  "official_url": "https://www.doutor.co.jp/dcs/menu/detail/20260908084729.html",
  "first_seen_at": "2026-11-03T17:18:29+09:00",
  "last_seen_at": "2026-11-25",
- "status": "on_sale",
- "ended_observed_at": null,
- "missed_runs": 1,
+ "status": "ended",
+ "ended_observed_at": "2026-11-27",
+ "missed_runs": 2,
  "price_history": [
   {
    "date": "2026-11-03",
@@ -67,5 +67,5 @@
  ],
  "detail_checked_at": "2026-11-03",
  "nutrition_label": "アイス",
- "last_miss_date": "2026-11-26"
+ "last_miss_date": "2026-11-27"
 }
