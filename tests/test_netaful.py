@@ -8,10 +8,10 @@ import generate_site as g
 class TestTags(unittest.TestCase):
     def test_tag_ids_from_config(self):
         # スターバックスだけタグがある(2026-11-03に /wp-json/wp/v2/tags?search= で確認)。他の3社はタグ無し
-        self.assertEqual(nr.TAGS, {"starbucks": 1062, "tullys": None, "komeda": None, "doutor": None, "saintmarc": None})
+        self.assertEqual(nr.TAGS, {"starbucks": 1062, "tullys": None, "komeda": None, "doutor": None, "saintmarc": None, "excelsior": None})
 
     def test_tagless_chains_use_article_search_with_title_filter(self):
-        self.assertEqual(nr.SEARCH_TERMS, {"starbucks": "スターバックス", "tullys": "タリーズ", "komeda": "コメダ", "doutor": "ドトール", "saintmarc": "サンマルク"})
+        self.assertEqual(nr.SEARCH_TERMS, {"starbucks": "スターバックス", "tullys": "タリーズ", "komeda": "コメダ", "doutor": "ドトール", "saintmarc": "サンマルク", "excelsior": "エクセルシオール"})
         self.assertTrue(nr.title_passes_filter("tullys", "【タリーズ】新作ドリンク"))
         self.assertFalse(nr.title_passes_filter("tullys", "満足度が高いコーヒーチェーンランキング"))
         self.assertTrue(nr.title_passes_filter("komeda", "コメダ珈琲店の新作"))
@@ -19,7 +19,7 @@ class TestTags(unittest.TestCase):
         self.assertTrue(nr.title_passes_filter("starbucks", "【スタバ】新作フラペチーノ"))
 
     def test_all_chains_always_filtered(self):
-        self.assertEqual(nr.TITLE_ALWAYS, {"starbucks", "tullys", "komeda", "doutor", "saintmarc"})
+        self.assertEqual(nr.TITLE_ALWAYS, {"starbucks", "tullys", "komeda", "doutor", "saintmarc", "excelsior"})
 
     def test_search_url_orders_by_date(self):
         seen = {}

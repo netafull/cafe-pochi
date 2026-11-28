@@ -843,3 +843,120 @@ def parse_saintmarc_news_article(html: str, ref: datetime.date) -> dict:
     title = re.sub(r"｜お知らせ｜サンマルクカフェ$", "", title).strip()
     text = strip_html(html)
     return {"title": title, "text": text, "planned_end": saintmarc_planned_end(text, ref)}
+
+
+# ---------------------------------------------------------------------------
+# エクセルシオール カフェ
+# ---------------------------------------------------------------------------
+
+EXCELSIOR_BASE = "https://www.doutor.co.jp"
+EXCELSIOR_ALLERGY_BASE = "https://allergy.doutor.co.jp"
+EXCELSIOR_SEASON_PATH = "/exc/menu/recommend.html"
+EXCELSIOR_CATEGORIES = ["hotdrink", "icedrink", "panini", "rice", "pasta", "soup",
+                        "morning", "sweets", "alcohol"]
+EXCELSIOR_ALLERGY_CATEGORIES = ["2-1-", "2-2-", "2-3-"]  # ドリンク / フード / デザート
+EXCELSIOR_ALLERGY_LIST_PATH = "/allergy_check/excelsior_caffe/search/?menu_category={cat}"
+
+
+def excelsior_name_keys(name: str | None) -> set[str]:
+    """照合キーはドトールと同じ(「～…～」の副題を除いた本体も候補にする)。"""
+    return doutor_name_keys(name)
+
+
+def parse_excelsior_season(html: str, goods_words: list[str] | None = None) -> dict:
+    """季節のおすすめ /exc/menu/recommend.html -> {"items": [...], "skipped": [...]}。
+
+    `<div id="menuN" class="exc-recommend-product">` のブロックごとに、
+    `<li class="exc-recommend-menuList-item">` を1商品として読む。名前は
+    `<p class="exc-recommend-menuList-name">`、価格は直前の `size_str` をラベルに
+    `<div class="pprice eatin-price">¥670</div>`(ドトールと同じ並び)。
+    価格の無い項目は商品ではないので除外する。価格のラベルに goods_words を
+    含む商品(豆・ドリップ等)は除外する。ブロックが1つも無いページは
+    ValueError(構造変更の疑い)。"""
+    goods_words = goods_words or []
+    blocks = list(re.finditer(r'<div id="menu(\d+)" class="exc-recommend-product">', html))
+    if not blocks:
+        raise ValueError("エクセルシオールの季節のおすすめ: exc-recommend-product が1つも無い")
+    items, skipped = [], []
+    for bi, bm in enumerate(blocks):
+        end = blocks[bi + 1].start() if bi + 1 < len(blocks) else len(html)
+        block = html[bm.end(): end]
+        chunks = re.split(r'<li class="exc-recommend-menuList-item[^"]*">', block)[1:]
+        for ch in chunks:
+            nm = re.search(r'<p class="exc-recommend-menuList-name">(.*?)</p>', ch, re.S)
+            if not nm:
+                continue
+            name = clean_text(nm.group(1))
+            prices = []
+            label = None
+            for pm in re.finditer(
+                    r'<span class="size_str">(.*?)</span>'
+                    r'|<div class="pprice eatin-price"[^>]*>\s*([^<]*?)\s*</div>', ch, re.S):
+                if pm.group(1) is not None:
+                    label = clean_text(pm.group(1))
+                else:
+                    yen = parse_yen(pm.group(2))
+                    if yen is not None:
+                        prices.append({"label": label, "price": yen,
+                                       "from": "～" in (pm.group(2) or "") or "〜" in (pm.group(2) or "")})
+                    label = None
+            if not prices:
+                continue  # 価格の無い項目は商品ではない
+            if any(w in (p["label"] or "") for p in prices for w in goods_words):
+                skipped.append(name)
+                continue
+            items.append({"name": name, "prices": prices, "block": f"menu{bm.group(1)}"})
+    return {"items": items, "skipped": skipped}
+
+
+def parse_excelsior_cards(html: str) -> list[dict]:
+    """カテゴリ一覧 /exc/menu/list/{cat}.html のカード -> [{id(14桁), name, is_new}]。
+    NEW印は `new_icon` の span。カードが0件でも空リスト(呼び出し側が判断)。"""
+    out = []
+    for m in re.finditer(r'<a href="(?:https://www\.doutor\.co\.jp)?/exc/menu/detail/(\d+)\.html" class="exc-menu-cat-a[^"]*">(.*?)</a>',
+                         html, re.S):
+        nm = re.search(r'rt_cf_product_name">(.*?)</span>', m.group(2), re.S)
+        if not nm:
+            continue
+        out.append({"id": m.group(1), "name": clean_text(nm.group(1)), "is_new": "new_icon" in m.group(2)})
+    return out
+
+
+def parse_excelsior_detail(html: str) -> dict | None:
+    """商品詳細 /exc/menu/detail/{id}.html -> {name, prices: [{label, price}], price}。
+    名前は `<span class="pnam-jp rt_cf_product_name">`、価格は psize の行ごとに
+    `size_str` と `rt_cf_price_eat_in`。HTMLコメントの中は読まない。"""
+    h = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+    nm = re.search(r'<span class="pnam-jp rt_cf_product_name">(.*?)</span>', h, re.S)
+    if not nm:
+        return None
+    prices = []
+    for row in re.split(r'<li class="info">', h)[1:]:
+        pr = re.search(r'rt_cf_price_eat_in">(.*?)</span>', row, re.S)
+        if not pr:
+            continue
+        yen = parse_yen(pr.group(1))
+        if yen is None:
+            continue
+        sz = re.search(r'<span class="size_str">(.*?)</span>', row, re.S)
+        prices.append({"label": clean_text(sz.group(1)) if sz else None, "price": yen, "from": False})
+    if not prices:
+        pr = re.search(r'rt_cf_price_eat_in">(.*?)</span>', h, re.S)
+        yen = parse_yen(pr.group(1)) if pr else None
+        if yen is not None:
+            prices = [{"label": None, "price": yen, "from": False}]
+    return {"name": clean_text(nm.group(1)), "prices": prices,
+            "price": prices[0]["price"] if prices else None,
+            "is_new": "menu-detail-img-new" in h}
+
+
+def parse_excelsior_allergy_list(html: str) -> list[dict]:
+    """allergy.doutor.co.jp のエクセルシオール一覧 -> [{id, name}]。
+    カードは `<a href="/allergy_check/excelsior_caffe/item/detail/{id}" class="cards_item">` と `cards_title`。"""
+    out = []
+    for m in re.finditer(r'<a href="/allergy_check/excelsior_caffe/item/detail/(\d+)/?" class="cards_item">(.*?)</a>',
+                         html, re.S):
+        t = re.search(r'<p class="cards_title">(.*?)</p>', m.group(2), re.S)
+        if t:
+            out.append({"id": m.group(1), "name": clean_text(t.group(1))})
+    return out

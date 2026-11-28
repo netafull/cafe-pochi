@@ -1602,7 +1602,220 @@ def save_run_summary(stats: dict[str, dict], streaks: dict[str, int] | None = No
     RUN_SUMMARY.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 
 
-CRAWLERS = {"starbucks": crawl_starbucks, "tullys": crawl_tullys, "komeda": crawl_komeda, "doutor": crawl_doutor, "saintmarc": crawl_saintmarc}
+# ---------------------------------------------------------------------------
+# エクセルシオール カフェ
+# ---------------------------------------------------------------------------
+
+EXCELSIOR_BASE = parsers.EXCELSIOR_BASE
+EXCELSIOR_ALLERGY_BASE = parsers.EXCELSIOR_ALLERGY_BASE
+EXCELSIOR_ALLERGY_TOP = "https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/"
+EXCELSIOR_NUTRITION_NOTE = "1食当たりの値(公式の表記)。商品や店舗ごとで異なる場合があります"
+EXCELSIOR_PRICE_FROM_NOTE = "「～」の付く価格は最低価格(組み合わせにより異なります)"
+
+
+def excelsior_official_url(card_id: str | None) -> str:
+    if card_id:
+        return f"{EXCELSIOR_BASE}/exc/menu/detail/{card_id}.html"
+    return EXCELSIOR_BASE + parsers.EXCELSIOR_SEASON_PATH
+
+
+def crawl_excelsior(getter, pending: dict, stats: dict, today: str | None = None) -> None:
+    """エクセルシオール カフェ: ドトールと同じ仕組み(季節のおすすめ＋カテゴリ一覧の
+    カード照合＋アレルギーサイトの栄養・アレルゲン)。サイトは doutor.co.jp の /exc/ 配下。
+    発売日の一次情報は公式サイトに無い(ドトールの発表は PR TIMES のみ)ため、
+    ドトールと同じく launch_date は付けない。"""
+    chain = "excelsior"
+    run = Run(chain, pending, stats, today)
+    st, today, now = run.st, run.today, run.now
+    robots = Robots(getter, chain, st)
+    goods_words = CONFIG.get("excelsior_goods_words") or ["コーヒー豆", "ドリップ", "パック入"]
+    all_ok = True
+    try:
+        if not robots.allowed(EXCELSIOR_BASE, parsers.EXCELSIOR_SEASON_PATH):
+            print("[skip] excelsior: robots.txtでDisallow", file=sys.stderr)
+            return
+        season = None
+        try:
+            season = parsers.parse_excelsior_season(getter(chain, EXCELSIOR_BASE + parsers.EXCELSIOR_SEASON_PATH), goods_words)
+            st["list_requests"] += 1
+        except BlockedError:
+            raise
+        except (ValueError, NotFoundError) as e:
+            print(f"[warn] excelsior 季節のおすすめ(構造変更の疑い): {e}", file=sys.stderr)
+            all_ok = False
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] excelsior 季節のおすすめ取得失敗: {e}", file=sys.stderr)
+            all_ok = False
+        cards: dict[str, dict] = {}
+        for cat in CONFIG.get("excelsior_categories") or parsers.EXCELSIOR_CATEGORIES:
+            path = f"/exc/menu/list/{cat}.html"
+            if not robots.allowed(EXCELSIOR_BASE, path):
+                all_ok = False
+                continue
+            try:
+                got = parsers.parse_excelsior_cards(getter(chain, EXCELSIOR_BASE + path))
+                st["list_requests"] += 1
+            except BlockedError:
+                raise
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] excelsior カテゴリ {cat} 取得失敗: {e}", file=sys.stderr)
+                all_ok = False
+                continue
+            if not got:
+                print(f"[warn] excelsior カテゴリ {cat}: カードが0件(構造変更の疑い)", file=sys.stderr)
+                all_ok = False
+                continue
+            for c in got:
+                prev = cards.get(c["id"])
+                if prev is None:
+                    cards[c["id"]] = {**c, "cats": [cat]}
+                else:
+                    prev["is_new"] = prev["is_new"] or c["is_new"]
+                    prev["cats"].append(cat)
+    except BlockedError as e:
+        run.block("list", e)
+        return
+    if season is None and not cards:
+        return
+
+    card_keys = {cid: parsers.excelsior_name_keys(c["name"]) for cid, c in cards.items()}
+    existing_all = load_chain_products(chain)
+    name_ids = {parsers.normalize_name(p["name"]): p["product_id"] for p in existing_all
+                if p["product_id"].startswith("ex-")}
+    entries: dict[str, dict] = {}
+    matched_cards: set[str] = set()
+    skipped_goods = list((season or {}).get("skipped") or [])
+    for it in (season or {}).get("items", []):
+        keys = parsers.excelsior_name_keys(it["name"])
+        card_id = next((cid for cid, ks in card_keys.items() if ks & keys and cid not in matched_cards), None)
+        norm = parsers.normalize_name(it["name"])
+        if card_id:
+            pid = name_ids.get(norm) or card_id
+            matched_cards.add(card_id)
+        else:
+            pid = name_ids.get(norm) or parsers.stable_id("ex", it["name"])
+        price, pmax, from_flag = doutor_price_pair(it["prices"])
+        entries[pid] = {
+            "pid": pid, "name": it["name"], "price": price, "price_max": pmax, "from": from_flag,
+            "prices": it["prices"], "card_id": card_id,
+            "kind": "季節のおすすめ", "official_url": excelsior_official_url(card_id),
+        }
+    for cid, c in cards.items():
+        if c["is_new"] and cid not in matched_cards and cid not in entries:
+            entries[cid] = {"pid": cid, "name": c["name"], "price": None, "price_max": None, "from": False,
+                            "prices": [], "card_id": cid, "kind": "新商品（NEW）",
+                            "official_url": excelsior_official_url(cid), "need_price": True}
+    present_extra = set(cards) | {pid for pid, e in entries.items()}
+    st["skipped_goods"] = skipped_goods
+
+    allergy_lists: dict[str, list[dict]] = {}
+    recheck_left = {"n": RECHECK_MAX}
+
+    def load_allergy_lists() -> bool:
+        if allergy_lists:
+            return True
+        if not robots.allowed(EXCELSIOR_ALLERGY_BASE, "/allergy_check/"):
+            return False
+        for cat in parsers.EXCELSIOR_ALLERGY_CATEGORIES:
+            url = EXCELSIOR_ALLERGY_BASE + parsers.EXCELSIOR_ALLERGY_LIST_PATH.format(cat=cat)
+            lst = parsers.parse_excelsior_allergy_list(getter(chain, url))
+            st["detail_requests"] += 1
+            allergy_lists[cat] = lst
+        return True
+
+    def allergy_candidates(name: str) -> list[dict]:
+        keys = parsers.excelsior_name_keys(name)
+        exact, prefixed = [], []
+        for lst in allergy_lists.values():
+            for a in lst:
+                ak = parsers.excelsior_name_keys(a["name"])
+                if ak & keys:
+                    exact.append(a)
+                    continue
+                m = re.match(r"^(アイス|ホット)(.+)$", parsers.clean_text(a["name"]))
+                if m and parsers.excelsior_name_keys(m.group(2)) & keys:
+                    prefixed.append({**a, "prefix": m.group(1)})
+        return (exact or prefixed)[:2]
+
+    def build(e):
+        p = base_product(chain, e["pid"], e["name"], now, today)
+        p["limited_kind"] = e["kind"]
+        p["official_url"] = e["official_url"]
+        p["id_kind"] = "detail" if re.fullmatch(r"\d{14}", e["pid"]) else "name"
+        p["stores_note"] = "店舗により取り扱いや価格が異なる場合があります"
+        apply_excelsior_prices(p, e, True)
+        p["nutrition_source"] = {"label": "エクセルシオール カフェ アレルギー・栄養成分情報", "url": EXCELSIOR_ALLERGY_TOP}
+        p["allergen_source"] = {"label": "エクセルシオール カフェ アレルギー・栄養成分情報", "url": EXCELSIOR_ALLERGY_TOP}
+        p["source_list"] = ["www.doutor.co.jp/exc/menu/recommend.html"] + ([f"www.doutor.co.jp/exc/menu/list/{c}.html" for c in (cards.get(e["card_id"]) or {}).get("cats", [])] if e.get("card_id") else [])
+        return p
+
+    def apply_excelsior_prices(p, e, initial: bool) -> None:
+        prices = e["prices"]
+        if e["price"] is not None:
+            labelled = [{"label": (x["label"] if x["label"] not in (None, "価格") else "店内飲食"), "price": x["price"]}
+                        for x in prices]
+            p["price_variants"] = labelled if len(labelled) > 1 else None
+            p["price_note"] = EXCELSIOR_PRICE_FROM_NOTE if e["from"] else None
+            p["price_from"] = bool(e["from"])
+            if initial:
+                set_initial_price(p, e["price"], e["price_max"], today)
+
+    def refresh(p, e):
+        if e.get("card_id") and p.get("id_kind") == "name" and not p.get("detail_id"):
+            p["detail_id"] = e["card_id"]
+            p["official_url"] = e["official_url"]
+        if e["price"] is not None:
+            apply_excelsior_prices(p, e, False)
+
+    def enrich(p, e, is_new):
+        if e.get("need_price") and e["price"] is None and p.get("price") is None and (is_new or recheck_left["n"] > 0):
+            d = parsers.parse_excelsior_detail(getter(chain, EXCELSIOR_BASE + f"/exc/menu/detail/{e['card_id']}.html"))
+            st["detail_requests"] += 1
+            if d and d["price"] is not None:
+                e["price"] = d["price"]
+                e["prices"] = d["prices"]
+                apply_excelsior_prices(p, e, True)
+        need = p.get("nutrition") is None or p.get("allergens") is None
+        if not (is_new or need and due_for_recheck(p, today)):
+            return
+        if not is_new and recheck_left["n"] <= 0:
+            return
+        if not is_new:
+            recheck_left["n"] -= 1
+        p["detail_checked_at"] = today
+        if not load_allergy_lists():
+            return
+        cands = allergy_candidates(p["name"])
+        variants, allerg = [], None
+        for a in cands:
+            d = parsers.parse_doutor_allergy_detail(
+                getter(chain, f"{EXCELSIOR_ALLERGY_BASE}/allergy_check/excelsior_caffe/item/detail/{a['id']}/"))
+            st["detail_requests"] += 1
+            if not d:
+                continue
+            label = a.get("prefix")
+            for v in d["variants"]:
+                lab = " ".join(x for x in [label, v["label"]] if x) or None
+                variants.append({"label": lab, "nutrition": v["nutrition"]})
+            if allerg is None:
+                allerg = {"contains": list(d["allergens"]["contains"]), "partial": d["allergens"]["partial"],
+                          "unknown": d["allergens"]["unknown"]}
+            else:
+                for c in d["allergens"]["contains"]:
+                    if c not in allerg["contains"]:
+                        allerg["contains"].append(c)
+        if variants:
+            apply_nutrition(p, variants, variants[0], today)
+            p["nutrition_note"] = EXCELSIOR_NUTRITION_NOTE
+        if allerg is not None and not allerg["unknown"]:
+            allerg.pop("unknown", None)
+            apply_allergens(p, allerg, today)
+            p["allergen_note"] = "「●」は含む、「△」はのり・しらす・二枚貝の漁法に由来する条件つきの表示(公式の凡例)。工場製造時や店舗調理時に混入する可能性があります"
+
+    run.finish(entries, all_ok and bool(entries), build, refresh, enrich, present_extra=present_extra)
+
+
+CRAWLERS = {"starbucks": crawl_starbucks, "tullys": crawl_tullys, "komeda": crawl_komeda, "doutor": crawl_doutor, "saintmarc": crawl_saintmarc, "excelsior": crawl_excelsior}
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -1,6 +1,6 @@
 # カフェポチ
 
-スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの**季節限定・新作メニュー**を1日1回巡回して記録し、
+スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェ・エクセルシオール カフェの**季節限定・新作メニュー**を1日1回巡回して記録し、
 販売が終わって公式サイトから消えても記録が残るアーカイブにするサイト（公開予定 https://cafe.netaful.jp/ ）。
 価格・カロリーなどの栄養成分・アレルゲン・掲載期間を、あとから引ける形で残す。
 
@@ -48,7 +48,7 @@ python3 -m unittest discover -s tests       # 合成フィクスチャでテス�
 
 - **初回から、その時点で季節限定・新作として載っている商品を全部記録する**（ファストフードポチの「既存品は記録しない baseline 方式」ではない）。
   `data/baseline_ids.json` は「初回に見えた記録対象のID」を持ち、**2回目以降の歯止めの判定にだけ使う**。
-- 商品1件1ファイル `data/products/{starbucks|tullys|komeda|doutor|saintmarc}/{id}.json`。既存ファイルは丸ごと上書きしない（初回取得が正）。
+- 商品1件1ファイル `data/products/{starbucks|tullys|komeda|doutor|saintmarc|excelsior}/{id}.json`。既存ファイルは丸ごと上書きしない（初回取得が正）。
   更新するのは last_seen_at / status / price_history 等の追跡項目と、まだ空の栄養成分・アレルゲン・発売日だけ。
   公式の栄養値が後から変わったら入れ替えて `nutrition_changes` に残す。
 - 画像・説明文は保存しない（上記）。
@@ -66,7 +66,7 @@ python3 -m unittest discover -s tests       # 合成フィクスチャでテス�
 - **歯止め（burst guard）**: 新規候補（baselineにも既存レコードにも無い項目）が `max(new_burst_min_by_chain, 一覧の項目数×new_burst_ratio(0.6))` を超えたら、
   公式のID体系・ページ構造の変更とみなして、その回はそのチェーンの新規を記録せず終了判定もしない（保留。`pending.json` の `_suspected_restructure`、
   `run_summary.json` の `suspected`）。3日連続の保留で通知が「要判断」に変わる。**初回（baselineが無い）は対象外。**
-  閾値はスターバックス20・タリーズ16(2026-11-22に6から引き上げ。ホリデーの一斉投入10品が保留された実績による)・コメダ8・ドトール5・サンマルクカフェ5が下限（ホリデーの入れ替えで一度に10品ほど新作が出ても保留しないよう、ファストフードポチより高め。
+  閾値はスターバックス20・タリーズ16(2026-11-22に6から引き上げ。ホリデーの一斉投入10品が保留された実績による)・コメダ8・ドトール5・サンマルクカフェ5・エクセルシオール5が下限（ホリデーの入れ替えで一度に10品ほど新作が出ても保留しないよう、ファストフードポチより高め。
   全件が新規になるID体系の変更は全社で検知できる）。
 - **記録対象の急減の検知**（`data/list_state.json`）: 記録対象が前回の半分未満（前回8件以上のとき）に減ったら、**3日続くまで**終了判定をしない
   （取得の不具合の疑い。季節の入れ替えで本当に減ったなら3日目に受け入れる）。
@@ -183,12 +183,36 @@ python3 -m unittest discover -s tests       # 合成フィクスチャでテス�
 - robots.txt は404のHTMLを返す（robots.txtなし扱い＝全許可）。
 - 初回（2026-11-28の試し巡回）: 22リクエスト・13件記録・発売日3件（うち終了予定つき3件）。
 
+### エクセルシオール カフェ (www.doutor.co.jp/exc / allergy.doutor.co.jp)
+
+- ドトールコーヒーの別ブランドで、公式サイトは doutor.co.jp の `/exc/` 配下。仕組みはドトールとほぼ同じ。
+  季節のおすすめ `https://www.doutor.co.jp/exc/menu/recommend.html`（静的HTML）が正本で、
+  `<div id="menuN" class="exc-recommend-product">` の中の `<li class="exc-recommend-menuList-item">` が1商品。
+  名前は `exc-recommend-menuList-name`、価格は `size_str`＋`pprice eatin-price`（ドトールと同じ並び）。
+  価格の無い項目は商品ではないので除外。価格のラベルに豆・ドリップ等を含む商品も除外する（ドトールと同じ）。
+- カテゴリ一覧 `/exc/menu/list/{hotdrink,icedrink,panini,rice,pasta,soup,morning,sweets,alcohol}.html`（9ページ）の
+  カードから14桁の商品ID（詳細URLのパス）とNEW印（`new_icon`）を取る。季節のおすすめの商品名とカードを
+  ドトールと同じ照合キー（副題を除いた本体も候補）で結びつけ、一致すればそのIDを使う。
+  一致しないものは名前から作るID `ex-…`（以前に名前で作ったIDがあれば使い続ける）。
+  NEW印のカードで季節のおすすめに載っていないものは「新商品（NEW）」として記録し、価格は詳細ページ
+  `/exc/menu/detail/{id}.html`（`pnam-jp rt_cf_product_name` と psize の `rt_cf_price_eat_in`、サイズ別も取る）。
+- **終了判定は「季節のおすすめにも、9つのカテゴリ一覧のどれにも無い」とき**（ドトールと同じ）。全ページ成功の回だけ。
+- 栄養・アレルゲン: `https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/search/?menu_category=2-1-`（ドリンク）
+  `2-2-`（フード）`2-3-`（デザート）の一覧と商品名で、同名（またはアイス/ホットの接頭辞つき）の商品だけ詳細を取る。
+  仕組み・凡例（●＝含む、△＝条件つき、それ以外のクラスは保留）はドトールと同じで、詳細パーサも共用している。
+  エネルギー・たんぱく質・脂質・炭水化物・食塩相当量は**1食当たり**。サイズ違いは infoTab のボタン名がラベル。
+- 発売日の一次情報は公式サイトに無い（ドトールの発表は PR TIMES のみで、doutor.co.jp の /information/ は現在404）
+  → ドトールと同じく `launch_date` は null、記録開始日から表示。
+- robots.txt: www.doutor.co.jp 側はドトールと同じ（HTMLを返す＝robots.txtなし扱い）、allergy側は `Allow: /`。
+- 初回（2026-11-28の試し巡回）: 29リクエスト・10件記録（季節のおすすめ5＋NEW5）、栄養・アレルゲンは9/10件
+  （ポンデケージョとスーププレートはアレルギーサイトで同名が見つからず空欄。再確認の周期で取り直す）。
+
 ## サイトの構成（docs/）
 
 - トップ: 販売中の季節限定メニューをチェーンごとにグルーピング（開始日の新しい順）。並び替え（開始日順/カロリー順）、販売状況の絞り込み、
   チェーンの絞り込み、メニュー名検索（`search-index.json`）、ネタフルの最新レビュー。最近30日以内に終わったメニューも載せて、既定の「販売中」では隠れる。
   トップに WebSite 構造化データ（name=カフェポチ）。「最終更新」はトップだけ。
-- `/archive/` と `/archive/YYYY-MM/`（終了したメニューを開始月ごとに）、`/chains/{starbucks|tullys|komeda|doutor|saintmarc}/`、`/items/{chain}-{id}.html`
+- `/archive/` と `/archive/YYYY-MM/`（終了したメニューを開始月ごとに）、`/chains/{starbucks|tullys|komeda|doutor|saintmarc|excelsior}/`、`/items/{chain}-{id}.html`
   （価格・価格履歴・サイズ別栄養・アレルゲン・発売日の出どころ・出典と公式リンク。**説明文の引用は無い**）。
 - ページの title/description にチェーン名・カロリー・価格。favicon.png は96px。sitemap.xml、robots.txt（AI学習専用クローラーを拒否）、OGP、CNAME、.nojekyll。
 - チェーンの色は config の `chains[].color`（ライト）と `color_dark`（ダークモード。バッジの文字は暗い色に切り替わる）:
