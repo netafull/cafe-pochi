@@ -302,3 +302,57 @@ def saintmarc_article_html(title, body_text):
     return ('<html><body><h1><img src="/assets/images/saintmarccafe/logo.svg" alt="サンマルクカフェ"></h1>'
             f'<h1 class="c-article-header__title">{title}｜お知らせ｜サンマルクカフェ</h1>'
             f'<div class="p-post__body"><p>{body_text}</p></div></body></html>')
+
+
+def excelsior_season_html(blocks: list[list[str]]) -> str:
+    """blocks = ブロックごとの <li>…</li> 文字列のリスト(excelsior_item* で作る)。"""
+    out = ""
+    for i, items in enumerate(blocks, start=1):
+        out += (f'<div id="menu{i}" class="exc-recommend-product"><img src="/x.jpg" alt="x">'
+                f'<div class="exc-recommend-product-txt"><ul class="exc-recommend-menuList opacity">{"".join(items)}</ul></div></div>')
+    return f"<html><body>{out}</body></html>"
+
+
+def excelsior_item(name: str, prices=(("R", "¥670"),)) -> str:
+    """prices = [(サイズラベル|None, 価格文字列)]。"""
+    rows = ""
+    for label, price in prices:
+        sz = f'<div class="l size_class" data-mh="sizeName"><span class="size_str">{label}</span></div>' if label else ""
+        rows += (f'<li class="info">{sz}'
+                 f'<div class="pprice eatin-price" data-mh="eatin">{price}</div></li>')
+    return (f'<li class="exc-recommend-menuList-item exc-recommend-menuList-border">'
+            f'<div class="exc-recommend-menuList-wrap"><p class="exc-recommend-menuList-name">{name}</p></div>'
+            f'<div class="pinfo"><ul class="psize">{rows}</ul></div><p>説明文のダミー</p></li>')
+
+
+def excelsior_item_noprice(name: str) -> str:
+    return (f'<li class="exc-recommend-menuList-item"><p class="exc-recommend-menuList-name">{name}</p>'
+            '<p class="mt10">案内文のダミー</p></li>')
+
+
+def excelsior_cards_html(cards: list[tuple[str, str, bool]]) -> str:
+    """[(14桁ID, 名前, NEW印)]"""
+    out = ""
+    for cid, name, is_new in cards:
+        new = '<span class="exc-menu-cat-img-new new_icon"><img src="/n.png"></span>' if is_new else ""
+        out += (f'<li class="exc-menu-cat-li rt_bn_product_list"><a href="/exc/menu/detail/{cid}.html" class="exc-menu-cat-a rt_cf_href">'
+                f'<div class="exc-menu-cat-img">{new}<img src="/x.jpg" alt=""></div>'
+                f'<h2 class="mod-head-exc01"><span class="rt_cf_product_name">{name}</span></h2></a></li>')
+    return f"<html><body><ul>{out}</ul></body></html>"
+
+
+def excelsior_detail_html(name: str, prices=((None, "¥ 600"),)) -> str:
+    """prices = [(サイズラベル|None, 価格文字列)]"""
+    rows = ""
+    for label, price in prices:
+        sz = f'<div class="l size_class"><span class="size_str">{label}</span></div>' if label else ""
+        rows += (f'<li class="info">{sz}<div class="pprice eatin-price">'
+                 f'<span class="rt_cf_price_eat_in">{price}</span></div></li>')
+    return (f'<html><body><h1 class="exc-menu-detail-head"><span class="pnam-jp rt_cf_product_name">{name}</span></h1>'
+            f'<ul class="psize">{rows}</ul></body></html>')
+
+
+def excelsior_allergy_list_html(rows: list[tuple[str, str]]) -> str:
+    out = "".join(f'<li><a href="/allergy_check/excelsior_caffe/item/detail/{i}" class="cards_item">'
+                  f'<p class="cards_title">{n}</p></a></li>' for i, n in rows)
+    return f"<html><body><ul>{out}</ul></body></html>"

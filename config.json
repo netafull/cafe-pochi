@@ -1,421 +1,457 @@
 {
- "top_title": "カフェポチ｜季節限定メニューのカロリー・価格アーカイブ",
- "site_title": "カフェポチ",
- "site_tagline": "スタバ・タリーズ・コメダ・ドトール・サンマルクの季節限定メニューを記録して残す",
- "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
- "site_url": "https://cafe.netaful.jp/",
- "site_accent": "#6D4C41",
- "ga_measurement_id": "G-1SXGX1G36H",
- "adsense_client_id": "ca-pub-2195959398357532",
- "adsense_ad_slot": "1215675017",
- "chains": [
-  {
-   "slug": "starbucks",
-   "name": "スターバックス",
-   "base_url": "https://www.starbucks.co.jp",
-   "color": "#00704A",
-   "color_dark": "#3BB58C"
-  },
-  {
-   "slug": "tullys",
-   "name": "タリーズ",
-   "base_url": "https://www.tullys.co.jp",
-   "color": "#2B3A67",
-   "color_dark": "#7C93D6"
-  },
-  {
-   "slug": "komeda",
-   "name": "コメダ珈琲店",
-   "base_url": "https://www.komeda.co.jp",
-   "color": "#8C2F1B",
-   "color_dark": "#E0765F"
-  },
-  {
-   "slug": "doutor",
-   "name": "ドトールコーヒーショップ",
-   "base_url": "https://www.doutor.co.jp",
-   "color": "#B8860B",
-   "color_dark": "#E2B040"
-  },
-  {
-   "slug": "saintmarc",
-   "name": "サンマルクカフェ",
-   "base_url": "https://www.saint-marc-hd.com",
-   "color": "#7B1E3C",
-   "color_dark": "#D98CA6"
-  }
- ],
- "chain_official": {
-  "starbucks": {
-   "source": "スターバックス公式サイト",
-   "url": "https://www.starbucks.co.jp/",
-   "menu_url": "https://menu.starbucks.co.jp/"
-  },
-  "tullys": {
-   "source": "タリーズコーヒー公式サイト",
-   "url": "https://www.tullys.co.jp/",
-   "menu_url": "https://www.tullys.co.jp/menu/seasonal_lineup/"
-  },
-  "komeda": {
-   "source": "コメダ珈琲店公式サイト",
-   "url": "https://www.komeda.co.jp/",
-   "menu_url": "https://www.komeda.co.jp/menu/?brand=1"
-  },
-  "doutor": {
-   "source": "ドトールコーヒーショップ公式サイト",
-   "url": "https://www.doutor.co.jp/dcs/",
-   "menu_url": "https://www.doutor.co.jp/dcs/menu/season.html"
-  },
-  "saintmarc": {
-   "source": "サンマルクカフェ公式サイト",
-   "url": "https://www.saint-marc-hd.com/saintmarccafe/",
-   "menu_url": "https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/"
-  }
- },
- "user_agent": "CafePochi/1.0 (+https://cafe.netaful.jp/)",
- "request_interval_seconds": {
-  "starbucks": 2,
-  "tullys": 2,
-  "komeda": 2,
-  "doutor": 2,
-  "saintmarc": 2
- },
- "max_requests_per_run": {
-  "starbucks": 50,
-  "tullys": 40,
-  "komeda": 40,
-  "doutor": 60,
-  "saintmarc": 30
- },
- "recheck_days": 7,
- "recheck_max_per_run": 6,
- "new_burst_min": 15,
- "new_burst_ratio": 0.6,
- "new_burst_min_by_chain": {
-  "starbucks": 20,
-  "tullys": 16,
-  "komeda": 8,
-  "doutor": 5,
-  "saintmarc": 5
- },
- "starbucks_article_fetch_max": 10,
- "starbucks_exclude_names": [
-  "トゥデイズ コーヒー"
- ],
- "tullys_record_prefixes": [
-  "/menu/drink/",
-  "/menu/food/",
-  "/menu/sweets/"
- ],
- "doutor_categories": [
-  "hotdrink",
-  "icedrink",
-  "milano",
-  "hotdog",
-  "hotsandwich",
-  "toast",
-  "morning",
-  "sweets"
- ],
- "doutor_goods_words": [
-  "コーヒー豆",
-  "ドリップ",
-  "パック入"
- ],
- "saintmarc_categories": [
-  "bakery_okayama",
-  "drink",
-  "dessert",
-  "hotsand2",
-  "pasta",
-  "lunchmarc-cafe",
-  "morningmarc-cafe",
-  "seasonal"
- ],
- "netaful_tags": {
-  "starbucks": 1062,
-  "tullys": null,
-  "komeda": null,
-  "doutor": null,
-  "saintmarc": null
- },
- "netaful_search_terms": {
-  "starbucks": "スターバックス",
-  "tullys": "タリーズ",
-  "komeda": "コメダ",
-  "doutor": "ドトール",
-  "saintmarc": "サンマルク"
- },
- "netaful_title_filters": {
-  "starbucks": [
-   "スターバックス",
-   "スタバ"
+  "top_title": "カフェポチ｜季節限定メニューのカロリー・価格アーカイブ",
+  "site_title": "カフェポチ",
+  "site_tagline": "スタバ・タリーズ・コメダ・ドトール・サンマルク・エクセルシオールの季節限定メニューを記録して残す",
+  "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルク・エクセルシオールカフェの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
+  "site_url": "https://cafe.netaful.jp/",
+  "site_accent": "#6D4C41",
+  "ga_measurement_id": "G-1SXGX1G36H",
+  "adsense_client_id": "ca-pub-2195959398357532",
+  "adsense_ad_slot": "1215675017",
+  "chains": [
+    {
+      "slug": "starbucks",
+      "name": "スターバックス",
+      "base_url": "https://www.starbucks.co.jp",
+      "color": "#00704A",
+      "color_dark": "#3BB58C"
+    },
+    {
+      "slug": "tullys",
+      "name": "タリーズ",
+      "base_url": "https://www.tullys.co.jp",
+      "color": "#2B3A67",
+      "color_dark": "#7C93D6"
+    },
+    {
+      "slug": "komeda",
+      "name": "コメダ珈琲店",
+      "base_url": "https://www.komeda.co.jp",
+      "color": "#8C2F1B",
+      "color_dark": "#E0765F"
+    },
+    {
+      "slug": "doutor",
+      "name": "ドトールコーヒーショップ",
+      "base_url": "https://www.doutor.co.jp",
+      "color": "#B8860B",
+      "color_dark": "#E2B040"
+    },
+    {
+      "slug": "saintmarc",
+      "name": "サンマルクカフェ",
+      "base_url": "https://www.saint-marc-hd.com",
+      "color": "#7B1E3C",
+      "color_dark": "#D98CA6"
+    },
+    {
+      "slug": "excelsior",
+      "name": "エクセルシオール カフェ",
+      "base_url": "https://www.doutor.co.jp",
+      "color": "#263238",
+      "color_dark": "#B0BEC5"
+    }
   ],
-  "tullys": [
-   "タリーズ"
+  "chain_official": {
+    "starbucks": {
+      "source": "スターバックス公式サイト",
+      "url": "https://www.starbucks.co.jp/",
+      "menu_url": "https://menu.starbucks.co.jp/"
+    },
+    "tullys": {
+      "source": "タリーズコーヒー公式サイト",
+      "url": "https://www.tullys.co.jp/",
+      "menu_url": "https://www.tullys.co.jp/menu/seasonal_lineup/"
+    },
+    "komeda": {
+      "source": "コメダ珈琲店公式サイト",
+      "url": "https://www.komeda.co.jp/",
+      "menu_url": "https://www.komeda.co.jp/menu/?brand=1"
+    },
+    "doutor": {
+      "source": "ドトールコーヒーショップ公式サイト",
+      "url": "https://www.doutor.co.jp/dcs/",
+      "menu_url": "https://www.doutor.co.jp/dcs/menu/season.html"
+    },
+    "saintmarc": {
+      "source": "サンマルクカフェ公式サイト",
+      "url": "https://www.saint-marc-hd.com/saintmarccafe/",
+      "menu_url": "https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/"
+    },
+    "excelsior": {
+      "source": "エクセルシオール カフェ公式サイト",
+      "url": "https://www.doutor.co.jp/exc/",
+      "menu_url": "https://www.doutor.co.jp/exc/menu/recommend.html"
+    }
+  },
+  "user_agent": "CafePochi/1.0 (+https://cafe.netaful.jp/)",
+  "request_interval_seconds": {
+    "starbucks": 2,
+    "tullys": 2,
+    "komeda": 2,
+    "doutor": 2,
+    "saintmarc": 2
+  },
+  "max_requests_per_run": {
+    "starbucks": 50,
+    "tullys": 40,
+    "komeda": 40,
+    "doutor": 60,
+    "saintmarc": 30,
+    "excelsior": 60
+  },
+  "recheck_days": 7,
+  "recheck_max_per_run": 6,
+  "new_burst_min": 15,
+  "new_burst_ratio": 0.6,
+  "new_burst_min_by_chain": {
+    "starbucks": 20,
+    "tullys": 16,
+    "komeda": 8,
+    "doutor": 5,
+    "saintmarc": 5,
+    "excelsior": 5
+  },
+  "starbucks_article_fetch_max": 10,
+  "starbucks_exclude_names": [
+    "トゥデイズ コーヒー"
   ],
-  "komeda": [
-   "コメダ"
+  "tullys_record_prefixes": [
+    "/menu/drink/",
+    "/menu/food/",
+    "/menu/sweets/"
   ],
-  "doutor": [
-   "ドトール"
+  "doutor_categories": [
+    "hotdrink",
+    "icedrink",
+    "milano",
+    "hotdog",
+    "hotsandwich",
+    "toast",
+    "morning",
+    "sweets"
   ],
-  "saintmarc": [
-   "サンマルク"
+  "doutor_goods_words": [
+    "コーヒー豆",
+    "ドリップ",
+    "パック入"
+  ],
+  "saintmarc_categories": [
+    "bakery_okayama",
+    "drink",
+    "dessert",
+    "hotsand2",
+    "pasta",
+    "lunchmarc-cafe",
+    "morningmarc-cafe",
+    "seasonal"
+  ],
+  "netaful_tags": {
+    "starbucks": 1062,
+    "tullys": null,
+    "komeda": null,
+    "doutor": null,
+    "saintmarc": null,
+    "excelsior": null
+  },
+  "netaful_search_terms": {
+    "starbucks": "スターバックス",
+    "tullys": "タリーズ",
+    "komeda": "コメダ",
+    "doutor": "ドトール",
+    "saintmarc": "サンマルク",
+    "excelsior": "エクセルシオール"
+  },
+  "netaful_title_filters": {
+    "starbucks": [
+      "スターバックス",
+      "スタバ"
+    ],
+    "tullys": [
+      "タリーズ"
+    ],
+    "komeda": [
+      "コメダ"
+    ],
+    "doutor": [
+      "ドトール"
+    ],
+    "saintmarc": [
+      "サンマルク"
+    ],
+    "excelsior": [
+      "エクセルシオール"
+    ]
+  },
+  "netaful_title_excludes": {},
+  "netaful_title_always": [
+    "starbucks",
+    "tullys",
+    "komeda",
+    "doutor",
+    "saintmarc",
+    "excelsior"
+  ],
+  "related_sites": [
+    {
+      "name": "電書ポチ",
+      "desc": "Kindle本セール",
+      "url": "https://book.netaful.jp/"
+    },
+    {
+      "name": "家電ポチ",
+      "desc": "ガジェット・家電セール",
+      "url": "https://kaden.netaful.jp/"
+    },
+    {
+      "name": "林檎ポチ",
+      "desc": "Apple整備済製品",
+      "url": "https://apple.netaful.jp/"
+    },
+    {
+      "name": "漫画ポチ",
+      "desc": "Webマンガ横断検索",
+      "url": "https://manga.netaful.jp/"
+    },
+    {
+      "name": "マンガ新刊ポチ",
+      "desc": "コミック新刊の発売日をまとめて",
+      "url": "https://shinkan.netaful.jp/"
+    },
+    {
+      "name": "コンビニポチ",
+      "desc": "コンビニ新商品アーカイブ",
+      "url": "https://conbini.netaful.jp/"
+    },
+    {
+      "name": "ファストフードポチ",
+      "desc": "ファストフード限定メニュー",
+      "url": "https://fastfood.netaful.jp/"
+    },
+    {
+      "name": "ファミレスポチ",
+      "desc": "ファミレスの期間限定フェア",
+      "url": "https://famires.netaful.jp/"
+    },
+    {
+      "name": "回転寿司ポチ",
+      "desc": "回転寿司の期間限定ネタ",
+      "url": "https://sushi.netaful.jp/"
+    },
+    {
+      "name": "カップ麺ポチ",
+      "desc": "カップ麺の新商品",
+      "url": "https://cupmen.netaful.jp/"
+    },
+    {
+      "name": "ホテルポチ",
+      "desc": "空室ホテルを安い順に検索",
+      "url": "https://hotel.netaful.jp/"
+    },
+    {
+      "name": "温泉宿ポチ",
+      "desc": "温泉地の空室を、すぐ探す",
+      "url": "https://onsen.netaful.jp/"
+    },
+    {
+      "name": "離島宿ポチ",
+      "desc": "島の空室を、すぐ探す",
+      "url": "https://ritou.netaful.jp/"
+    },
+    {
+      "name": "道の駅ポチ",
+      "desc": "道の駅の駐車場と設備",
+      "url": "https://michinoeki.netaful.jp/"
+    },
+    {
+      "name": "新発売ポチ",
+      "desc": "新商品を発売日でまとめて",
+      "url": "https://shinhatsubai.netaful.jp/"
+    },
+    {
+      "name": "ニュースポチ",
+      "desc": "ブログの新着をまとめて",
+      "url": "https://news.netaful.jp/"
+    }
+  ],
+  "related_keywords": [
+    {
+      "label": "パンプキン・かぼちゃ",
+      "words": [
+        "パンプキン",
+        "かぼちゃ",
+        "カボチャ"
+      ]
+    },
+    {
+      "label": "モンブラン・栗",
+      "words": [
+        "モンブラン",
+        "栗"
+      ]
+    },
+    {
+      "label": "さつまいも・芋",
+      "words": [
+        "さつまいも",
+        "サツマイモ",
+        "芋",
+        "いも",
+        "安納"
+      ]
+    },
+    {
+      "label": "いちご・ストロベリー",
+      "words": [
+        "いちご",
+        "イチゴ",
+        "苺",
+        "ストロベリー"
+      ]
+    },
+    {
+      "label": "キャラメル",
+      "words": [
+        "キャラメル"
+      ]
+    },
+    {
+      "label": "チョコレート",
+      "words": [
+        "チョコ",
+        "ショコラ",
+        "カカオ"
+      ]
+    },
+    {
+      "label": "抹茶",
+      "words": [
+        "抹茶"
+      ]
+    },
+    {
+      "label": "フラペチーノ",
+      "words": [
+        "フラペチーノ"
+      ]
+    },
+    {
+      "label": "ラテ",
+      "words": [
+        "ラテ"
+      ]
+    },
+    {
+      "label": "ティー・紅茶",
+      "words": [
+        "ティー",
+        "紅茶",
+        "ミルクティー"
+      ],
+      "exclude": [
+        "パーティー"
+      ]
+    },
+    {
+      "label": "りんご",
+      "words": [
+        "りんご",
+        "リンゴ",
+        "アップル"
+      ]
+    },
+    {
+      "label": "シナモン",
+      "words": [
+        "シナモン"
+      ]
+    },
+    {
+      "label": "ジンジャー",
+      "words": [
+        "ジンジャー",
+        "生姜"
+      ]
+    },
+    {
+      "label": "シロノワール",
+      "words": [
+        "シロノワール"
+      ]
+    },
+    {
+      "label": "ミルクレープ",
+      "words": [
+        "ミルクレープ"
+      ]
+    },
+    {
+      "label": "チーズケーキ",
+      "words": [
+        "チーズケーキ"
+      ]
+    },
+    {
+      "label": "ケーキ",
+      "words": [
+        "ケーキ"
+      ]
+    },
+    {
+      "label": "クリスマス・ホリデー",
+      "words": [
+        "クリスマス",
+        "ホリデー"
+      ]
+    },
+    {
+      "label": "モーニング",
+      "words": [
+        "モーニング"
+      ]
+    },
+    {
+      "label": "サンドイッチ",
+      "words": [
+        "サンド",
+        "ミラノ"
+      ]
+    },
+    {
+      "label": "ドーナツ",
+      "words": [
+        "ドーナツ"
+      ]
+    },
+    {
+      "label": "スコーン・パイ",
+      "words": [
+        "スコーン",
+        "パイ"
+      ],
+      "exclude": [
+        "パイナップル"
+      ]
+    }
+  ],
+  "policy_url": "",
+  "about": [
+    "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの公式サイトを1日1回チェックして、季節限定メニューと新作を記録しています。公式サイトは販売が終わったメニューのページを消してしまうので、「いつからいつまで載っていたか」「いくらだったか」「何kcalだったか」を後から調べられるようにしています。"
+  ],
+  "excelsior_categories": [
+    "hotdrink",
+    "icedrink",
+    "panini",
+    "rice",
+    "pasta",
+    "soup",
+    "morning",
+    "sweets",
+    "alcohol"
+  ],
+  "excelsior_goods_words": [
+    "コーヒー豆",
+    "ドリップ",
+    "パック入"
   ]
- },
- "netaful_title_excludes": {},
- "netaful_title_always": [
-  "starbucks",
-  "tullys",
-  "komeda",
-  "doutor",
-  "saintmarc"
- ],
- "related_sites": [
-  {
-   "name": "電書ポチ",
-   "desc": "Kindle本セール",
-   "url": "https://book.netaful.jp/"
-  },
-  {
-   "name": "家電ポチ",
-   "desc": "ガジェット・家電セール",
-   "url": "https://kaden.netaful.jp/"
-  },
-  {
-   "name": "林檎ポチ",
-   "desc": "Apple整備済製品",
-   "url": "https://apple.netaful.jp/"
-  },
-  {
-   "name": "漫画ポチ",
-   "desc": "Webマンガ横断検索",
-   "url": "https://manga.netaful.jp/"
-  },
-  {
-   "name": "マンガ新刊ポチ",
-   "desc": "コミック新刊の発売日をまとめて",
-   "url": "https://shinkan.netaful.jp/"
-  },
-  {
-   "name": "コンビニポチ",
-   "desc": "コンビニ新商品アーカイブ",
-   "url": "https://conbini.netaful.jp/"
-  },
-  {
-   "name": "ファストフードポチ",
-   "desc": "ファストフード限定メニュー",
-   "url": "https://fastfood.netaful.jp/"
-  },
-  {
-   "name": "ファミレスポチ",
-   "desc": "ファミレスの期間限定フェア",
-   "url": "https://famires.netaful.jp/"
-  },
-  {
-   "name": "回転寿司ポチ",
-   "desc": "回転寿司の期間限定ネタ",
-   "url": "https://sushi.netaful.jp/"
-  },
-  {
-   "name": "カップ麺ポチ",
-   "desc": "カップ麺の新商品",
-   "url": "https://cupmen.netaful.jp/"
-  },
-  {
-   "name": "ホテルポチ",
-   "desc": "空室ホテルを安い順に検索",
-   "url": "https://hotel.netaful.jp/"
-  },
-  {
-   "name": "温泉宿ポチ",
-   "desc": "温泉地の空室を、すぐ探す",
-   "url": "https://onsen.netaful.jp/"
-  },
-  {
-   "name": "離島宿ポチ",
-   "desc": "島の空室を、すぐ探す",
-   "url": "https://ritou.netaful.jp/"
-  },
-  {
-   "name": "道の駅ポチ",
-   "desc": "道の駅の駐車場と設備",
-   "url": "https://michinoeki.netaful.jp/"
-  },
-  {
-   "name": "新発売ポチ",
-   "desc": "新商品を発売日でまとめて",
-   "url": "https://shinhatsubai.netaful.jp/"
-  },
-  {
-   "name": "ニュースポチ",
-   "desc": "ブログの新着をまとめて",
-   "url": "https://news.netaful.jp/"
-  }
- ],
- "related_keywords": [
-  {
-   "label": "パンプキン・かぼちゃ",
-   "words": [
-    "パンプキン",
-    "かぼちゃ",
-    "カボチャ"
-   ]
-  },
-  {
-   "label": "モンブラン・栗",
-   "words": [
-    "モンブラン",
-    "栗"
-   ]
-  },
-  {
-   "label": "さつまいも・芋",
-   "words": [
-    "さつまいも",
-    "サツマイモ",
-    "芋",
-    "いも",
-    "安納"
-   ]
-  },
-  {
-   "label": "いちご・ストロベリー",
-   "words": [
-    "いちご",
-    "イチゴ",
-    "苺",
-    "ストロベリー"
-   ]
-  },
-  {
-   "label": "キャラメル",
-   "words": [
-    "キャラメル"
-   ]
-  },
-  {
-   "label": "チョコレート",
-   "words": [
-    "チョコ",
-    "ショコラ",
-    "カカオ"
-   ]
-  },
-  {
-   "label": "抹茶",
-   "words": [
-    "抹茶"
-   ]
-  },
-  {
-   "label": "フラペチーノ",
-   "words": [
-    "フラペチーノ"
-   ]
-  },
-  {
-   "label": "ラテ",
-   "words": [
-    "ラテ"
-   ]
-  },
-  {
-   "label": "ティー・紅茶",
-   "words": [
-    "ティー",
-    "紅茶",
-    "ミルクティー"
-   ],
-   "exclude": [
-    "パーティー"
-   ]
-  },
-  {
-   "label": "りんご",
-   "words": [
-    "りんご",
-    "リンゴ",
-    "アップル"
-   ]
-  },
-  {
-   "label": "シナモン",
-   "words": [
-    "シナモン"
-   ]
-  },
-  {
-   "label": "ジンジャー",
-   "words": [
-    "ジンジャー",
-    "生姜"
-   ]
-  },
-  {
-   "label": "シロノワール",
-   "words": [
-    "シロノワール"
-   ]
-  },
-  {
-   "label": "ミルクレープ",
-   "words": [
-    "ミルクレープ"
-   ]
-  },
-  {
-   "label": "チーズケーキ",
-   "words": [
-    "チーズケーキ"
-   ]
-  },
-  {
-   "label": "ケーキ",
-   "words": [
-    "ケーキ"
-   ]
-  },
-  {
-   "label": "クリスマス・ホリデー",
-   "words": [
-    "クリスマス",
-    "ホリデー"
-   ]
-  },
-  {
-   "label": "モーニング",
-   "words": [
-    "モーニング"
-   ]
-  },
-  {
-   "label": "サンドイッチ",
-   "words": [
-    "サンド",
-    "ミラノ"
-   ]
-  },
-  {
-   "label": "ドーナツ",
-   "words": [
-    "ドーナツ"
-   ]
-  },
-  {
-   "label": "スコーン・パイ",
-   "words": [
-    "スコーン",
-    "パイ"
-   ],
-   "exclude": [
-    "パイナップル"
-   ]
-  }
- ],
- "policy_url": "",
- "about": [
-  "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの公式サイトを1日1回チェックして、季節限定メニューと新作を記録しています。公式サイトは販売が終わったメニューのページを消してしまうので、「いつからいつまで載っていたか」「いくらだったか」「何kcalだったか」を後から調べられるようにしています。"
- ]
 }
