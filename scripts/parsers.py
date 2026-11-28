@@ -720,3 +720,126 @@ def parse_doutor_allergy_detail(html: str) -> dict | None:
     return {"name": clean_text(nm.group(1)),
             "allergens": {"contains": contains, "partial": partial, "unknown": unknown},
             "variants": variants}
+
+
+# ---------------------------------------------------------------------------
+# サンマルクカフェ
+# ---------------------------------------------------------------------------
+
+SAINTMARC_BASE = "https://www.saint-marc-hd.com"
+SAINTMARC_MENU_PATH = "/saintmarccafe/menu/saintmarccafe/category/{cat}/"
+SAINTMARC_NEWS_PATH = "/saintmarccafe/news/"
+# 全社メニューのカテゴリ(おうちギフト gift_at_home は食品メニューではないので除く)。
+# seasonal は期間限定の寄せ集めだが、ここに載らない限定品(ベーカリーのサンド等)があるため
+# 全カテゴリを見て【期間限定】の付いた商品だけを拾う。並びは代表カテゴリの優先順
+# (seasonal は寄せ集めなので最後)。
+SAINTMARC_CATEGORIES = ["bakery_okayama", "drink", "dessert", "hotsand2", "pasta",
+                        "lunchmarc-cafe", "morningmarc-cafe", "seasonal"]
+SAINTMARC_CATEGORY_LABELS = {
+    "bakery_okayama": "ベーカリー", "drink": "ドリンク", "dessert": "デザート",
+    "hotsand2": "ホットサンド", "pasta": "パスタ", "lunchmarc-cafe": "ランチ",
+    "morningmarc-cafe": "モーニング", "seasonal": "期間限定",
+}
+SAINTMARC_LIMITED_PREFIX = "【期間限定】"
+
+
+def parse_saintmarc_category(html: str) -> list[dict]:
+    """全社メニューのカテゴリページ -> [{menu_id, name, limited, prices: [{label, price}]}]。
+
+    商品は `<div class="c-menu-item">` 単位。名前は h3.c-menu-item__title(期間限定は
+    【期間限定】の接頭辞が付く)、価格は c-menu-item__price-taxin で、直前に
+    c-menu-item__price-type(data-type 属性)があればそれがラベル(S・M・セット等)。
+    menu_id は画像URL の /upload/menu/{id}/ から取る(詳細ページが無いチェーンのため、
+    このIDを商品IDにする)。説明文(c-menu-item__text)は読まない。
+    ブロックが1つも無いページは ValueError(構造変更の疑い)。"""
+    blocks = list(re.finditer(r'<div class="c-menu-item">', html))
+    if not blocks:
+        raise ValueError("サンマルクカフェのメニュー: c-menu-item が1つも無い")
+    out = []
+    for bi, bm in enumerate(blocks):
+        end = blocks[bi + 1].start() if bi + 1 < len(blocks) else len(html)
+        block = html[bm.end():end]
+        tm = re.search(r'<h3 class="c-menu-item__title">(.*?)</h3>', block, re.S)
+        if not tm:
+            continue
+        title = clean_text(tm.group(1))
+        limited = title.startswith(SAINTMARC_LIMITED_PREFIX)
+        name = title[len(SAINTMARC_LIMITED_PREFIX):].strip() if limited else title
+        im = re.search(r'/upload/menu/(\d+)/', block)
+        prices = []
+        label = None
+        for pm in re.finditer(
+                r'c-menu-item__price-type" data-type="([^"]*)"'
+                r'|c-menu-item__price-taxin">\s*([0-9,]+円)', block):
+            if pm.group(1) is not None:
+                label = pm.group(1).strip() or None
+            else:
+                yen = parse_yen(pm.group(2))
+                if yen is not None:
+                    prices.append({"label": label, "price": yen})
+                label = None
+        if not name or not prices:
+            continue
+        out.append({"menu_id": im.group(1) if im else None, "name": name,
+                    "limited": limited, "prices": prices})
+    return out
+
+
+def parse_saintmarc_news_list(html: str) -> list[dict]:
+    """お知らせ一覧 -> [{news_id, title, date(YYYY-MM-DD), category, url}]。
+
+    カードは a.c-news-box で、カテゴリは p.c-news-box__category、タイトルは
+    h3.c-news-box__title、日付は span.c-news-box__date(YYYY.MM.DD)。"""
+    out = []
+    for m in re.finditer(r'<a href="(/saintmarccafe/news/(\d+)/)" class="c-news-box">(.*?)</a>',
+                         html, re.S):
+        body = m.group(3)
+        tm = re.search(r'<h3 class="c-news-box__title">(.*?)</h3>', body, re.S)
+        dm = re.search(r'c-news-box__date">\s*(\d{4})\.(\d{1,2})\.(\d{1,2})', body)
+        if not tm or not dm:
+            continue
+        cm = re.search(r'<p class="c-news-box__category">(.*?)</p>', body, re.S)
+        try:
+            date = datetime.date(int(dm.group(1)), int(dm.group(2)), int(dm.group(3))).isoformat()
+        except ValueError:
+            continue
+        out.append({"news_id": m.group(2), "title": clean_text(tm.group(1)), "date": date,
+                    "category": clean_text(cm.group(1)) if cm else None,
+                    "url": SAINTMARC_BASE + m.group(1)})
+    return out
+
+
+_SAINTMARC_PERIOD_RE = re.compile(
+    r"販売期間:\s*(\d{1,2})月(\d{1,2})日(?:\([^)]*\))?\s*[~〜]\s*(\d{1,2})月(\d{1,2})日")
+
+
+def saintmarc_planned_end(text: str | None, ref: datetime.date) -> str | None:
+    """お知らせ本文の「販売期間:M月D日〜M月D日」から終了日を「YYYY年M月D日」で返す。
+    年は記事の日付 ref から補い、半年以上ずれる場合は前後の年に寄せる(launch_dates_in_text と同じ考え方)。"""
+    t = unicodedata.normalize("NFKC", text or "")
+    m = _SAINTMARC_PERIOD_RE.search(t)
+    if not m:
+        return None
+    mo, d = int(m.group(3)), int(m.group(4))
+    try:
+        cand = datetime.date(ref.year, mo, d)
+    except ValueError:
+        return None
+    delta = (cand - ref).days
+    if delta < -180:
+        cand = datetime.date(ref.year + 1, mo, d)
+    elif delta > 180:
+        cand = datetime.date(ref.year - 1, mo, d)
+    return f"{cand.year}年{cand.month}月{cand.day}日"
+
+
+def parse_saintmarc_news_article(html: str, ref: datetime.date) -> dict:
+    """お知らせ記事 -> {title, text, planned_end}。
+
+    text は発売日の照合のためだけにメモリ上で使う(保存しない)。title の末尾の
+    「｜お知らせ｜サンマルクカフェ」は落とす。"""
+    tm = re.search(r'<h1 class="c-article-header__title">(.*?)</h1>', html, re.S)
+    title = clean_text(tm.group(1)) if tm else ""
+    title = re.sub(r"｜お知らせ｜サンマルクカフェ$", "", title).strip()
+    text = strip_html(html)
+    return {"title": title, "text": text, "planned_end": saintmarc_planned_end(text, ref)}

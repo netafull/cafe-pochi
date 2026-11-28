@@ -1351,6 +1351,186 @@ def crawl_doutor(getter, pending: dict, stats: dict, today: str | None = None) -
     run.finish(entries, all_ok and bool(entries), build, refresh, enrich, present_extra=present_extra)
 
 
+
+# ---------------------------------------------------------------------------
+# サンマルクカフェ
+# ---------------------------------------------------------------------------
+
+SAINTMARC_BASE = parsers.SAINTMARC_BASE
+SAINTMARC_NEWS_MAX_PAGES = 3
+SAINTMARC_ARTICLE_MAX_FETCHES = 10
+SAINTMARC_NEWS_WINDOW_DAYS = 150
+
+
+def crawl_saintmarc(getter, pending: dict, stats: dict, today: str | None = None) -> None:
+    """サンマルクカフェ: 全社メニュー(カテゴリ別ページ)で【期間限定】の付いた商品だけを記録する。
+
+    詳細ページが無いチェーンなので一覧だけで完結する。価格は全社メニューの表示で、
+    店舗により異なる場合がある(商品ページに注記を出す)。同じ商品が単品とセットで
+    別々のメニューIDを持つことがある(パストラミポークのサンド等)ため、同名の項目は
+    先に見つけた記録に価格を寄せて1件にまとめる。発売日はお知らせ(商品情報)から
+    共通の find_launch で拾い、記事本文の「販売期間」から終了予定も入れる。
+    栄養成分の公式一覧はPDFのみで、本サイトはPDFを扱わないため付けない。"""
+    chain = "saintmarc"
+    run = Run(chain, pending, stats, today)
+    st, today, now = run.st, run.today, run.now
+    robots = Robots(getter, chain, st)
+    cats = CONFIG.get("saintmarc_categories") or parsers.SAINTMARC_CATEGORIES
+    labels = parsers.SAINTMARC_CATEGORY_LABELS
+    all_ok = True
+    found: dict[str, dict] = {}
+    try:
+        if not robots.allowed(SAINTMARC_BASE, "/saintmarccafe/menu/"):
+            print("[skip] saintmarc: robots.txtでDisallow", file=sys.stderr)
+            return
+        for cat in cats:
+            path = parsers.SAINTMARC_MENU_PATH.format(cat=cat)
+            try:
+                items = parsers.parse_saintmarc_category(getter(chain, SAINTMARC_BASE + path))
+                st["list_requests"] += 1
+            except BlockedError:
+                raise
+            except ValueError as e:
+                print(f"[warn] saintmarc カテゴリ {cat}(構造変更の疑い): {e}", file=sys.stderr)
+                all_ok = False
+                continue
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] saintmarc カテゴリ {cat} 取得失敗: {e}", file=sys.stderr)
+                all_ok = False
+                continue
+            for it in items:
+                if not it["limited"]:
+                    continue
+                pid = it["menu_id"] or parsers.stable_id("sm", it["name"])
+                prev = found.get(pid)
+                if prev is None:
+                    found[pid] = {**it, "pid": pid, "cats": [cat]}
+                else:
+                    prev["cats"].append(cat)
+    except BlockedError as e:
+        run.block("list", e)
+        return
+
+    # 同名で別IDの項目(単品とセット等)は1件に寄せる。価格はラベルと価格の組で重複を除いて足す
+    by_name: dict[str, dict] = {}
+    for it in found.values():
+        key = parsers.normalize_name(it["name"])
+        base = by_name.get(key)
+        if base is None:
+            by_name[key] = it
+            continue
+        have = {(p["label"], p["price"]) for p in base["prices"]}
+        for p in it["prices"]:
+            if (p["label"], p["price"]) not in have:
+                base["prices"].append(p)
+                have.add((p["label"], p["price"]))
+        base["cats"].extend(c for c in it["cats"] if c not in base["cats"])
+
+    entries: dict[str, dict] = {}
+    all_names = [it["name"] for it in by_name.values()]
+    for it in by_name.values():
+        prices = it["prices"]
+        entries[it["pid"]] = {
+            "pid": it["pid"], "name": it["name"],
+            "price": prices[0]["price"],
+            "price_max": max(p["price"] for p in prices) if len(prices) > 1 else None,
+            "prices": prices,
+            "category": labels.get(it["cats"][0]),
+            "official_url": SAINTMARC_BASE + parsers.SAINTMARC_MENU_PATH.format(cat=it["cats"][0]),
+            "cats": it["cats"],
+        }
+
+    def news_loader():
+        out = []
+        today_d = datetime.date.fromisoformat(today)
+        fetched = 0
+        for page_no in range(1, SAINTMARC_NEWS_MAX_PAGES + 1):
+            url = SAINTMARC_BASE + parsers.SAINTMARC_NEWS_PATH + ("" if page_no == 1 else f"?page={page_no}")
+            try:
+                cards = parsers.parse_saintmarc_news_list(getter(chain, url))
+            except BlockedError:
+                raise
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] saintmarc お知らせ一覧{page_no}ページ目の取得に失敗(取得済み分で続行): {e}", file=sys.stderr)
+                break
+            st["list_requests"] += 1
+            if not cards:
+                break
+            page_oldest = None
+            for card in cards:
+                try:
+                    card_date = datetime.date.fromisoformat(card["date"])
+                except ValueError:
+                    continue
+                page_oldest = card_date
+                if card["category"] not in (None, "商品情報"):
+                    continue
+                if (today_d - card_date).days > SAINTMARC_NEWS_WINDOW_DAYS:
+                    continue
+                if fetched >= SAINTMARC_ARTICLE_MAX_FETCHES:
+                    continue
+                try:
+                    art = parsers.parse_saintmarc_news_article(getter(chain, card["url"]), card_date)
+                except BlockedError:
+                    raise
+                except Exception as e:  # noqa: BLE001
+                    print(f"[warn] saintmarc お知らせ記事の取得に失敗(読み飛ばす): {card['url']}: {e}", file=sys.stderr)
+                    continue
+                st["detail_requests"] += 1
+                fetched += 1
+                out.append({"title": art["title"] or card["title"], "text": art["text"],
+                            "date": card["date"], "url": card["url"],
+                            "planned_end": art["planned_end"]})
+            if page_oldest is not None and (today_d - page_oldest).days > SAINTMARC_NEWS_WINDOW_DAYS:
+                break
+        return out
+
+    press = PressSources(news_loader)
+
+    def build(e):
+        p = base_product(chain, e["pid"], e["name"], now, today)
+        p["category"] = e["category"]
+        p["limited_kind"] = "期間限定"
+        set_initial_price(p, e["price"], e["price_max"], today)
+        if len(e["prices"]) > 1:
+            p["price_variants"] = [{"label": x["label"], "price": x["price"]} for x in e["prices"]]
+        p["official_url"] = e["official_url"]
+        p["stores_note"] = "店舗により価格が異なる場合があります"
+        p["source_list"] = ["www.saint-marc-hd.com" + parsers.SAINTMARC_MENU_PATH.format(cat=c)
+                            for c in e["cats"]]
+        return p
+
+    def refresh(p, e):
+        if e.get("category") and p.get("category") != e["category"]:
+            p["category"] = e["category"]
+        new_vars = ([{"label": x["label"], "price": x["price"]} for x in e["prices"]]
+                    if len(e["prices"]) > 1 else None)
+        if p.get("price_variants") != new_vars:
+            p["price_variants"] = new_vars
+
+    def enrich(p, e, is_new):
+        if needs_launch(p) and (is_new or int(p.get("launch_search_runs") or 0) < LAUNCH_SEARCH_RUNS_MAX):
+            sources = press.get()
+            hit = find_launch(p["name"], sources, launch_ref(p), all_names)
+            src = None
+            if hit:
+                src = next((s for s in sources if s.get("url") == hit.get("url")), None)
+                if hit.get("via") == "body" and src is not None:
+                    # 括弧の修飾語を落とした短縮名だけの本文一致は、別商品の記事を拾う
+                    # (例:「詰め合わせBOX (ゴディバ監修…)」が通常版BOXのキャンペーン記事に
+                    # 一致して発売日がずれる)。本文に完全な名前がある場合だけ採用する
+                    if parsers.normalize_name(p["name"]) not in parsers.normalize_name(src.get("text")):
+                        hit = None
+            if hit:
+                apply_launch(p, hit, "official_news")
+                if src and src.get("planned_end"):
+                    p["planned_end_text"] = src["planned_end"]
+            else:
+                p["launch_search_runs"] = int(p.get("launch_search_runs") or 0) + 1
+
+    run.finish(entries, all_ok, build, refresh, enrich)
+
+
 # ---------------------------------------------------------------------------
 # 実行
 # ---------------------------------------------------------------------------
@@ -1422,7 +1602,7 @@ def save_run_summary(stats: dict[str, dict], streaks: dict[str, int] | None = No
     RUN_SUMMARY.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 
 
-CRAWLERS = {"starbucks": crawl_starbucks, "tullys": crawl_tullys, "komeda": crawl_komeda, "doutor": crawl_doutor}
+CRAWLERS = {"starbucks": crawl_starbucks, "tullys": crawl_tullys, "komeda": crawl_komeda, "doutor": crawl_doutor, "saintmarc": crawl_saintmarc}
 
 
 def main(argv: list[str] | None = None) -> int:

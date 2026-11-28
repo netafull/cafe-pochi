@@ -1,8 +1,8 @@
 {
  "top_title": "カフェポチ｜季節限定メニューのカロリー・価格アーカイブ",
  "site_title": "カフェポチ",
- "site_tagline": "スタバ・タリーズ・コメダ・ドトールの季節限定メニューを記録して残す",
- "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
+ "site_tagline": "スタバ・タリーズ・コメダ・ドトール・サンマルクの季節限定メニューを記録して残す",
+ "site_description": "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの季節限定・新作メニューを毎日記録し、販売が終わって公式サイトから消えても、価格・カロリー・アレルゲン・販売期間を後から引けるアーカイブにしています",
  "site_url": "https://cafe.netaful.jp/",
  "site_accent": "#6D4C41",
  "ga_measurement_id": "G-1SXGX1G36H",
@@ -36,6 +36,13 @@
    "base_url": "https://www.doutor.co.jp",
    "color": "#B8860B",
    "color_dark": "#E2B040"
+  },
+  {
+   "slug": "saintmarc",
+   "name": "サンマルクカフェ",
+   "base_url": "https://www.saint-marc-hd.com",
+   "color": "#7B1E3C",
+   "color_dark": "#D98CA6"
   }
  ],
  "chain_official": {
@@ -58,6 +65,11 @@
    "source": "ドトールコーヒーショップ公式サイト",
    "url": "https://www.doutor.co.jp/dcs/",
    "menu_url": "https://www.doutor.co.jp/dcs/menu/season.html"
+  },
+  "saintmarc": {
+   "source": "サンマルクカフェ公式サイト",
+   "url": "https://www.saint-marc-hd.com/saintmarccafe/",
+   "menu_url": "https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/"
   }
  },
  "user_agent": "CafePochi/1.0 (+https://cafe.netaful.jp/)",
@@ -65,13 +77,15 @@
   "starbucks": 2,
   "tullys": 2,
   "komeda": 2,
-  "doutor": 2
+  "doutor": 2,
+  "saintmarc": 2
  },
  "max_requests_per_run": {
   "starbucks": 50,
   "tullys": 40,
   "komeda": 40,
-  "doutor": 60
+  "doutor": 60,
+  "saintmarc": 30
  },
  "recheck_days": 7,
  "recheck_max_per_run": 6,
@@ -81,7 +95,8 @@
   "starbucks": 20,
   "tullys": 16,
   "komeda": 8,
-  "doutor": 5
+  "doutor": 5,
+  "saintmarc": 5
  },
  "starbucks_article_fetch_max": 10,
  "starbucks_exclude_names": [
@@ -107,17 +122,29 @@
   "ドリップ",
   "パック入"
  ],
+ "saintmarc_categories": [
+  "bakery_okayama",
+  "drink",
+  "dessert",
+  "hotsand2",
+  "pasta",
+  "lunchmarc-cafe",
+  "morningmarc-cafe",
+  "seasonal"
+ ],
  "netaful_tags": {
   "starbucks": 1062,
   "tullys": null,
   "komeda": null,
-  "doutor": null
+  "doutor": null,
+  "saintmarc": null
  },
  "netaful_search_terms": {
   "starbucks": "スターバックス",
   "tullys": "タリーズ",
   "komeda": "コメダ",
-  "doutor": "ドトール"
+  "doutor": "ドトール",
+  "saintmarc": "サンマルク"
  },
  "netaful_title_filters": {
   "starbucks": [
@@ -132,6 +159,9 @@
   ],
   "doutor": [
    "ドトール"
+  ],
+  "saintmarc": [
+   "サンマルク"
   ]
  },
  "netaful_title_excludes": {},
@@ -139,7 +169,8 @@
   "starbucks",
   "tullys",
   "komeda",
-  "doutor"
+  "doutor",
+  "saintmarc"
  ],
  "related_sites": [
   {
@@ -385,6 +416,6 @@
  ],
  "policy_url": "",
  "about": [
-  "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップの公式サイトを1日1回チェックして、季節限定メニューと新作を記録しています。公式サイトは販売が終わったメニューのページを消してしまうので、「いつからいつまで載っていたか」「いくらだったか」「何kcalだったか」を後から調べられるようにしています。"
+  "スターバックス・タリーズ・コメダ珈琲店・ドトールコーヒーショップ・サンマルクカフェの公式サイトを1日1回チェックして、季節限定メニューと新作を記録しています。公式サイトは販売が終わったメニューのページを消してしまうので、「いつからいつまで載っていたか」「いくらだったか」「何kcalだったか」を後から調べられるようにしています。"
  ]
 }

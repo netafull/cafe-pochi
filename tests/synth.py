@@ -261,3 +261,44 @@ def doutor_allergy_detail_html(name: str, circle=("卵",), triangle=(), line=("�
             f'<section id="anc01"><ul class="infoCards_list">{cards}</ul></section>'
             f'<section id="anc02"><div class="infoTab"><ul class="infoTab_btnsList">{btns}</ul>'
             f'<div class="infoTab_blocks">{blocks}</div></div></section></body></html>')
+
+
+# ---------------------------------------------------------------------------
+# サンマルクカフェ
+# ---------------------------------------------------------------------------
+
+def saintmarc_item(menu_id, name, prices, limited=True, desc="説明文ダミー"):
+    """prices: [(ラベル or None, 価格)]。ラベルは data-type(S・M・セット等)。"""
+    title = f"【期間限定】{name}" if limited else name
+    rows = ""
+    for label, price in prices:
+        if label:
+            rows += f'<div class="c-menu-item__price-type" data-type="{label}">{label}</div>'
+        rows += f'<div class="c-menu-item__price-taxin">{price}円</div>'
+    img = (f'<img class="c-menu-item__img lazyload" '
+           f'data-src="https://static.saint-marc-hd.com/upload/menu/{menu_id}/1260_x.jpg">') if menu_id else ""
+    return (f'<div class="c-menu-item"><div class="c-menu-item__img-wrap">{img}</div>'
+            f'<div class="c-menu-item__text-wrap"><h3 class="c-menu-item__title">{title}</h3>'
+            f'<div class="c-menu-item__price">{rows}</div>'
+            f'<p class="c-menu-item__text">{desc}</p></div></div>')
+
+
+def saintmarc_category_html(items):
+    return "<html><body>" + "".join(items) + "</body></html>"
+
+
+def saintmarc_news_card(news_id, title, date, category="商品情報"):
+    return (f'<a href="/saintmarccafe/news/{news_id}/" class="c-news-box">'
+            f'<p class="c-news-box__category">{category}</p>'
+            f'<h3 class="c-news-box__title">{title}</h3>'
+            f'<span class="c-news-box__date">{date}</span></a>')
+
+
+def saintmarc_news_list_html(cards):
+    return "<html><body>" + "".join(cards) + "</body></html>"
+
+
+def saintmarc_article_html(title, body_text):
+    return ('<html><body><h1><img src="/assets/images/saintmarccafe/logo.svg" alt="サンマルクカフェ"></h1>'
+            f'<h1 class="c-article-header__title">{title}｜お知らせ｜サンマルクカフェ</h1>'
+            f'<div class="p-post__body"><p>{body_text}</p></div></body></html>')
