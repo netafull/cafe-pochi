@@ -1,0 +1,104 @@
+{
+ "chain": "excelsior",
+ "product_id": "20261102153600",
+ "name": "オレンジショコラマサラチャイティー",
+ "category": null,
+ "price": 670,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": [
+  {
+   "label": "R",
+   "price": 670
+  },
+  {
+   "label": "L",
+   "price": 730
+  }
+ ],
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 132.0,
+  "protein_g": 3.4,
+  "fat_g": 3.7,
+  "carbs_g": 21.5,
+  "salt_g": 0.12,
+  "other": {
+   "カフェイン": "43mg"
+  }
+ },
+ "nutrition_variants": [
+  {
+   "label": "Rサイズ",
+   "nutrition": {
+    "kcal": 132.0,
+    "protein_g": 3.4,
+    "fat_g": 3.7,
+    "carbs_g": 21.5,
+    "salt_g": 0.12,
+    "other": {
+     "カフェイン": "43mg"
+    }
+   }
+  },
+  {
+   "label": "Lサイズ",
+   "nutrition": {
+    "kcal": 186.0,
+    "protein_g": 4.6,
+    "fat_g": 5.0,
+    "carbs_g": 31.4,
+    "salt_g": 0.18,
+    "other": {
+     "カフェイン": "57mg"
+    }
+   }
+  }
+ ],
+ "nutrition_note": "1食当たりの値(公式の表記)。商品や店舗ごとで異なる場合があります",
+ "nutrition_source": {
+  "label": "エクセルシオール カフェ アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "オレンジ"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "エクセルシオール カフェ アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/"
+ },
+ "allergen_note": "「●」は含む、「△」はのり・しらす・二枚貝の漁法に由来する条件つきの表示(公式の凡例)。工場製造時や店舗調理時に混入する可能性があります",
+ "limited_kind": "季節のおすすめ",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.doutor.co.jp/exc/menu/detail/20261102153600.html",
+ "first_seen_at": "2026-11-28T16:14:25+09:00",
+ "last_seen_at": "2026-11-28",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-28",
+   "price": 670
+  }
+ ],
+ "launch_search_runs": 0,
+ "id_kind": "detail",
+ "price_from": false,
+ "source_list": [
+  "www.doutor.co.jp/exc/menu/recommend.html",
+  "www.doutor.co.jp/exc/menu/list/hotdrink.html"
+ ],
+ "detail_checked_at": "2026-11-28",
+ "nutrition_label": "Rサイズ"
+}

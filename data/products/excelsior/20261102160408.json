@@ -1,0 +1,71 @@
+{
+ "chain": "excelsior",
+ "product_id": "20261102160408",
+ "name": "グリルチキン＆トマトクリーミーソース",
+ "category": null,
+ "price": 600,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": {
+  "kcal": 271.0,
+  "protein_g": 13.6,
+  "fat_g": 10.2,
+  "carbs_g": 30.0,
+  "salt_g": 1.4,
+  "other": {
+   "アルコール": "0.1"
+  }
+ },
+ "nutrition_variants": null,
+ "nutrition_note": "1食当たりの値(公式の表記)。商品や店舗ごとで異なる場合があります",
+ "nutrition_source": {
+  "label": "エクセルシオール カフェ アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/"
+ },
+ "allergens": {
+  "contains": [
+   "乳",
+   "小麦",
+   "牛肉",
+   "大豆",
+   "鶏肉"
+  ],
+  "partial": []
+ },
+ "allergen_source": {
+  "label": "エクセルシオール カフェ アレルギー・栄養成分情報",
+  "url": "https://allergy.doutor.co.jp/allergy_check/excelsior_caffe/"
+ },
+ "allergen_note": "「●」は含む、「△」はのり・しらす・二枚貝の漁法に由来する条件つきの表示(公式の凡例)。工場製造時や店舗調理時に混入する可能性があります",
+ "limited_kind": "新商品（NEW）",
+ "stores_note": "店舗により取り扱いや価格が異なる場合があります",
+ "official_url": "https://www.doutor.co.jp/exc/menu/detail/20261102160408.html",
+ "first_seen_at": "2026-11-28T16:14:25+09:00",
+ "last_seen_at": "2026-11-28",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-28",
+   "price": 600
+  }
+ ],
+ "launch_search_runs": 0,
+ "id_kind": "detail",
+ "source_list": [
+  "www.doutor.co.jp/exc/menu/recommend.html",
+  "www.doutor.co.jp/exc/menu/list/panini.html"
+ ],
+ "price_from": false,
+ "detail_checked_at": "2026-11-28",
+ "nutrition_label": null
+}
