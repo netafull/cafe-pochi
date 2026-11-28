@@ -1,0 +1,42 @@
+{
+ "chain": "saintmarc",
+ "product_id": "7604",
+ "name": "サーモンとほうれん草のクリームパスタ",
+ "category": "パスタ",
+ "price": 950,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": null,
+ "launch_date": null,
+ "launch_date_source": null,
+ "news_title": null,
+ "news_url": null,
+ "news_date": null,
+ "listed_at": null,
+ "planned_end_text": null,
+ "nutrition": null,
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": null,
+ "allergens": null,
+ "allergen_source": null,
+ "allergen_note": null,
+ "limited_kind": "期間限定",
+ "stores_note": "店舗により価格が異なる場合があります",
+ "official_url": "https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/pasta/",
+ "first_seen_at": "2026-11-28T15:31:58+09:00",
+ "last_seen_at": "2026-11-28",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-28",
+   "price": 950
+  }
+ ],
+ "launch_search_runs": 1,
+ "source_list": [
+  "www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/pasta/"
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "chain": "saintmarc",
+ "product_id": "7876",
+ "name": "サンマルクホットサンド 韓国風プルコギ",
+ "category": "ホットサンド",
+ "price": 620,
+ "price_max": null,
+ "price_note": null,
+ "price_variants": null,
+ "launch_date": "2026-11-26",
+ "launch_date_source": "official_news_body",
+ "news_title": "【11/26(木)発売】冬だけの特別なチョコクロ「プレミアムチョコクロ ホワイトスノー」",
+ "news_url": "https://www.saint-marc-hd.com/saintmarccafe/news/1629/",
+ "news_date": "2026-11-24",
+ "listed_at": null,
+ "planned_end_text": "2026年12月25日",
+ "nutrition": null,
+ "nutrition_variants": null,
+ "nutrition_note": null,
+ "nutrition_source": null,
+ "allergens": null,
+ "allergen_source": null,
+ "allergen_note": null,
+ "limited_kind": "期間限定",
+ "stores_note": "店舗により価格が異なる場合があります",
+ "official_url": "https://www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/hotsand2/",
+ "first_seen_at": "2026-11-28T15:31:58+09:00",
+ "last_seen_at": "2026-11-28",
+ "status": "on_sale",
+ "ended_observed_at": null,
+ "missed_runs": 0,
+ "price_history": [
+  {
+   "date": "2026-11-28",
+   "price": 620
+  }
+ ],
+ "launch_search_runs": 0,
+ "source_list": [
+  "www.saint-marc-hd.com/saintmarccafe/menu/saintmarccafe/category/hotsand2/"
+ ]
+}
